@@ -10,7 +10,7 @@ public class BracketDAO implements BracketDAOIF {
 	}
 	
 	public List<Team> getTeams() {
-		
+		return getListOfTeams();
 	}
 	
 	public void givePointsToTeam(Team team, int pointsToWin) {

@@ -1,6 +1,6 @@
 package DAO;
 
-public class MatchRoundResultDAO {
+public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	private DbConnection dbConnection;
 	
 	public MatchRoundResultDAO() {

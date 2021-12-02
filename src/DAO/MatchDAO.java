@@ -7,11 +7,11 @@ public class MatchDAO implements MatchDAOIF{
 		
 	}
 	
-	public void setRoundResult(Team team) {
+	public void setMatchRoundResult(Team winningTeam) {
 		
 	}
 	
-	public void setDraw() {
+	public void setIsDraw() {
 		
 	}
 	

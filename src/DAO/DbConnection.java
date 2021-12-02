@@ -1,16 +1,19 @@
 package DAO;
 
-import javax.sql.DataSource;
+import java.sql.Connection;
 
-public class DbConnection {
-	private Connection connection;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
+public class DbConnection implements DbConnectionIF {
 	
-	public Connection getConnection() {
-		DataSource ds = new DataSource();
-		ds.setUser("TestUser");
-		ds.setPassword("test123");
-		ds.setServerName("");
-		ds.setDatabaseName("TournamentManager");
+	@Override
+	public Connection getConnection() throws SQLServerException {
+		SQLServerDataSource ds = new SQLServerDataSource();
+		ds.setUser("dmaa0221_1087651");
+		ds.setPassword("Password1!");
+		ds.setServerName("hildur.ucn.dk");
+		ds.setDatabaseName("dmaa0221_1087651");
 		return ds.getConnection();
 	}
 	
