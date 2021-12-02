@@ -14,12 +14,12 @@ public class TournamentController implements TournamentControllerIF {
 	private MatchControllerIF matchController;
 	private TournamentRuleControllerIF tournamentRuleController;
 	private GenerateBracketStrategyIF generateBracketStrategy;
-	
+
 	public TournamentController() {
 		bracketController = new BracketController();
 		tournamentRuleController = new TournamentRuleController();
 	}
-	
+
 	@Override
 	public Tournament createTournament() {
 		tournament = new Tournament();
@@ -95,7 +95,21 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public void setTournamentRule(TournamentRule tournamentRule) {
 		tournament.setTournamentRule(tournamentRule);
-		generateBracketStrategy = tournament.getTournamentRule().getFormat();
+		generateBracketStrategy = tournament.getTournamentRule.getFormat();
+
+		switch (generateBracketStrategy) {
+		case Format.SingleElimination:
+			generateBracketStrategy = new SingleEliminationStrategy();
+			break;
+		case Format.DoubleElimination:
+			generateBracketStrategy = new DoubleEliminationStrategy();
+			break;
+		case Format.PointSystem:
+			generateBracketStrategy = new PointSystemStrategy();
+			break;
+		default:
+			throw new IllegalArgumentException("Format not found");
+		}
 	}
 
 	@Override
@@ -105,8 +119,17 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public void generateNextBracket() {
-		generateBracketStrategy.proceedToNextRound(tournament.getTournamentRule().getFormat());
-		
+		bracketController.createBracketRound(tournament.getAllTeams());
+	}
+
+	@Override
+	public void addTeamToTournament(Team team) {
+		tournament.add(team);
+	}
+
+	@Override
+	public List<Team> getAllTeams() {
+		return tournament.getAllTeams();
 	}
 
 }

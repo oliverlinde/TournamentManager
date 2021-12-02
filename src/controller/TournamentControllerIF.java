@@ -24,4 +24,6 @@ public interface TournamentControllerIF {
 	public void setTournamentRules(TournamentRule tournamentRule);
 	public int calculatePoints(TournamentRule tournamentRule);
 	public void generateNextBracket();
+	public void addTeamToTournament(Team team);
+	public List<Team> getAllTeams();
 }
