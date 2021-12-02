@@ -5,32 +5,29 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	private MatchRoundResult matchRoundResult;
 	private MatchRoundResultDAOIF matchRoundResultDAO;
 	
-	public MatchRoundResultController() {
-		
+	public MatchRoundResultController(Datacontext dbConnection) {
+		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		matchRoundResult = new MatchRoundResult();
 	}
 
 	@Override
 	public void setWinner(Team team) {
-		// TODO Auto-generated method stub
-		
+		matchRoundResult.setWinner(team);
 	}
 
 	@Override
 	public void setLoser(Team team) {
-		// TODO Auto-generated method stub
-		
+		matchRoundResult.setLoser(team);
 	}
 
 	@Override
 	public void setDraw() {
-		// TODO Auto-generated method stub
-		
+		matchRoundResult.setDraw();
 	}
 
 	@Override
 	public MatchRoundResult getRoundResult(int matchRoundResultId) {
-		// TODO Auto-generated method stub
-		return null;
+		return matchRoundResultDAO.getRoundResult(matchRoundResultId);
 	}
 	
 }

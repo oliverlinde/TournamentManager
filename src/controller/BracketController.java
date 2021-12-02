@@ -7,14 +7,13 @@ public class BracketController implements BracketControllerIF {
 	private BracketDAOIF bracketDAO;
 	private Bracket bracket;
 
-	public BracketController() {
-		
+	public BracketController(Datacontext dbConnection) {
+		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection); 
 	}
 	
 	@Override
 	public List<Team> getTeams() {
-		// TODO Auto-generated method stub
-		return null;
+		return bracketDAO.getTeams();
 	}
 
 	@Override
@@ -25,14 +24,12 @@ public class BracketController implements BracketControllerIF {
 
 	@Override
 	public List<BracketRound> getBracketRound() {
-		// TODO Auto-generated method stub
-		return null;
+		return bracketDAO.getBracketRound();
 	}
 
 	@Override
 	public void createBracketRound(List<Team> listOfTeams) {
-		// TODO Auto-generated method stub
-		
+		bracketDAO.createBracketRound(listOfTeams);
 	}
 
 }
