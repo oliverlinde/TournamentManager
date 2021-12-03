@@ -2,7 +2,11 @@ package DAO;
 
 import java.util.List;
 
-public interface BracketRoundsDAOIF {
+import model.BracketRound;
+import model.BracketRoundResult;
+import model.Team;
+
+public interface BracketRoundDAOIF {
 	
 	void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers);
 	
@@ -10,7 +14,7 @@ public interface BracketRoundsDAOIF {
 	
 	void createMatches(List<Team> listOfTeams);
 	
-	BracketRoundsDAOIF getBracketRound();
+	BracketRound getBracketRound();
 
 	
 	

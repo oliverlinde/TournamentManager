@@ -1,7 +1,9 @@
 package DAO;
 
+import model.Team;
+
 public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
-	private dbConnection DbConnection;
+	private DbConnectionIF dbConnection;
 	
 	public BracketRoundResultDAO() {
 		

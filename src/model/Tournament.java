@@ -15,12 +15,14 @@ public class Tournament {
 	private LocalDateTime dateTimeOfEvent;
 	private LocalDateTime registrationDeadline;
 	private int maxNoOfTeams;
+	private int minNoOfTeams;
 	private TournamentRule tournamentRule;
 	private List<Team> listOfTeams;
 	private List<Bracket> brackets;
 	
 	public Tournament() {
 		brackets = new ArrayList<Bracket>();
+		id = 1;
 	}
 
 	public String getName() {
@@ -58,6 +60,19 @@ public class Tournament {
 	public int getMaxNoOfTeams() {
 		return maxNoOfTeams;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public int getMinNoOfTeams() {
+		return minNoOfTeams;
+	}
+
+	public void setMinNoOfTeams(int minNoOfTeams) {
+		this.minNoOfTeams = minNoOfTeams;
+	}
+
 
 	/*
 	 * Adding a list of teams with a overhead through the @param maxNoOfTeams

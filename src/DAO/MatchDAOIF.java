@@ -1,5 +1,8 @@
 package DAO;
 
+import model.Match;
+import model.Team;
+
 public interface MatchDAOIF {
 	void setRoundResult(Team winningTeam);
 	
@@ -7,6 +10,6 @@ public interface MatchDAOIF {
 	
 	Match getMatch(int matchId);
 	
-	private void createRoundResult();
+	void createRoundResult();
 
 }

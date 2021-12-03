@@ -1,7 +1,10 @@
 package DAO;
 
+import model.Match;
+import model.Team;
+
 public class MatchDAO implements MatchDAOIF{
-	private DbConnection dbConnection;
+	private DbConnectionIF dbConnection;
 	
 	public MatchDAO() {
 		
@@ -16,10 +19,22 @@ public class MatchDAO implements MatchDAOIF{
 	}
 	
 	public Match getMatch(int matchId) {
-		
+		return null;
 	}
 	
 	public void createRoundResult() {
+		
+	}
+
+	@Override
+	public void setDraw() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRoundResult(Team winningTeam) {
+		// TODO Auto-generated method stub
 		
 	}
 

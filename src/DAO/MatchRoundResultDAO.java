@@ -1,7 +1,10 @@
 package DAO;
 
+import model.MatchRoundResult;
+import model.Team;
+
 public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
-	private DbConnection dbConnection;
+	private DbConnectionIF dbConnection;
 	
 	public MatchRoundResultDAO() {
 		
@@ -20,7 +23,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	}
 	
 	public MatchRoundResult getRoundResult(int matchRoundResultId) {
-		
+		return null;
 	}
 
 }
