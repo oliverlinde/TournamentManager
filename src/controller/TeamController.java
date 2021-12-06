@@ -1,5 +1,10 @@
 package controller;
 
+import java.util.List;
+
+import model.Person;
+import model.Team;
+
 public class TeamController implements TeamControllerIF {
 	private Team team;
 	

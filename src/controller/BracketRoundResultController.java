@@ -1,5 +1,9 @@
 package controller;
 
+import dao.BracketRoundResultDAOIF;
+import model.BracketRoundResult;
+import model.Team;
+
 public class BracketRoundResultController implements BracketRoundResultControllerIF {
 	
 	private BracketRoundResultDAOIF bracketRoundResultDAO;

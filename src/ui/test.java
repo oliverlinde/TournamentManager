@@ -1,8 +1,8 @@
 package ui;
 import java.sql.SQLException;
 
-import DAO.TournamentDAO;
-import DAO.TournamentDAOIF;
+import dao.TournamentDAO;
+import dao.TournamentDAOIF;
 import model.Tournament;
 
 

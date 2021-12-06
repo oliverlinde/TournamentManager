@@ -1,6 +1,8 @@
-package DAO;
+package dao;
 
 import java.util.List;
+
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import model.BracketRound;
 import model.Team;
@@ -12,6 +14,6 @@ public interface BracketDAOIF {
 	
 	List<BracketRound> getBracketRounds();
 	
-	void createBrackRound(List<Team> listOfTeams);
+	void createBracketRound(List<Team> listOfTeams) throws SQLServerException;
 	
 }

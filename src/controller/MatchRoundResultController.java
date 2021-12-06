@@ -1,11 +1,17 @@
 package controller;
 
+import dao.DbConnectionIF;
+import dao.DAOFactory;
+import dao.MatchRoundResultDAOIF;
+import model.MatchRoundResult;
+import model.Team;
+
 public class MatchRoundResultController implements MatchRoundResultControllerIF {
 	
 	private MatchRoundResult matchRoundResult;
 	private MatchRoundResultDAOIF matchRoundResultDAO;
 	
-	public MatchRoundResultController(Datacontext dbConnection) {
+	public MatchRoundResultController(DbConnectionIF dbConnection) {
 		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
 		matchRoundResult = new MatchRoundResult();
 	}

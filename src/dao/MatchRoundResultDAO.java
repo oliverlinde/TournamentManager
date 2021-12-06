@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import model.MatchRoundResult;
 import model.Team;
@@ -6,8 +6,8 @@ import model.Team;
 public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	private DbConnectionIF dbConnection;
 	
-	public MatchRoundResultDAO() {
-		
+	public MatchRoundResultDAO(DbConnectionIF dbConnection) {
+		this.dbConnection = dbConnection;
 	}
 	
 	public void setWinner(Team team) {
