@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -44,6 +45,32 @@ public class TournamentDAO implements TournamentDAOIF {
 		}
 		return value;
 		
+	}
+	
+	public Tournament getTournament(int tournamentId) throws SQLException{
+		String sqlQuery = "SELECT tournamentId, tournamentName, gameName, maxNoOfTeams, minNoOfTeams FROM Tournament"
+				+ "WHERE tournamentId = ?";
+		
+		Tournament foundTournament = null;
+	
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			statement.setInt(1, tournamentId);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				foundTournament = new Tournament(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+				
+			}
+			
+			} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return foundTournament; 
 	}
 
 }

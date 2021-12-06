@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tournament {
-	private int id;
-	private String name;
-	private String game;
+	private int tournamentId;
+	private String tournamentName;
+	private String gameName;
 	private LocalDateTime dateTimeOfEvent;
 	private LocalDateTime registrationDeadline;
 	private int maxNoOfTeams;
@@ -22,23 +22,31 @@ public class Tournament {
 	
 	public Tournament() {
 		brackets = new ArrayList<Bracket>();
-		id = 1;
+		tournamentId = 1;
+	}
+	
+	public Tournament(int tournamentId, String tournamentName, String gameName, int maxNoOfTeams, int minNoOfTeams) {
+		this.tournamentId = tournamentId;
+		this.tournamentName = tournamentName;
+		this.gameName = gameName;
+		this.maxNoOfTeams = maxNoOfTeams;
+		this.minNoOfTeams = minNoOfTeams;
 	}
 
 	public String getName() {
-		return name;
+		return tournamentName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String tournamentName) {
+		this.tournamentName = tournamentName;
 	}
 
 	public String getGame() {
-		return game;
+		return gameName;
 	}
 
-	public void setGame(String game) {
-		this.game = game;
+	public void setGame(String gameName) {
+		this.gameName = gameName;
 	}
 
 	public LocalDateTime getDateTimeOfEvent() {
@@ -62,7 +70,7 @@ public class Tournament {
 	}
 	
 	public int getId() {
-		return id;
+		return tournamentId;
 	}
 	
 	public int getMinNoOfTeams() {

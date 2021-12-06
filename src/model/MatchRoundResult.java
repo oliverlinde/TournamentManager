@@ -14,6 +14,11 @@ public class MatchRoundResult {
 		
 	}
 	
+	public MatchRoundResult(Team winner, Team loser) {
+		this.winner = winner;
+		this.loser = loser;
+	}
+	
 	public void setWinner(Team winner) {
 		this.winner = winner;
 	}

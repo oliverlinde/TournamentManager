@@ -16,6 +16,10 @@ public class Match {
 		
 	}
 	
+	public Match(List<MatchRoundResult> rounds, List<Team> listOfTeams) {
+		
+	}
+	
 	public void setMatchRoundResult(Team winningTeam) {
 		
 	}
