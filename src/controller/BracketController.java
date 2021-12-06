@@ -28,7 +28,10 @@ public class BracketController implements BracketControllerIF {
 	}
 
 	@Override
-	public void createBracketRound(List<Team> listOfTeams) {
+	public void createBracketRound(List<Team> listOfTeams, Format format, int noOfRounds) {
+		
+		
+		
 		bracketDAO.createBracketRound(listOfTeams);
 	}
 

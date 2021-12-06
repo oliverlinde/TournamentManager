@@ -118,8 +118,8 @@ public class TournamentController implements TournamentControllerIF {
 	}
 
 	@Override
-	public void generateNextBracket() {
-		bracketController.createBracketRound(tournament.getAllTeams());
+	public void generateNextBracket(int noOfRounds) {
+		bracketController.createBracketRound(tournament.getAllTeams(), tournament.getFormat(), int noOfRounds);
 	}
 
 	@Override
