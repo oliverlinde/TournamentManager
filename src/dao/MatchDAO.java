@@ -1,21 +1,25 @@
 package dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import model.Match;
 import model.Team;
 
+
 public class MatchDAO implements MatchDAOIF{
 	private DbConnectionIF dbConnection;
+	private MatchRoundResultDAO matchRoundResultDAO;
 	
 	public MatchDAO() {
 		
 	}
 	
-	public void setMatchRoundResult(Team winningTeam) {
-		
+	public void setMatchRoundResult(int matchRoundResultId ,Team winningTeam) throws SQLException {
+		matchRoundResultDAO.setWinner(matchRoundResultId, winningTeam);
 	}
 	
 	public void setIsDraw() {
