@@ -19,6 +19,32 @@ public class TournamentRuleDAO implements TournamentRuleDAOIF {
 		this.dbConnnection = dbConnection;
 
 	}
+	
+	@Override
+	public TournamentRule getTournamentRule(int tournamentRuleId) throws SQLException {
+		TournamentRule tournamentRule = null;
+		
+		String sqlQuery = "SELECT * FROM TournamentRule WHERE tournamentRuleId = ?";
+		
+		try {
+			Connection connection = dbConnnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			statement.setInt(1, tournamentRuleId);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			rs.next();
+			
+			tournamentRule = new TournamentRule(tournamentRuleId, rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), getNoOfRounds(rs), getFormat(rs));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		return tournamentRule;
+	}
 
 	@Override
 	public List<TournamentRule> getAllTournamentRules() throws SQLException {
@@ -77,5 +103,9 @@ public class TournamentRuleDAO implements TournamentRuleDAOIF {
 		}
 		return format;
 	}
+
+
+
+	
 
 }
