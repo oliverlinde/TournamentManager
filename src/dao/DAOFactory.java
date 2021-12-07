@@ -17,4 +17,8 @@ public class DAOFactory {
 	public static PersonDAOIF createPersonDAO(DbConnectionIF dbConnection) {
 		return new PersonDAO(dbConnection);
 	}
+	
+	public static TeamDAOIF createTeamDAO(DbConnectionIF dbConnection) {
+		return new TeamDAO(dbConnection);
+	}
 }

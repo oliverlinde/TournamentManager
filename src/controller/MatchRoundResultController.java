@@ -28,7 +28,7 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 
 	@Override
 	public void setDraw() {
-		matchRoundResult.setDraw();
+		matchRoundResult.setDraw(true);
 	}
 
 	@Override

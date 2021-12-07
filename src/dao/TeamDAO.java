@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import model.Team;
 
 public class TeamDAO implements TeamDAOIF {
-	private DbConnection dbConnection;
+	private DbConnectionIF dbConnection;
 	
-	public TeamDAO() {
-		dbConnection = new DbConnection();
+	public TeamDAO(DbConnectionIF dbConnection) {
+		this.dbConnection = dbConnection;
 		
 	}
 	
