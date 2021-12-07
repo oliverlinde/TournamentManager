@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import model.Team;
 import model.Tournament;
 import model.TournamentRule;
 
@@ -78,6 +81,7 @@ public class TournamentDAO implements TournamentDAOIF {
 				tournamentRule = tournamentRuleDAO.getTournamentRule(tournamentRuleId);
 				
 				foundTournament = new Tournament(id, tournamentRule, tournamentName, tournamentGame, timeOfEvent, registrationDeadline, maxTeams, minTeams);
+				foundTournament.setAllTeams(getTeamsInTournament(id));
 			}
 
 			} catch (Exception e) {
@@ -86,6 +90,37 @@ public class TournamentDAO implements TournamentDAOIF {
 		}
 
 		return foundTournament; 
+	}
+	
+	@Override
+	public List<Team> getTeamsInTournament(int tournamentId){
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		
+		List<Team> teamsInTournament = new ArrayList<>();
+		String sqlQuery = "SELECT teamId FROM TeamInTournament "
+				+ "WHERE tournamentId = ?";
+		
+		Team foundTeam = null;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			statement.setInt(1, tournamentId);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				foundTeam = teamDAO.getTeam(rs.getInt(1));
+				teamsInTournament.add(foundTeam);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return teamsInTournament;
 	}
 
 }

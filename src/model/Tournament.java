@@ -27,13 +27,13 @@ public class Tournament {
 	
 	public Tournament(int tournamentId, TournamentRule tournamentRule, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
 		this.tournamentId = tournamentId;
-		this.tournamentRule = tournamentRule;
-		this.tournamentName = tournamentName;
-		this.gameName = gameName;
-		this.dateTimeOfEvent = dateTimeOfEvent;
-		this.registrationDeadline = registrationDeadline;
-		this.maxNoOfTeams = maxNoOfTeams;
-		this.minNoOfTeams = minNoOfTeams;
+		setTournamentRule(tournamentRule);
+		setName(tournamentName);
+		setGame(gameName);
+		setDateTimeOfEvent(dateTimeOfEvent);
+		setRegistrationDeadline(registrationDeadline);
+		setMaxNoOfTeams(maxNoOfTeams);
+		setMinNoOfTeams(minNoOfTeams);
 	}
 
 	public String getName() {
@@ -91,7 +91,7 @@ public class Tournament {
 	 * long as required.
 	 */
 	public void setMaxNoOfTeams(int maxNoOfTeams) {
-		listOfTeams = new ArrayList<Team>(maxNoOfTeams);
+		listOfTeams = new ArrayList<>(maxNoOfTeams);
 		this.maxNoOfTeams = maxNoOfTeams;
 	}
 
@@ -121,6 +121,10 @@ public class Tournament {
 	
 	public void addTeam(Team team) {
 		listOfTeams.add(team);
+	}
+	
+	public void setAllTeams(List<Team> teams) {
+		listOfTeams = teams;
 	}
 	
 	public List<Team> getAllTeams() {

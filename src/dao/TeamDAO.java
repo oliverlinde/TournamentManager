@@ -10,8 +10,8 @@ import model.Team;
 public class TeamDAO implements TeamDAOIF {
 	private DbConnection dbConnection;
 	
-	public TeamDAO() {
-		dbConnection = new DbConnection();
+	public TeamDAO(DbConnectionIF dbConnection) {
+		this.dbConnection = new DbConnection();
 		
 	}
 	

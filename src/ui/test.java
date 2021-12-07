@@ -1,9 +1,16 @@
 package ui;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
+import dao.DAOFactory;
+import dao.DbConnection;
+import dao.DbConnectionIF;
+import dao.TeamDAOIF;
 import dao.TournamentDAO;
 import dao.TournamentDAOIF;
+import model.Team;
 import model.Tournament;
 
 
@@ -19,7 +26,13 @@ public class test {
 		System.out.println(tournamentDAO.createTournament(tournament));
 		*/
 		TournamentDAOIF tournamentDAO = new TournamentDAO();
-		System.out.println(tournamentDAO.getTournament(1).getRegistrationDeadline().format(DateTimeFormatter.ofPattern("dd-MM-y HH:mm:ss")));
+		Tournament tournament = tournamentDAO.getTournament(1);
+		System.out.println(tournament.getDateTimeOfEvent().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+		System.out.println(tournament.getName());
+		System.out.println(tournament.getGame());
+		for(Team t : tournament.getAllTeams()) {
+			System.out.println(t.getTeamName());
+		}
 	}
 	
 }
