@@ -1,5 +1,6 @@
 package ui;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 
 import dao.TournamentDAO;
 import dao.TournamentDAOIF;
@@ -18,9 +19,7 @@ public class test {
 		System.out.println(tournamentDAO.createTournament(tournament));
 		*/
 		TournamentDAOIF tournamentDAO = new TournamentDAO();
-		System.out.println(tournamentDAO.getTournament(1).getName());
+		System.out.println(tournamentDAO.getTournament(1).getRegistrationDeadline().format(DateTimeFormatter.ofPattern("dd-MM-y HH:mm:ss")));
 	}
 	
-	
-
 }

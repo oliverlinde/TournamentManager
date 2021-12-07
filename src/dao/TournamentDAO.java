@@ -29,7 +29,7 @@ public class TournamentDAO implements TournamentDAOIF {
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 			
 			statement.setInt(1, tournament.getId());
-			statement.setInt(2, tournament.getTournamentRule().getId());
+			statement.setInt(2, tournament.getTournamentRule().getTournamentRuleId());
 			statement.setString(3, tournament.getName());
 			statement.setString(4, tournament.getGame());
 			statement.setObject(5, tournament.getDateTimeOfEvent());
@@ -49,8 +49,11 @@ public class TournamentDAO implements TournamentDAOIF {
 	}
 	
 	public Tournament getTournament(int tournamentId) throws SQLException{
+		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(dbConnection);
+		TournamentRule tournamentRule;
+		
 		String sqlQuery = "SELECT * FROM Tournament "
-				+ "WHERE tournamentId = ?";
+				+ " WHERE tournamentId = ?";
 		
 		Tournament foundTournament = null;
 	
@@ -64,7 +67,7 @@ public class TournamentDAO implements TournamentDAOIF {
 			
 			while (rs.next()) {
 				int id = rs.getInt(1);
-				TournamentRule tournamentRule = TournamentRuleDAOIF.getTournamentRule(rs.getInt(2));
+				int tournamentRuleId = rs.getInt(2);
 				String tournamentName = rs.getString(3);
 				String tournamentGame = rs.getString(4);
 				LocalDateTime timeOfEvent = rs.getObject(5, LocalDateTime.class);
@@ -72,15 +75,16 @@ public class TournamentDAO implements TournamentDAOIF {
 				int maxTeams = rs.getInt(7);
 				int minTeams = rs.getInt(8);
 				
+				tournamentRule = tournamentRuleDAO.getTournamentRule(tournamentRuleId);
 				
 				foundTournament = new Tournament(id, tournamentRule, tournamentName, tournamentGame, timeOfEvent, registrationDeadline, maxTeams, minTeams);
-				
 			}
-			
+
 			} catch (Exception e) {
-			// TODO: handle exception
+				
 			e.printStackTrace();
 		}
+
 		return foundTournament; 
 	}
 
