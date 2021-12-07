@@ -25,10 +25,13 @@ public class Tournament {
 		tournamentId = 1;
 	}
 	
-	public Tournament(int tournamentId, String tournamentName, String gameName, int maxNoOfTeams, int minNoOfTeams) {
+	public Tournament(int tournamentId, TournamentRule tournamentRule, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
 		this.tournamentId = tournamentId;
+		this.tournamentRule = tournamentRule;
 		this.tournamentName = tournamentName;
 		this.gameName = gameName;
+		this.dateTimeOfEvent = dateTimeOfEvent;
+		this.registrationDeadline = registrationDeadline;
 		this.maxNoOfTeams = maxNoOfTeams;
 		this.minNoOfTeams = minNoOfTeams;
 	}

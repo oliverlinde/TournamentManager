@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDateTime;
 
 import model.Tournament;
+import model.TournamentRule;
 
 public class TournamentDAO implements TournamentDAOIF {
 	private DbConnectionIF dbConnection;
@@ -18,8 +19,8 @@ public class TournamentDAO implements TournamentDAOIF {
 	
 	@Override
 	public int createTournament(Tournament tournament) throws SQLException{
-		String sqlQuery = "INSERT INTO Tournament (tournamentId, tournamentName, gameName, maxNoOfTeams, minNoOfTeams)"
-				+ "VALUES (?, ?, ?, ?, ?)";
+		String sqlQuery = "INSERT INTO Tournament "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		int value = 0;
 		
@@ -28,27 +29,27 @@ public class TournamentDAO implements TournamentDAOIF {
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 			
 			statement.setInt(1, tournament.getId());
-			//statement.setInt(2, null);
-			statement.setString(2, tournament.getName());
-			statement.setString(3, tournament.getGame());
-			//statement.setString(5, null);
-			//statement.setString(6, null);
-			statement.setInt(4, tournament.getMaxNoOfTeams());
-			statement.setInt(5, tournament.getMinNoOfTeams());
-			//statement.setString(9, null);
+			statement.setInt(2, tournament.getTournamentRule().getId());
+			statement.setString(3, tournament.getName());
+			statement.setString(4, tournament.getGame());
+			statement.setObject(5, tournament.getDateTimeOfEvent());
+			statement.setObject(6, tournament.getRegistrationDeadline());
+			statement.setInt(7, tournament.getMaxNoOfTeams());
+			statement.setInt(8, tournament.getMinNoOfTeams());
 			
 			value = statement.executeUpdate();
-			//statement.setInt(9, 0);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
-		return value;
 		
+		return value;
+
 	}
 	
 	public Tournament getTournament(int tournamentId) throws SQLException{
-		String sqlQuery = "SELECT tournamentId, tournamentName, gameName, maxNoOfTeams, minNoOfTeams FROM Tournament "
+		String sqlQuery = "SELECT * FROM Tournament "
 				+ "WHERE tournamentId = ?";
 		
 		Tournament foundTournament = null;
@@ -62,7 +63,17 @@ public class TournamentDAO implements TournamentDAOIF {
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
-				foundTournament = new Tournament(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+				int id = rs.getInt(1);
+				TournamentRule tournamentRule = TournamentRuleDAOIF.getTournamentRule(rs.getInt(2));
+				String tournamentName = rs.getString(3);
+				String tournamentGame = rs.getString(4);
+				LocalDateTime timeOfEvent = rs.getObject(5, LocalDateTime.class);
+				LocalDateTime registrationDeadline = rs.getObject(6, LocalDateTime.class);
+				int maxTeams = rs.getInt(7);
+				int minTeams = rs.getInt(8);
+				
+				
+				foundTournament = new Tournament(id, tournamentRule, tournamentName, tournamentGame, timeOfEvent, registrationDeadline, maxTeams, minTeams);
 				
 			}
 			
