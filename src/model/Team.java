@@ -22,5 +22,9 @@ public class Team {
 	public int getTeamId() {
 		return teamId;
 	}
+	
+	public String getTeamName() {
+		return teamName;
+	}
 
 }

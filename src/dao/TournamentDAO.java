@@ -48,7 +48,7 @@ public class TournamentDAO implements TournamentDAOIF {
 	}
 	
 	public Tournament getTournament(int tournamentId) throws SQLException{
-		String sqlQuery = "SELECT tournamentId, tournamentName, gameName, maxNoOfTeams, minNoOfTeams FROM Tournament"
+		String sqlQuery = "SELECT tournamentId, tournamentName, gameName, maxNoOfTeams, minNoOfTeams FROM Tournament "
 				+ "WHERE tournamentId = ?";
 		
 		Tournament foundTournament = null;
