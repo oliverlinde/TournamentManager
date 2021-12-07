@@ -42,7 +42,6 @@ public class TournamentRuleDAO implements TournamentRuleDAOIF {
 			// TODO: handle exception
 		}
 		
-		
 		return tournamentRule;
 	}
 
@@ -103,9 +102,5 @@ public class TournamentRuleDAO implements TournamentRuleDAOIF {
 		}
 		return format;
 	}
-
-
-
-	
 
 }
