@@ -1,6 +1,9 @@
 package controller;
 
 import dao.DbConnectionIF;
+
+import java.sql.SQLException;
+
 import dao.DAOFactory;
 import dao.PersonDAOIF;
 import model.Person;
@@ -14,8 +17,8 @@ public class PersonController implements PersonControllerIF {
 	}
 
 	@Override
-	public Person getPerson(int id) {
-		return this.person = personDAO.getPerson(id);
+	public Person getPerson(int personId) throws SQLException {
+		return this.person = personDAO.getPerson(personId);
 	}
 
 	@Override
