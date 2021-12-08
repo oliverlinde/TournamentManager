@@ -44,5 +44,9 @@ public class BracketRound {
 	public List<Team> getListOfTeams() {
 		return listOfTeams;
 	}
+	
+	public List<Match> getMatches(){
+		return listOfMatches;
+	}
 
 }

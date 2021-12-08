@@ -18,7 +18,8 @@ public class BracketController implements BracketControllerIF {
 	private Bracket bracket;
 
 	public BracketController(DbConnectionIF dbConnection) {
-		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection); 
+		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+		bracketRoundController = new BracketRoundController();
 	}
 	
 	@Override
@@ -43,12 +44,12 @@ public class BracketController implements BracketControllerIF {
 		bracketRoundController.createMatches(listOfTeams, generateBracketStrategy);
 		
 		
-		try {
-			bracketDAO.createBracketRound(bracket);
-		} catch (SQLServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			bracketDAO.createBracketRound(bracket);
+//		} catch (SQLServerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 }

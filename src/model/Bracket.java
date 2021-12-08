@@ -29,7 +29,7 @@ public class Bracket {
 	 * Not implemented. 
 	 */
 	public List<BracketRound> getBracketRounds() {
-		return null;
+		return listOfBracketRounds;
 	}
 	
 	/*

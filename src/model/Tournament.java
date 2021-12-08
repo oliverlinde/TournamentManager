@@ -87,7 +87,7 @@ public class Tournament {
 
 	/*
 	 * Adding a list of teams with a overhead through the @param maxNoOfTeams
-	 * which will make sure that the index numbers in listOfTeams will only be as¨
+	 * which will make sure that the index numbers in listOfTeams will only be asï¿½
 	 * long as required.
 	 */
 	public void setMaxNoOfTeams(int maxNoOfTeams) {
@@ -129,5 +129,9 @@ public class Tournament {
 	
 	public List<Team> getAllTeams() {
 		return listOfTeams;
+	}
+	
+	public List<Bracket> getBrackets(){
+		return brackets;
 	}
 }

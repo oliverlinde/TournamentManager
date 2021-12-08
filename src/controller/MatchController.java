@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.MatchDAOIF;
@@ -11,18 +12,20 @@ public class MatchController implements MatchControllerIF {
 	private MatchRoundResultControllerIF matchRoundResultController;
 	private MatchDAOIF matchDAO;
 	private Match match;
+	private List<Match> matches;
 	
 	public MatchController(List<Team> listOfTeams) {
 		this.match = new Match(listOfTeams);
 	}
 	
 	public MatchController() {
-		// TODO Auto-generated constructor stub
+		matches = new ArrayList<Match>();
 	}
 	
 	@Override
 	public void createMatch(List<Team> listOfTeams) {
 		this.match = new Match(listOfTeams);
+		matches.add(match);
 	}
 
 	@Override
@@ -37,7 +40,7 @@ public class MatchController implements MatchControllerIF {
 
 	@Override
 	public Match getMatch(int matchId) {
-		return matchDAO.getMatch(matchId);
+		return match;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class Match {
 	private List<Team> listOfTeams;
 	
 	public Match(List<Team> listOfTeams) {
-		
+		this.listOfTeams = listOfTeams;
 	}
 	
 	public Match(List<MatchRoundResult> rounds, List<Team> listOfTeams) {
@@ -51,6 +51,10 @@ public class Match {
 
 	public void setListOfTeams(List<Team> listOfTeams) {
 		this.listOfTeams = listOfTeams;
+	}
+	
+	public List<MatchRoundResult> getRoundResults(){
+		return rounds;
 	}
 	
 	
