@@ -4,14 +4,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.TournamentController;
+import controller.TournamentControllerIF;
 import dao.DAOFactory;
 import dao.DbConnection;
 import dao.DbConnectionIF;
 import dao.TeamDAOIF;
 import dao.TournamentDAO;
 import dao.TournamentDAOIF;
+import model.Format;
 import model.Team;
 import model.Tournament;
+import model.TournamentRule;
 
 
 public class test {
@@ -33,6 +37,7 @@ public class test {
 		for(Team t : tournament.getAllTeams()) {
 			System.out.println(t.getTeamName());
 		}
+		
 	}
 	
 }

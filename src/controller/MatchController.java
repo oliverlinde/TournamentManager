@@ -16,6 +16,15 @@ public class MatchController implements MatchControllerIF {
 		this.match = new Match(listOfTeams);
 	}
 	
+	public MatchController() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void createMatch(List<Team> listOfTeams) {
+		this.match = new Match(listOfTeams);
+	}
+
 	@Override
 	public void setRoundResult(Team winningTeam) {
 		match.setMatchRoundResult(winningTeam);

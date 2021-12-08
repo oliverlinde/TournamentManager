@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.BracketRoundDAOIF;
@@ -30,9 +31,8 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	}
 
 	@Override
-	public void createMatches(List<Team> listOfTeams) {
-		// TODO Auto-generated method stub
-		
+	public void createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy) {
+		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) listOfTeams);
 	}
 
 }

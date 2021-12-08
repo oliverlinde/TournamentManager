@@ -39,11 +39,12 @@ public class BracketController implements BracketControllerIF {
 
 	@Override
 	public void createBracketRound(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		
+		bracket = new Bracket(listOfTeams);
+		bracketRoundController.createMatches(listOfTeams, generateBracketStrategy);
 		
 		
 		try {
-			bracketDAO.createBracketRound(listOfTeams);
+			bracketDAO.createBracketRound(bracket);
 		} catch (SQLServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
