@@ -19,7 +19,7 @@ public class TeamDAO implements TeamDAOIF {
 		String sqlQuery = "INSERT INTO Team (teamId, teamName) "
 				+ "VALUES (?, ?)";
 		
-		int value = 0;
+		int newTeamId = 0;
 		
 		try {
 			Connection connection = dbConnection.getConnection();
@@ -28,11 +28,11 @@ public class TeamDAO implements TeamDAOIF {
 			statement.setInt(1, team.getTeamId());
 			statement.setString(2, team.getTeamName());
 			
-			value = statement.executeUpdate();
+			newTeamId = statement.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return value;
+		return newTeamId;
 	}
 	
 	public Team getTeam(int teamId) throws SQLException {
