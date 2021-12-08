@@ -44,6 +44,14 @@ public class Match {
 	public void createRoundResult() {
 		
 	}
+
+	public List<Team> getListOfTeams() {
+		return listOfTeams;
+	}
+
+	public void setListOfTeams(List<Team> listOfTeams) {
+		this.listOfTeams = listOfTeams;
+	}
 	
 	
 
