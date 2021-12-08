@@ -1,13 +1,33 @@
 package ui;
 
+import model.Team;
+import model.Tournament;
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+
+import controller.TeamController;
+import controller.TeamControllerIF;
+import controller.TournamentController;
+import controller.TournamentControllerIF;
+import dao.DAOFactory;
+import dao.DbConnection;
+import dao.TournamentDAOIF;
+
 import javax.swing.JLabel;
+import javax.swing.JList;
+
 import java.awt.Font;
+import java.sql.SQLException;
 
 public class HomeScreen extends JPanel {
+	private TeamControllerIF teamController;
+	private TournamentControllerIF tournamentController;
 
 	/**
 	 * 
@@ -18,6 +38,9 @@ public class HomeScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public HomeScreen() {
+		teamController = new TeamController();
+		tournamentController = new TournamentController();
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -27,7 +50,18 @@ public class HomeScreen extends JPanel {
 		JPanel panel_4 = new JPanel();
 		panel.add(panel_4);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		DefaultListModel<Tournament> listModel = new DefaultListModel<>();
+		
+		
+		for (Tournament tournament : tournamentController.getAllTournaments()) {
+			listModel.addElement(tournament);
+		}
+		
+		
+		JList<Tournament> listOfTeams = new JList<>(listModel);
+		listOfTeams.setCellRenderer(new TournamentListCellRenderer());
+
+		JScrollPane scrollPane = new JScrollPane(listOfTeams);
 		panel_4.add(scrollPane);
 		
 		JPanel panel_5 = new JPanel();

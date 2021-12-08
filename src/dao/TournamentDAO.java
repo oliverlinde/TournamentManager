@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import model.Team;
@@ -15,8 +16,8 @@ import model.TournamentRule;
 public class TournamentDAO implements TournamentDAOIF {
 	private DbConnectionIF dbConnection;
 	
-	public TournamentDAO() {
-		dbConnection = new DbConnection();
+	public TournamentDAO(DbConnectionIF dbConnection) {
+		this.dbConnection = dbConnection;
 		
 	}
 	
@@ -121,6 +122,36 @@ public class TournamentDAO implements TournamentDAOIF {
 		}
 		
 		return teamsInTournament;
+	}
+	
+	@Override
+	public List<Tournament> getAllTournaments() throws SQLException{
+		String sqlQuery = "SELECT tournamentId, tournamentName, gameName, dateTimeOfEvent, registrationDeadline, maxNoOfTeams, minNoOfTeams "
+				+ "FROM Tournament ";
+		
+		List<Tournament> listOfTournaments = new LinkedList<>();
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				LocalDateTime timeOfEvent = rs.getObject(4, LocalDateTime.class);
+				LocalDateTime registrationDeadline = rs.getObject(5, LocalDateTime.class);
+				
+				Tournament tournament = new Tournament(rs.getInt(1), rs.getString(2), rs.getString(3), timeOfEvent, registrationDeadline, rs.getInt(6), rs.getInt(7));
+				listOfTournaments.add(tournament);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return listOfTournaments;
 	}
 
 }

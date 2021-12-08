@@ -35,6 +35,16 @@ public class Tournament {
 		setMaxNoOfTeams(maxNoOfTeams);
 		setMinNoOfTeams(minNoOfTeams);
 	}
+	
+	public Tournament(int tournamentId, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
+		this.tournamentId = tournamentId;
+		setName(tournamentName);
+		setGame(gameName);
+		setDateTimeOfEvent(dateTimeOfEvent);
+		setRegistrationDeadline(registrationDeadline);
+		setMaxNoOfTeams(maxNoOfTeams);
+		setMinNoOfTeams(minNoOfTeams);
+	}
 
 	public String getName() {
 		return tournamentName;

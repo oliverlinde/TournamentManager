@@ -2,12 +2,19 @@ package controller;
 
 import java.util.List;
 
+import dao.DAOFactory;
+import dao.DbConnection;
+import dao.TeamDAOIF;
 import model.Person;
 import model.Team;
 
 public class TeamController implements TeamControllerIF {
+	private TeamDAOIF teamDAO;
 	private Team team;
 	
+	public TeamController() {
+		teamDAO = DAOFactory.createTeamDAO(new DbConnection());
+	}
 	
 	@Override
 	public void addPersonToTeam(Person person) {
@@ -29,7 +36,6 @@ public class TeamController implements TeamControllerIF {
 
 	@Override
 	public List<Team> getAllTeams() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -44,5 +50,6 @@ public class TeamController implements TeamControllerIF {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

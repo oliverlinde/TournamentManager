@@ -25,7 +25,7 @@ public class test {
 		tournament.setMinNoOfTeams(1);
 		System.out.println(tournamentDAO.createTournament(tournament));
 		*/
-		TournamentDAOIF tournamentDAO = new TournamentDAO();
+		TournamentDAOIF tournamentDAO = new TournamentDAO(new DbConnection());
 		Tournament tournament = tournamentDAO.getTournament(1);
 		System.out.println(tournament.getDateTimeOfEvent().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 		System.out.println(tournament.getName());

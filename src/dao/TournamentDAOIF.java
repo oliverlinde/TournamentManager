@@ -13,5 +13,6 @@ public interface TournamentDAOIF {
 	Tournament getTournament(int tournamentId) throws SQLException;
 
 	List<Team> getTeamsInTournament(int tournamentId) throws SQLException;
+	List<Tournament> getAllTournaments() throws SQLException;
 	
 }

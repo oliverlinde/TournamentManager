@@ -3,6 +3,7 @@ package controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import model.Format;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
@@ -28,4 +29,7 @@ public interface TournamentControllerIF {
 	public void generateNextBracket(int noOfRounds);
 	public void addTeamToTournament(Team team);
 	public List<Team> getAllTeams();
+	public List<Tournament> getAllTournaments();
+	List<TournamentRule> getAllTournamentRules();
+	void changeFormat(Object object);
 }

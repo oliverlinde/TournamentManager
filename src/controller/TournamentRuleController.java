@@ -1,8 +1,11 @@
 package controller;
 
-import dao.DbConnectionIF;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+
 import dao.DAOFactory;
-import dao.TournamentRuleDAO;
+import dao.DbConnection;
 import dao.TournamentRuleDAOIF;
 import model.Format;
 import model.NoOfRounds;
@@ -12,8 +15,20 @@ public class TournamentRuleController implements TournamentRuleControllerIF {
 	private TournamentRule tournamentRule;
 	private TournamentRuleDAOIF tournamentRuleDAO;
 	
-	public TournamentRuleController(DbConnectionIF dbConnection) {
-		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(dbConnection);
+	public TournamentRuleController() {
+		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(new DbConnection());
+	}
+	
+	@Override
+	public List<TournamentRule> getAllTournamentRule() {
+		List<TournamentRule> tournamentRuleList = new LinkedList<>();
+		try {
+			tournamentRuleList = tournamentRuleDAO.getAllTournamentRules();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tournamentRuleList;
 	}
 
 	@Override

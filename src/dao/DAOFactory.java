@@ -10,6 +10,10 @@ public class DAOFactory {
 		return new MatchRoundResultDAO(dbConnection);
 	}
 	
+	public static TournamentDAOIF createTournamentDAO(DbConnectionIF dbConnection) {
+		return new TournamentDAO(dbConnection);
+	}
+	
 	public static BracketRoundDAOIF createBracketRoundResultDAO(DbConnectionIF dbConnection) {
 		return new BracketRoundDAO(dbConnection);
 	}

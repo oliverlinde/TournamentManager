@@ -1,18 +1,26 @@
 package controller;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
+import dao.DAOFactory;
+import dao.DbConnection;
 import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
+import dao.TournamentRuleDAOIF;
 import model.Format;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
 
 public class TournamentController implements TournamentControllerIF {
-	private DbConnectionIF dbConnection;
 	private Tournament tournament;
 	private TournamentDAOIF tournamentDAO;
 	private TeamControllerIF teamController;
@@ -22,8 +30,9 @@ public class TournamentController implements TournamentControllerIF {
 	private GenerateBracketStrategyIF generateBracketStrategy;
 
 	public TournamentController() {
-		bracketController = new BracketController(dbConnection);
-		tournamentRuleController = new TournamentRuleController(dbConnection);
+		tournamentDAO = DAOFactory.createTournamentDAO(new DbConnection());
+		// bracketController = new BracketController(dbConnection);
+		// tournamentRuleController = new TournamentRuleController(dbConnection);
 	}
 
 	@Override
@@ -120,6 +129,25 @@ public class TournamentController implements TournamentControllerIF {
 	}
 
 	@Override
+	public void changeFormat(Object object) {
+		Format format = null;
+
+		switch (object.toString()) {
+		case "DoubleElimination":
+			format = Format.DoubleElimination;
+			break;
+		case "PointsSystem":
+			format = Format.PointsSystem;
+			break;
+		default:
+			format = Format.SingleElimination;
+			break;
+		}
+
+		tournament.getTournamentRule().setFormat(format);
+	}
+
+	@Override
 	public int calculatePoints(TournamentRule tournamentRule) {
 		return 0;
 	}
@@ -137,6 +165,24 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public List<Team> getAllTeams() {
 		return tournament.getAllTeams();
+	}
+
+	@Override
+	public List<Tournament> getAllTournaments() {
+		List<Tournament> listOfTournament = new LinkedList<>();
+		try {
+			listOfTournament = tournamentDAO.getAllTournaments();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listOfTournament;
+	}
+
+	@Override
+	public List<TournamentRule> getAllTournamentRules() {
+		tournamentRuleController = new TournamentRuleController();
+		return tournamentRuleController.getAllTournamentRule();
 	}
 
 }
