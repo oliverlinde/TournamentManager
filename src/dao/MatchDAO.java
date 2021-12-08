@@ -17,8 +17,8 @@ public class MatchDAO implements MatchDAOIF{
 	private DbConnectionIF dbConnection;
 
 	
-	public MatchDAO() {
-		
+	public MatchDAO(DbConnectionIF dbConnection) {
+		this.dbConnection = dbConnection;
 	}
 	
 	public void setMatchRoundResult(int matchRoundResultId ,Team winningTeam) throws SQLException {
