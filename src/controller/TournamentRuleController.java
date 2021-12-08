@@ -1,10 +1,19 @@
 package controller;
 
+import dao.DbConnectionIF;
+import dao.DAOFactory;
+import dao.TournamentRuleDAO;
+import dao.TournamentRuleDAOIF;
+import model.Format;
+import model.NoOfRounds;
+import model.TournamentRule;
+
 public class TournamentRuleController implements TournamentRuleControllerIF {
 	private TournamentRule tournamentRule;
+	private TournamentRuleDAOIF tournamentRuleDAO;
 	
-	public TournamentRuleController(String description, int pointsPerWin, int pointsPerLoss, int pointsPerDraw, NoOfRounds noOfRounds, Format format) {
-		tournamentRule = new TournamentRule(description, pointsPerWin, pointsPerLoss, pointsPerDraw, noOfRounds, format);
+	public TournamentRuleController(DbConnectionIF dbConnection) {
+		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(dbConnection);
 	}
 
 	@Override
@@ -64,7 +73,7 @@ public class TournamentRuleController implements TournamentRuleControllerIF {
 
 	@Override
 	public Format getFormat() {
-		tournamentRule.getFormat();
+		return tournamentRule.getFormat();
 	}
 
 }

@@ -1,5 +1,8 @@
 package controller;
 
+import model.Format;
+import model.NoOfRounds;
+
 public interface TournamentRuleControllerIF {
 
 	public String getDescription();

@@ -1,9 +1,15 @@
 package controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import dao.DbConnectionIF;
+import dao.TournamentDAOIF;
+import model.Format;
+import model.Team;
 import model.Tournament;
+import model.TournamentRule;
 
 public class TournamentController implements TournamentControllerIF {
 	private DbConnectionIF dbConnection;
@@ -16,8 +22,8 @@ public class TournamentController implements TournamentControllerIF {
 	private GenerateBracketStrategyIF generateBracketStrategy;
 
 	public TournamentController() {
-		bracketController = new BracketController();
-		tournamentRuleController = new TournamentRuleController();
+		bracketController = new BracketController(dbConnection);
+		tournamentRuleController = new TournamentRuleController(dbConnection);
 	}
 
 	@Override
@@ -47,28 +53,28 @@ public class TournamentController implements TournamentControllerIF {
 	}
 
 	@Override
-	public void setRegistrationDeadline(LocalDate registrationDeadline) {
+	public void setRegistrationDeadline(LocalDateTime registrationDeadline) {
 		tournament.setRegistrationDeadline(registrationDeadline);
 	}
 
 	@Override
-	public LocalDate getRegistrationDeadline() {
+	public LocalDateTime getRegistrationDeadline() {
 		return tournament.getRegistrationDeadline();
 	}
 
 	@Override
-	public void setDateTimeOfEvent(LocalDate dateTimeOfEvent) {
+	public void setDateTimeOfEvent(LocalDateTime dateTimeOfEvent) {
 		tournament.setDateTimeOfEvent(dateTimeOfEvent);
 	}
 
 	@Override
-	public LocalDate getDateTimeOfEvent() {
+	public LocalDateTime getDateTimeOfEvent() {
 		return tournament.getDateTimeOfEvent();
 	}
 
 	@Override
 	public void setMaxNoOfTeams(int maxNoOfTeams) {
-		tournament.setMaxNoOfTeam(maxNoOfTeams);
+		tournament.setMaxNoOfTeams(maxNoOfTeams);
 	}
 
 	@Override
@@ -85,26 +91,27 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public boolean cancelTournament() {
 		tournament = null;
+		return true;
 	}
 
 	@Override
-	public List<TournamentRule> getTournamentRule() {
+	public TournamentRule getTournamentRule() {
 		return tournament.getTournamentRule();
 	}
 
 	@Override
 	public void setTournamentRule(TournamentRule tournamentRule) {
 		tournament.setTournamentRule(tournamentRule);
-		generateBracketStrategy = tournament.getTournamentRule.getFormat();
+		String format = tournament.getTournamentRule().getFormat().toString();
 
-		switch (generateBracketStrategy) {
-		case Format.SingleElimination:
+		switch (format) {
+		case "SingleElimination":
 			generateBracketStrategy = new SingleEliminationStrategy();
 			break;
-		case Format.DoubleElimination:
+		case "DoubleElimination":
 			generateBracketStrategy = new DoubleEliminationStrategy();
 			break;
-		case Format.PointSystem:
+		case "PointsSystem":
 			generateBracketStrategy = new PointSystemStrategy();
 			break;
 		default:
@@ -118,13 +125,13 @@ public class TournamentController implements TournamentControllerIF {
 	}
 
 	@Override
-	public void generateNextBracket() {
-		bracketController.createBracketRound(tournament.getAllTeams());
+	public void generateNextBracket(int noOfRounds) {
+		bracketController.createBracketRound(tournament.getAllTeams(), generateBracketStrategy, noOfRounds);
 	}
 
 	@Override
 	public void addTeamToTournament(Team team) {
-		tournament.add(team);
+		tournament.addTeam(team);
 	}
 
 	@Override
