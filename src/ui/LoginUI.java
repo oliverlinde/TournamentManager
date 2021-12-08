@@ -7,9 +7,9 @@ import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LoginUI extends JPanel {
 	
@@ -20,27 +20,25 @@ public class LoginUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField idTextField;
 	private JButton loginBtn;
-	private JPanel panel;
+	private JPanel loginPanel;
 
 	/**
 	 * Create the panel.
 	 */
 	public LoginUI() {
-		setLayout(new BorderLayout(0, 0));
 		
-		panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		loginPanel = new JPanel();
+		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 		
 		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
+		loginPanel.add(panel_2);
 		
 		JLabel loginLbl = new JLabel("Login");
 		loginLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_2.add(loginLbl);
 		
 		JPanel panel_3 = new JPanel();
-		panel.add(panel_3);
+		loginPanel.add(panel_3);
 		
 		JPanel panel_5 = new JPanel();
 		panel_3.add(panel_5);
@@ -62,8 +60,6 @@ public class LoginUI extends JPanel {
 		
 		loginBtn = new JButton("Login");
 		panel_6.add(loginBtn);
-
-		createActions();
 	}
 	
 	//public boolean isLoggedIn() {
@@ -76,13 +72,20 @@ public class LoginUI extends JPanel {
 	//	return passed;
 	//}
 	
-	private void createActions() {
-		loginBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panel.getTopLevelAncestor();
-				panel.setVisible(false);
-			}
-		});
+//	private void createActions() {
+//		loginBtn.addActionListener(this);
+//			
+//	}
+//
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		// TODO Auto-generated method stub
+//		loginPanel.setVisible(false);
+//		
+//	}
+
+	private void createLoginPanel() {
+		
 	}
 	
 	

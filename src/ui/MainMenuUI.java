@@ -8,9 +8,19 @@ import javax.swing.JMenuItem;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class MainMenuUI extends JPanel {
-
+	
+	private JMenuItem activeTournamentsMenuItem;
+	private JMenuItem createTournamentMenuItem;
+	private JMenuItem createTournamentRuleMenuItem;
+	private JMenuItem teamsMenuItem;
+	private JMenuItem personMenuItem;
+	private JPanel mainPnl;
+	
 	/**
 	 * 
 	 */
@@ -40,19 +50,20 @@ public class MainMenuUI extends JPanel {
 		add(menuPnl, BorderLayout.WEST);
 		menuPnl.setLayout(new BoxLayout(menuPnl, BoxLayout.Y_AXIS));
 		
-		JMenuItem activeTournamentsMenuItem = new JMenuItem("Aktive turneringer");
+		activeTournamentsMenuItem = new JMenuItem("Aktive turneringer");
+		;
 		menuPnl.add(activeTournamentsMenuItem);
 		
-		JMenuItem createTournamentMenuItem = new JMenuItem("Opret turnering");
+		createTournamentMenuItem = new JMenuItem("Opret turnering");
 		menuPnl.add(createTournamentMenuItem);
 		
-		JMenuItem createTournamentRuleMenuItem = new JMenuItem("Opret turneringsregel");
+		createTournamentRuleMenuItem = new JMenuItem("Opret turneringsregel");
 		menuPnl.add(createTournamentRuleMenuItem);
 		
-		JMenuItem teamsMenuItem = new JMenuItem("Hold");
+		teamsMenuItem = new JMenuItem("Hold");
 		menuPnl.add(teamsMenuItem);
 		
-		JMenuItem personMenuItem = new JMenuItem("Person");
+		personMenuItem = new JMenuItem("Person");
 		menuPnl.add(personMenuItem);
 		
 		JPanel panel_2 = new JPanel();
@@ -65,11 +76,41 @@ public class MainMenuUI extends JPanel {
 		JPanel personPicPnl = new JPanel();
 		panel_2.add(personPicPnl, BorderLayout.CENTER);
 		
-		JPanel mainPnl = new JPanel();
+		mainPnl = new JPanel();
 		add(mainPnl, BorderLayout.CENTER);
-		
-		mainPnl.add(UIFactory.createHomeScreenUI());
 
+		createActions();
+
+	}
+	
+	
+	private void createActions() {
+		activeTournamentsMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		createTournamentMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		createTournamentRuleMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		teamsMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainPnl.add(UIFactory.createTeamMenuUI());
+			}
+		});
+		
+		personMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
 	}
 
 }
