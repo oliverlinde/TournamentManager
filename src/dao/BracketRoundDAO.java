@@ -34,10 +34,12 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 		return null;
 	}
 
+	/*
 	@Override
 	public BracketRoundResult getBracketRoundResult() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	*/
 
 }

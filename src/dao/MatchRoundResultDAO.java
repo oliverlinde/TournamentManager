@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.MatchRoundResult;
 import model.Team;
@@ -75,6 +76,34 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			// TODO: handle exception
 		}
 		return foundMatchRoundResult;
+		
 	}
+	
+	/*
+	public MatchRoundResult getTotalRoundResult() {
+		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner ";
+		
+		List<Team> listOfWinners = null;
+		List<Team> listOfLosers = null;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				if(rs.getBoolean(3)) {
+					listOfWinners.add(rs.getInt(2));
+				} else {
+					listOfLosers.add(rs.getInt(2));
+				}
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	*/
 
 }

@@ -10,7 +10,7 @@ public interface BracketRoundDAOIF {
 	
 	void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers);
 	
-	BracketRoundResult getBracketRoundResult();
+	//BracketRoundResult getBracketRoundResult();
 	
 	void createMatches(List<Team> listOfTeams);
 	

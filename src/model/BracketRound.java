@@ -4,12 +4,23 @@
 
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import dao.MatchRoundResultDAO;
 
 public class BracketRound {
 	private List<Match> listOfMatches;
 	private BracketRoundResult bracketRoundResult;
 	private List<Team> listOfTeams;
+	private MatchRoundResultDAO matchRoundResultDAO;
+	
+	public BracketRound() {
+		listOfMatches = new LinkedList<>();
+		//bracketRoundResult = new BracketRoundResult();
+		listOfTeams = new LinkedList<>();
+		//matchRoundResultDAO = new MatchRoundResultDAO();
+	}
 	
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
 		
