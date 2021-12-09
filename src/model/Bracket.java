@@ -4,6 +4,7 @@
 
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bracket {
@@ -11,7 +12,7 @@ public class Bracket {
 	private List<BracketRound> listOfBracketRounds;
 	
 	public Bracket(List<Team> teams) {
-		
+		listOfBracketRounds = new ArrayList<BracketRound>();
 	}
 	
 	public List<Team> getTeams(BracketRound bracketRound) {
@@ -37,8 +38,8 @@ public class Bracket {
 	 * 
 	 * Not implemented. 
 	 */
-	public void createBracketRound(List<Team> listOfTeams) {
-		
+	public void addBracketRound(BracketRound bracketRound) {
+		listOfBracketRounds.add(bracketRound);
 	}
 
 }

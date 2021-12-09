@@ -18,6 +18,7 @@ import controller.TournamentRuleController;
 import controller.TournamentRuleControllerIF;
 import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
+import model.Bracket;
 import model.Format;
 import model.Match;
 import model.Team;
@@ -146,6 +147,9 @@ public class TournamentControllerStub implements TournamentControllerIF {
 
 	@Override
 	public void generateNextBracket(int noOfRounds) {
+		if(bracketController.getBracket() == null) {
+			setBracket();
+		}
 		bracketController.createBracketRound(tournament.getAllTeams(), generateBracketStrategy, noOfRounds);
 	}
 
@@ -159,11 +163,16 @@ public class TournamentControllerStub implements TournamentControllerIF {
 		return tournament.getAllTeams();
 	}
 	
-	public ArrayList<Match> getMatch() {
-		ArrayList<Match> list = new ArrayList<>();
-		list.add(matchController.getMatch(1));
-		list.add(matchController.getMatch(2));
-		return list;
+	public List<Match> getMatches() {
+		return bracketController.getAllMatches();
+	}
+	
+	public Bracket getBracket() {
+		return bracketController.getBracket();
+	}
+	
+	public void setBracket() {
+		bracketController.createBracket(getAllTeams());
 	}
 
 }

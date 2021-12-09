@@ -7,14 +7,15 @@ import model.Format;
 import model.Team;
 
 public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
-	MatchControllerIF matchController;
 
+	MatchControllerIF matchController;
+	
 	@Override
-	public void proceedToNextRound(ArrayList<Team> listOfTeams) {
-		matchController = new MatchController();
+	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds) {
+		this.matchController = matchController;
 		for(int i = 1 ; i <= Math.floor((listOfTeams.size()/2)) ; i++){
 			ArrayList<Team> temp = subArray(listOfTeams, ((i*2)-2), (i*2)-1);
-			matchController.createMatch(temp);
+			matchController.createMatch(temp, noOfRounds);
 		}
 	}
 
@@ -26,7 +27,7 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 	
 	private ArrayList<Team> subArray(ArrayList<Team> teams, int start, int end){
 		ArrayList<Team> toReturn = new ArrayList<>();
-		for(int i=start ; i<=end ; i++) {
+		for(int i = start ; i <= end ; i++) {
 			toReturn.add(teams.get(i));
 		}
 		return toReturn;

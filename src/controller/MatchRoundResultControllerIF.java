@@ -8,4 +8,5 @@ public interface MatchRoundResultControllerIF {
 	public void setLoser(Team team);
 	public void setDraw();
 	public MatchRoundResult getRoundResult(int matchRoundResultId);
+	MatchRoundResult getMatchRoundResult();
 }

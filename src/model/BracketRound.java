@@ -11,6 +11,7 @@ import dao.MatchRoundResultDAO;
 
 public class BracketRound {
 	private List<Match> listOfMatches;
+	private int bracketRoundID;
 	private BracketRoundResult bracketRoundResult;
 	private List<Team> listOfTeams;
 	private MatchRoundResultDAO matchRoundResultDAO;
@@ -20,6 +21,7 @@ public class BracketRound {
 		//bracketRoundResult = new BracketRoundResult();
 		listOfTeams = new LinkedList<>();
 		//matchRoundResultDAO = new MatchRoundResultDAO();
+		setBracketRoundID(1);
 	}
 	
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
@@ -37,8 +39,8 @@ public class BracketRound {
 	 * 
 	 * Not implemented. 
 	 */
-	public void createMatches(List<Team> listOfTeams) {
-		
+	public void setMatchesInBracketRound(List<Match> matchesInBracketRound) {
+		listOfMatches = matchesInBracketRound;
 	}
 	
 	public List<Team> getListOfTeams() {
@@ -47,6 +49,14 @@ public class BracketRound {
 	
 	public List<Match> getMatches(){
 		return listOfMatches;
+	}
+
+	public int getBracketRoundID() {
+		return bracketRoundID;
+	}
+
+	public void setBracketRoundID(int bracketRoundID) {
+		this.bracketRoundID = bracketRoundID;
 	}
 
 }

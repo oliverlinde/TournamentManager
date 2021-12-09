@@ -10,6 +10,7 @@ import dao.DAOFactory;
 import model.Bracket;
 import model.BracketRound;
 import model.Format;
+import model.Match;
 import model.Team;
 
 public class BracketController implements BracketControllerIF {
@@ -32,6 +33,11 @@ public class BracketController implements BracketControllerIF {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void createBracket(List<Team> listOfTeams) {
+		this.bracket = new Bracket(listOfTeams);
+	}
 
 	@Override
 	public List<BracketRound> getBracketRound() {
@@ -40,9 +46,18 @@ public class BracketController implements BracketControllerIF {
 
 	@Override
 	public void createBracketRound(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		bracket = new Bracket(listOfTeams);
-		bracketRoundController.createMatches(listOfTeams, generateBracketStrategy);
-		
+		bracket.addBracketRound(bracketRoundController.createMatches(listOfTeams, generateBracketStrategy, noOfRounds));
+	}
+	
+	@Override
+	public List<Match> getAllMatches(){
+		return bracketRoundController.getAllMatches();
+	}
+	
+	@Override
+	public Bracket getBracket() {
+		return this.bracket;
+	}
 		
 //		try {
 //			bracketDAO.createBracketRound(bracket);
@@ -50,6 +65,5 @@ public class BracketController implements BracketControllerIF {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-	}
 
 }

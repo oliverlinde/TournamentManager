@@ -11,8 +11,8 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	private MatchRoundResult matchRoundResult;
 	private MatchRoundResultDAOIF matchRoundResultDAO;
 	
-	public MatchRoundResultController(DbConnectionIF dbConnection) {
-		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+	public MatchRoundResultController() {
+		//this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
 		matchRoundResult = new MatchRoundResult();
 	}
 
@@ -34,6 +34,11 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	@Override
 	public MatchRoundResult getRoundResult(int matchRoundResultId) {
 		return matchRoundResultDAO.getRoundResult(matchRoundResultId);
+	}
+	
+	@Override
+	public MatchRoundResult getMatchRoundResult() {
+		return matchRoundResult;
 	}
 	
 }
