@@ -28,8 +28,16 @@ public class BracketDAO implements BracketDAOIF {
 		
 	}
 	
-	public void createBracketRound(List<Team> listOfTeams) throws SQLServerException {
-		dbConnection.getConnection();
-	}
+	//public void createBracketRound(List<Team> listOfTeams) throws SQLServerException {
+		//dbConnection.getConnection();
+	//}
 
+	public boolean createBracket(int tournamentId) {
+		String sqlQuery = "INSERT INTO Bracket (bracketId, tournamentId) WHERE tournamentId = ?  VALUES ?, ? ";
+		
+		boolean bracketCreated = false;
+		
+		
+	}
+	
 }

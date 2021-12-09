@@ -47,6 +47,10 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 * 
 	 * }
 	 */
+	
+	public MatchRoundResult createMatchRoundResult(int matchId) {
+		String sqlQuery = "SELECT matchRoundResultId, matchId FROM MatchRoundResult WHERE matchId = ? ";
+	}
 
 	@Override
 	public MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException {

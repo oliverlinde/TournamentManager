@@ -12,14 +12,15 @@ import model.MatchRoundResult;
 
 public class BracketRoundDAO implements BracketRoundDAOIF {
 	private DbConnectionIF dbConnection;
-	
 
 	public BracketRoundDAO(DbConnectionIF dbConnection) {
 		this.dbConnection = dbConnection;
 	}
 
-	public void createMatches(List<Team> listOfTeams) {
-
+	public Match createMatches(List<Team> listOfTeams, BracketRound bracketRoundId) {
+		String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) VALUES ?, ? ";
+		
+		
 	}
 
 	@Override
@@ -35,11 +36,8 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 	}
 
 	/*
-	@Override
-	public BracketRoundResult getBracketRoundResult() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	*/
+	 * @Override public BracketRoundResult getBracketRoundResult() { // TODO
+	 * Auto-generated method stub return null; }
+	 */
 
 }
