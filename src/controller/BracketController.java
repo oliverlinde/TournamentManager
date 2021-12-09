@@ -10,6 +10,7 @@ import dao.DAOFactory;
 import model.Bracket;
 import model.BracketRound;
 import model.Format;
+import model.Match;
 import model.Team;
 
 public class BracketController implements BracketControllerIF {
@@ -18,7 +19,8 @@ public class BracketController implements BracketControllerIF {
 	private Bracket bracket;
 
 	public BracketController(DbConnectionIF dbConnection) {
-		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection); 
+		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+		bracketRoundController = new BracketRoundController();
 	}
 	
 	@Override
@@ -31,6 +33,11 @@ public class BracketController implements BracketControllerIF {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void createBracket(List<Team> listOfTeams) {
+		this.bracket = new Bracket(listOfTeams);
+	}
 
 	@Override
 	public List<BracketRound> getBracketRound() {
@@ -39,15 +46,24 @@ public class BracketController implements BracketControllerIF {
 
 	@Override
 	public void createBracketRound(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		
-		
-		
-		try {
-			bracketDAO.createBracketRound(listOfTeams);
-		} catch (SQLServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		bracket.addBracketRound(bracketRoundController.createMatches(listOfTeams, generateBracketStrategy, noOfRounds));
 	}
+	
+	@Override
+	public List<Match> getAllMatches(){
+		return bracketRoundController.getAllMatches();
+	}
+	
+	@Override
+	public Bracket getBracket() {
+		return this.bracket;
+	}
+		
+//		try {
+//			bracketDAO.createBracketRound(bracket);
+//		} catch (SQLServerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 }

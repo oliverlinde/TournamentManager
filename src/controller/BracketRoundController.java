@@ -1,10 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.BracketRoundDAOIF;
 import model.BracketRound;
 import model.BracketRoundResult;
+import model.Match;
 import model.Team;
 
 public class BracketRoundController implements BracketRoundControllerIF {
@@ -14,7 +16,7 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	private BracketRound bracketRound;
 	
 	public BracketRoundController() {
-		
+		this.matchController = new MatchController();
 	}
 
 	@Override
@@ -28,11 +30,18 @@ public class BracketRoundController implements BracketRoundControllerIF {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<Match> getAllMatches(){
+		return matchController.getAllMatches();
+	}
 
 	@Override
-	public void createMatches(List<Team> listOfTeams) {
-		// TODO Auto-generated method stub
-		
+	public BracketRound createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
+		bracketRound = new BracketRound();
+		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) listOfTeams, matchController, noOfRounds);
+		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());
+		return bracketRound;
 	}
 
 }

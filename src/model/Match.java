@@ -6,14 +6,18 @@
 
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Match {
+	private int matchId;
 	private List<MatchRoundResult> rounds;
 	private List<Team> listOfTeams;
 	
 	public Match(List<Team> listOfTeams) {
-		
+		this.listOfTeams = listOfTeams;
+		this.rounds = new ArrayList<MatchRoundResult>();
+		setMatchId(1);
 	}
 	
 	public Match(List<MatchRoundResult> rounds, List<Team> listOfTeams) {
@@ -41,8 +45,8 @@ public class Match {
 		return matchRoundResult.getIsDraw();
 	}
 	
-	public void createRoundResult() {
-		
+	public void createRoundResult(MatchRoundResult matchRoundResult) {
+		rounds.add(matchRoundResult);
 	}
 
 	public List<Team> getListOfTeams() {
@@ -51,6 +55,18 @@ public class Match {
 
 	public void setListOfTeams(List<Team> listOfTeams) {
 		this.listOfTeams = listOfTeams;
+	}
+	
+	public List<MatchRoundResult> getRoundResults(){
+		return rounds;
+	}
+
+	public int getMatchId() {
+		return matchId;
+	}
+
+	public void setMatchId(int matchId) {
+		this.matchId = matchId;
 	}
 	
 	
