@@ -6,17 +6,13 @@
 package model;
 
 public class MatchRoundResult {
+	private int matchRoundResultId;
 	private Team winner;
 	private Team loser;
 	private Boolean draw = false;
-	private int matchRoundResultId;
-	private int teamId;
-	private int bracketId;
-	private static int nextId = 0;
 	
 	public MatchRoundResult() {
-		nextId++;
-		setMatchRoundResultId(nextId);
+		
 	}
 	
 	public MatchRoundResult(int matchRoundResultId, Team winner, Team loser, boolean draw) {

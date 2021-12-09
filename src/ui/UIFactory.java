@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.JPanel;
 
+import model.Tournament;
+
 public class UIFactory {
 	
 	public static JPanel createLoginUI() {
@@ -30,5 +32,17 @@ public class UIFactory {
 	
 	public static JPanel createPersonMenuUI() {
 		return new PersonMenuUI();
+	}
+	
+	public static JPanel createCreateTeamMenuUI() {
+		return new CreateTeamUI();
+	}
+	
+	public static JPanel createCreatePersonMenuUI() {
+		return new CreatePersonUI();
+	}
+	
+	public static JPanel createTournamentProgressionUI(Tournament tournament) {
+		return new TournamentProgressionUI(tournament);
 	}
 }

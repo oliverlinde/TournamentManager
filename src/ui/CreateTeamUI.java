@@ -4,124 +4,116 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
-import java.util.Calendar;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import controller.PersonController;
+import controller.PersonControllerIF;
+import controller.TeamController;
+import controller.TeamControllerIF;
+
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 public class CreateTeamUI extends JPanel {
-	private JTextField personNameTextField;
-	private JTextField emailTextField;
-	private JTextField roleTextField;
-	private JPanel rolePnl;
-	private JRadioButton isAdminRdoBtn;
-	private JRadioButton isNowAdminRdoBtn;
-	private JPanel panel_1;
+	private JTextField searchPersonTextField;
+	private JTextField textField;
+	private TeamControllerIF teamController;
+	private PersonControllerIF personController;
 
 	/**
 	 * Create the panel.
 	 */
 	public CreateTeamUI() {
+		teamController = new TeamController();
+		personController = new PersonController();
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		add(panel, BorderLayout.NORTH);
-		
-		JLabel createPersonLbl = new JLabel("Opret person");
-		createPersonLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panel.add(createPersonLbl);
-		
-		panel_1 = new JPanel();
-		add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
-		
-		JPanel panel_4 = new JPanel();
-		panel_1.add(panel_4);
-		
-		JLabel adminLbl = new JLabel("Administrator");
-		panel_4.add(adminLbl);
-		
-		isAdminRdoBtn = new JRadioButton("Ja");
-		isAdminRdoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		panel_4.add(isAdminRdoBtn);
-		
-		isNowAdminRdoBtn = new JRadioButton("Nej");
-		isNowAdminRdoBtn.setSelected(true);
-		panel_4.add(isNowAdminRdoBtn);
+		add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		JPanel panel_3 = new JPanel();
-		panel_1.add(panel_3);
-		
-		JLabel personNameLbl = new JLabel("Navn");
-		panel_3.add(personNameLbl);
-		
-		personNameTextField = new JTextField();
-		panel_3.add(personNameTextField);
-		personNameTextField.setColumns(10);
+		panel.add(panel_3);
+		panel_3.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_5 = new JPanel();
-		panel_1.add(panel_5);
+		panel_3.add(panel_5);
+		panel_5.setLayout(new BorderLayout(0, 0));
 		
-		JLabel emailLbl = new JLabel("Email");
-		panel_5.add(emailLbl);
+		JScrollPane scrollPane = new JScrollPane();
+		panel_5.add(scrollPane);
 		
-		emailTextField = new JTextField();
-		panel_5.add(emailTextField);
-		emailTextField.setColumns(10);
+		JPanel panel_12 = new JPanel();
+		panel_5.add(panel_12, BorderLayout.SOUTH);
 		
-		rolePnl = new JPanel();
-		panel_1.add(rolePnl);
+		JButton addPersonBtn = new JButton("Tilf\u00F8j person");
+		panel_12.add(addPersonBtn);
 		
 		JPanel panel_6 = new JPanel();
-		panel_1.add(panel_6);
+		panel_3.add(panel_6, BorderLayout.SOUTH);
 		
-		JLabel birthdateLbl = new JLabel("F\u00F8dselsdato");
-		panel_6.add(birthdateLbl);
+		searchPersonTextField = new JTextField();
+		panel_6.add(searchPersonTextField);
+		searchPersonTextField.setColumns(10);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerDateModel(new Date(1639004400000L), null, null, Calendar.DAY_OF_YEAR));
-		panel_6.add(spinner);
+		JButton searchPersonBtn = new JButton("S\u00F8g");
+		panel_6.add(searchPersonBtn);
 		
-
+		JPanel panel_4 = new JPanel();
+		panel.add(panel_4);
+		panel_4.setLayout(new BorderLayout(0, 0));
 		
-		JLabel roleLbl = new JLabel("Besk\u00E6ftigelse i GGW");
-		rolePnl.add(roleLbl);
+		JPanel panel_7 = new JPanel();
+		panel_4.add(panel_7, BorderLayout.SOUTH);
 		
-		roleTextField = new JTextField();
-		rolePnl.add(roleTextField);
-		roleTextField.setColumns(10);
+		JLabel lblNewLabel = new JLabel("OBS! Du er selv altid en del af holdet");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		panel_7.add(lblNewLabel);
+		
+		JButton createTeamBtn = new JButton("Opret hold");
+		panel_7.add(createTeamBtn);
+		
+		JPanel panel_8 = new JPanel();
+		panel_4.add(panel_8, BorderLayout.CENTER);
+		panel_8.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_9 = new JPanel();
+		panel_8.add(panel_9, BorderLayout.NORTH);
+		
+		JLabel teamNameLbl = new JLabel("Holdnavn");
+		panel_9.add(teamNameLbl);
+		
+		textField = new JTextField();
+		panel_9.add(textField);
+		textField.setColumns(10);
+		
+		JPanel panel_10 = new JPanel();
+		panel_8.add(panel_10, BorderLayout.CENTER);
+		panel_10.setLayout(new BorderLayout(0, 0));
+		
+		
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_10.add(scrollPane_1);
+		
+		JPanel panel_11 = new JPanel();
+		panel_8.add(panel_11, BorderLayout.SOUTH);
+		
+		JButton removePersonBtn = new JButton("Fjern person");
+		panel_11.add(removePersonBtn);
+		
+		JPanel panel_1 = new JPanel();
+		add(panel_1, BorderLayout.NORTH);
+		
+		JLabel createTeamLbl = new JLabel("Opret hold");
+		createTeamLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel_1.add(createTeamLbl);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, BorderLayout.SOUTH);
-		
-		JButton createPersonBtn = new JButton("Opret ny person");
-		panel_2.add(createPersonBtn);
 
-	}
-	
-	private void createActions() {
-		isAdminRdoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-ro				
-			}
-		});
-		
-		isNowAdminRdoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (rolePnl.isEnabled()) {
-					
-				}
-			}
-		});
 	}
 
 }

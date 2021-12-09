@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -36,12 +37,19 @@ public class BracketController implements BracketControllerIF {
 	
 	@Override
 	public void createBracket(List<Team> listOfTeams) {
-		this.bracket = new Bracket(listOfTeams);
+		//this.bracket = new Bracket(listOfTeams);
 	}
 
 	@Override
 	public List<BracketRound> getBracketRound() {
-		return bracketDAO.getBracketRounds();
+		List<BracketRound> listOfBracketRounds = null;
+		try {
+			listOfBracketRounds = bracketDAO.getBracketRounds();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listOfBracketRounds;
 	}
 
 	@Override

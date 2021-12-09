@@ -217,5 +217,17 @@ public class TournamentController implements TournamentControllerIF {
 		}
 		return nextTournamentId;
 	}
+	
+	@Override
+	public Tournament getTournamentById(int tournamentId) {
+		Tournament tournament = null;
+		try {
+			tournament = tournamentDAO.getTournament(tournamentId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tournament;
+		
+	}
 
 }

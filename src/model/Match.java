@@ -20,7 +20,7 @@ public class Match {
 		setMatchId(1);
 	}
 	
-	public Match(List<MatchRoundResult> rounds, List<Team> listOfTeams) {
+	public Match(int matchId, List<MatchRoundResult> rounds, List<Team> listOfTeams) {
 		
 	}
 	

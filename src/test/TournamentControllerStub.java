@@ -217,4 +217,10 @@ public class TournamentControllerStub implements TournamentControllerIF {
 		return 0;
 	}
 
+	@Override
+	public Tournament getTournamentById(int tournamentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

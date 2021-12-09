@@ -18,4 +18,8 @@ public interface MatchRoundResultDAOIF {
 
 	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException;
 
+	List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException;
+
+	List<Team> getTeamsFromMatchRoundResult(int matchRoundResultId) throws SQLException;
+
 }

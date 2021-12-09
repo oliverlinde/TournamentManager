@@ -9,15 +9,20 @@ import java.util.List;
 
 public class Bracket {
 	
+	private int brakcetId;
+
+
 	private List<BracketRound> listOfBracketRounds;
 	
-	public Bracket(List<Team> teams) {
+	public Bracket() {
 		listOfBracketRounds = new ArrayList<BracketRound>();
 	}
 	
-	public List<Team> getTeams(BracketRound bracketRound) {
-		return bracketRound.getListOfTeams();
+	public Bracket(int bracketId, List<BracketRound> listOfBracketRounds) {
+		setBrakcetId(bracketId);
+		setListOfBracketRounds(listOfBracketRounds);
 	}
+	
 	
 	public void givePointsToTeam(Team team, int pointsToWin) {
 		
@@ -40,6 +45,22 @@ public class Bracket {
 	 */
 	public void addBracketRound(BracketRound bracketRound) {
 		listOfBracketRounds.add(bracketRound);
+	}
+	
+	public int getBrakcetId() {
+		return brakcetId;
+	}
+
+	public void setBrakcetId(int brakcetId) {
+		this.brakcetId = brakcetId;
+	}
+
+	public List<BracketRound> getListOfBracketRounds() {
+		return listOfBracketRounds;
+	}
+
+	public void setListOfBracketRounds(List<BracketRound> listOfBracketRounds) {
+		this.listOfBracketRounds = listOfBracketRounds;
 	}
 
 }

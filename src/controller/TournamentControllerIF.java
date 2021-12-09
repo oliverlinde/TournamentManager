@@ -35,4 +35,5 @@ public interface TournamentControllerIF {
 	void setMinNoOfTeams(int minNoOfTeams);
 	int getMinNoOfTeams();
 	int getNextTournamentId();
+	Tournament getTournamentById(int tournamentId);
 }

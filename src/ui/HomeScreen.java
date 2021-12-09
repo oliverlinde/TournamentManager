@@ -1,35 +1,32 @@
 package ui;
 
-import model.Team;
 import model.Tournament;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
 import controller.TeamController;
 import controller.TeamControllerIF;
 import controller.TournamentController;
 import controller.TournamentControllerIF;
-import dao.DAOFactory;
-import dao.DbConnection;
-import dao.TournamentDAOIF;
-
 import javax.swing.JLabel;
 import javax.swing.JList;
 
 import java.awt.Font;
-import java.sql.SQLException;
-import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HomeScreen extends JPanel {
 	private TeamControllerIF teamController;
 	private TournamentControllerIF tournamentController;
+	private JList<Tournament> listOfTeams;
+	private JScrollPane scrollPane;
+	private JButton showTournamentBtn;
+	private JPanel panel;
 
 	/**
 	 * 
@@ -42,30 +39,18 @@ public class HomeScreen extends JPanel {
 	public HomeScreen() {
 		teamController = new TeamController();
 		tournamentController = new TournamentController();
+		generateTournamentListView();
 		
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_4 = new JPanel();
 		panel.add(panel_4);
 		
-		DefaultListModel<Tournament> listModel = new DefaultListModel<>();
-		
-		
-		for (Tournament tournament : tournamentController.getAllTournaments()) {
-			listModel.addElement(tournament);
-		}
 		panel_4.setLayout(new BorderLayout(0, 0));
-		
-		
-		JList<Tournament> listOfTeams = new JList<>(listModel);
-		listOfTeams.setCellRenderer(new TournamentListCellRenderer());
-
-		JScrollPane scrollPane = new JScrollPane(listOfTeams);
-
 		panel_4.add(scrollPane);
 		
 		JPanel panel_5 = new JPanel();
@@ -87,9 +72,36 @@ public class HomeScreen extends JPanel {
 		JPanel panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		
-		JButton showTournamentBtn = new JButton("Vis turneringsforl\u00F8b");
-		panel_3.add(showTournamentBtn);
+		showTournamentBtn = new JButton("Vis turneringsforl\u00F8b");
 
+		panel_3.add(showTournamentBtn);
+		
+		createActions();
+
+	}
+	
+	private void generateTournamentListView() {
+		DefaultListModel<Tournament> listModel = new DefaultListModel<>();
+		
+		
+		for (Tournament tournament : tournamentController.getAllTournaments()) {
+			listModel.addElement(tournament);
+			
+		}
+		listOfTeams = new JList<>(listModel);
+		listOfTeams.setCellRenderer(new TournamentListCellRenderer());
+		scrollPane = new JScrollPane(listOfTeams);
+	}
+	
+	private void createActions() {
+		showTournamentBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel parentPanel = (JPanel) panel.getParent();
+				parentPanel.remove(panel);
+				parentPanel.add(UIFactory.createTournamentProgressionUI(listOfTeams.getSelectedValue()));
+				parentPanel.updateUI();
+			}
+		});
 	}
 
 }

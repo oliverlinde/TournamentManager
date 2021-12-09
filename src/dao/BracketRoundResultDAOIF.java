@@ -7,5 +7,6 @@ import model.BracketRoundResult;
 public interface BracketRoundResultDAOIF {
 
 	BracketRoundResult getBracketRoundResult(int bracketRoundId) throws SQLException;
+	
 
 }

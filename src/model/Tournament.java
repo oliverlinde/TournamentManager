@@ -20,6 +20,8 @@ public class Tournament {
 	private List<Team> listOfTeams;
 	private List<Bracket> brackets;
 	
+
+
 	public Tournament(int tournamentId) {
 		brackets = new ArrayList<Bracket>();
 		setTournamentId(tournamentId);
@@ -152,4 +154,9 @@ public class Tournament {
 	public List<Bracket> getBrackets(){
 		return brackets;
 	}
+	
+	public void setBrackets(List<Bracket> brackets) {
+		this.brackets = brackets;
+	}
+	
 }

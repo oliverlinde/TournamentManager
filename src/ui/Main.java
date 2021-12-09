@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
 
 import controller.PersonController;
 import controller.PersonControllerIF;
@@ -39,13 +40,15 @@ public class Main {
 	private JPanel updatedPanel;
 	private JButton loginBtn;
 	private JTextField idTextField;
+	private JMenuItem createTeamMenuItem;
+	private JMenuItem createPersonMenuItem;
 
 	private enum Frame {
 		loginFrame, mainFrame
 	};
 
 	private enum UIPanel {
-		mainPanel, createTournamentPanel, createTournamentRulePanel, teamsMenuPanel, personMenuPanel
+		mainPanel, createTournamentPanel, createTournamentRulePanel, teamsMenuPanel, createTeamMenuPanel, personMenuPanel, createPersonMenuPanel, tournamentProgressionPanel
 	};
 
 	/**
@@ -81,16 +84,10 @@ public class Main {
 
 		loginUI = new JFrame();
 		loginUI.setTitle("Turneringsmanager");
-		loginUI.setBounds(100, 100, 721, 425);
+		loginUI.setBounds(100, 100, 800, 500);
 		loginUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createLoginUIFrame();
 
-//		frmTurneringsmanager = new JFrame();
-//
-//		frmTurneringsmanager.setTitle("Turneringsmanager");
-//		frmTurneringsmanager.setBounds(100, 100, 721, 425);
-//		frmTurneringsmanager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		updateUIPanel(UIPanel.loginUI);
 
 	}
 
@@ -186,9 +183,17 @@ public class Main {
 
 		teamsMenuItem = new JMenuItem("Hold menu");
 		menuPnl.add(teamsMenuItem);
+		
+		createTeamMenuItem = new JMenuItem("Opret hold");
+
+		menuPnl.add(createTeamMenuItem);
 
 		personMenuItem = new JMenuItem("Person");
 		menuPnl.add(personMenuItem);
+		
+		createPersonMenuItem = new JMenuItem("Opret person");
+
+		menuPnl.add(createPersonMenuItem);
 
 		JPanel panel_2 = new JPanel();
 		menuPnl.add(panel_2);
@@ -203,13 +208,14 @@ public class Main {
 		mainPnl = new JPanel();
 		mainMenuUI.add(mainPnl, BorderLayout.CENTER);
 
-		frmTurneringsmanager.add(mainMenuUI);
+		frmTurneringsmanager.getContentPane().add(mainMenuUI);
 		createActions();
 		updateUIPanel(UIPanel.mainPanel);
 
 	}
 
 	private void updateUIPanel(UIPanel uiPanel) {
+		
 		if (uiPanel.equals(UIPanel.mainPanel)) {
 			if (updatedPanel == null) {
 				updatedPanel = UIFactory.createHomeScreenUI();
@@ -240,6 +246,16 @@ public class Main {
 			updatedPanel = UIFactory.createPersonMenuUI();
 			mainPnl.add(updatedPanel);
 			mainPnl.updateUI();
+		} else if (uiPanel.equals(UIPanel.createTeamMenuPanel)) {
+			mainPnl.remove(updatedPanel);
+			updatedPanel = UIFactory.createCreateTeamMenuUI();
+			mainPnl.add(updatedPanel);
+			mainPnl.updateUI();
+		} else if (uiPanel.equals(UIPanel.createPersonMenuPanel)) {
+			mainPnl.remove(updatedPanel);
+			updatedPanel = UIFactory.createCreatePersonMenuUI();
+			mainPnl.add(updatedPanel);
+			mainPnl.updateUI();
 		}
 	}
 
@@ -248,7 +264,7 @@ public class Main {
 		if (frame.equals(Frame.mainFrame)) {
 			frmTurneringsmanager = new JFrame();
 			frmTurneringsmanager.setTitle("Turneringsmanager");
-			frmTurneringsmanager.setBounds(100, 100, 721, 425);
+			frmTurneringsmanager.setBounds(100, 100, 800, 500);
 			frmTurneringsmanager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.frmTurneringsmanager.setVisible(true);
 			createMainMenuUIFrame();
@@ -286,6 +302,18 @@ public class Main {
 		personMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateUIPanel(UIPanel.personMenuPanel);
+			}
+		});
+		
+		createTeamMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateUIPanel(UIPanel.createTeamMenuPanel);
+			}
+		});
+		
+		createPersonMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateUIPanel(UIPanel.createPersonMenuPanel);
 			}
 		});
 
