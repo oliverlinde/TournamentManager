@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import model.Bracket;
 import model.BracketRound;
 import model.Team;
 
@@ -14,8 +15,6 @@ public interface BracketDAOIF {
 	
 	List<BracketRound> getBracketRounds();
 	
-	void createBracketRound(List<Team> listOfTeams) throws SQLServerException;
-
-	int getNextBracketId();
+	int createBracket(int tournamentId, Bracket bracket) throws SQLServerException;
 	
 }

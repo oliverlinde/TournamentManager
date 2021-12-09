@@ -110,8 +110,7 @@ public class CreateTeamUI extends JPanel {
 	
 	private void createActions() {
 		isAdminRdoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-ro				
+			public void actionPerformed(ActionEvent e) {				
 			}
 		});
 		

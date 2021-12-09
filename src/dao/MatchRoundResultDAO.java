@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.Match;
 import model.MatchRoundResult;
 import model.Team;
 
@@ -47,6 +48,31 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 * 
 	 * }
 	 */
+	
+	@Override
+	public int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException{
+		String sqlQuery = "INSERT INTO Match (matchRoundResultId, matchId, teamId, isWinner) WHERE matchId = ? VALUES ?, ?, ?, ? ";
+		
+		int matchRoundResultCreated = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			for (Team teams : match.getListOfTeams()) {
+				statement.setInt(1, matchRoundResult.getMatchRoundResultId());
+				statement.setInt(2, match.getMatchId());
+				statement.setInt(3, teams.getTeamId());
+				
+				matchRoundResultCreated += statement.executeUpdate();
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return matchRoundResultCreated;
+	}
 
 	@Override
 	public MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException {

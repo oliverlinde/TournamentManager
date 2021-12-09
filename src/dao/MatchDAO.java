@@ -68,6 +68,25 @@ public class MatchDAO implements MatchDAOIF{
 		return foundMatch;
 	}
 	
+	public int createMatch(int bracketRoundId, Match match) {
+		String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) WHERE bracketRoundId = ? VALUES ?, ? ";
+		
+		int matchCreated = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			statement.setInt(1, match.getMatchId());
+			statement.setInt(2, bracketRoundId);
+			
+			matchCreated = statement.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return matchCreated;
+	}
+	
 	public void createRoundResult() {
 		
 	}

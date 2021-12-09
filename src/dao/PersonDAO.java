@@ -51,7 +51,7 @@ public class PersonDAO implements PersonDAOIF {
 	}
 
 	public int createPerson(Person person) throws SQLException {
-		String sqlQuery = "INSERT INTO Person (personId, isAdmin, personName, email, birthdate, role "
+		String sqlQuery = "INSERT INTO Person (personId, isAdmin, personName, email, birthdate, role) "
 				+ "VALUES ?, ?, ?, ?, ?, ? ";
 
 		int rowsAffected = 0;
