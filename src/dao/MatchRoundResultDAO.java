@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import model.MatchRoundResult;
 import model.Team;
@@ -16,6 +18,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		this.dbConnection = dbConnection;
 	}
 
+	@Override
 	public void setWinner(int matchRoundResultId, Team team) throws SQLException {
 		String sqlQuery = "UPDATE MatchRoundResult " + "SET isWinner = (?) "
 				+ "WHERE matchRoundResult = ? AND teamId = ?";
@@ -45,7 +48,8 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 * }
 	 */
 
-	public MatchRoundResult getRoundResult(int matchRoundResultId) {
+	@Override
+	public MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException {
 		teamDAO = DAOFactory.createTeamDAO(dbConnection);
 		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner " + "WHERE matchRoundResultId = ?";
 
@@ -69,12 +73,36 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 
 			}
 			foundMatchRoundResult = new MatchRoundResult(rs.getInt(1), winner, loser, rs.getBoolean(3));
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return foundMatchRoundResult;
+
+	}
+
+	@Override
+	public List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException {
+
+		List<MatchRoundResult> listOfMatchRoundResults = new LinkedList<>();
+
+		String sqlQuery = "SELECT matchRoundResultId FROM MatchRoundResult WHERE matchId = ? ";
+
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+
+			statement.setInt(1, matchId);
+
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				listOfMatchRoundResults.add(getRoundResult(rs.getInt(1)));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return listOfMatchRoundResults;
 	}
 
 }

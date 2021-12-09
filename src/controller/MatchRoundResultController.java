@@ -1,6 +1,10 @@
 package controller;
 
 import dao.DbConnectionIF;
+
+import java.sql.SQLException;
+import java.util.List;
+
 import dao.DAOFactory;
 import dao.MatchRoundResultDAOIF;
 import model.MatchRoundResult;
@@ -33,7 +37,29 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 
 	@Override
 	public MatchRoundResult getRoundResult(int matchRoundResultId) {
-		return matchRoundResultDAO.getRoundResult(matchRoundResultId);
+		MatchRoundResult matchRoundResult = null;
+		
+		try {
+			matchRoundResult = matchRoundResultDAO.getRoundResult(matchRoundResultId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return matchRoundResult;
+	}
+	
+	
+	public List<MatchRoundResult> getAllRoundResults(int matchId) {
+		
+		List<MatchRoundResult> allRoundResults = null;
+		
+		try {
+			allRoundResults = matchRoundResultDAO.getTotalListOfMatchRoundResults(matchId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allRoundResults;
 	}
 	
 }
