@@ -1,6 +1,9 @@
 package controller;
 
 import dao.DbConnectionIF;
+
+import java.util.List;
+
 import dao.DAOFactory;
 import dao.MatchRoundResultDAOIF;
 import model.MatchRoundResult;
@@ -34,6 +37,11 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	@Override
 	public MatchRoundResult getRoundResult(int matchRoundResultId) {
 		return matchRoundResultDAO.getRoundResult(matchRoundResultId);
+	}
+	
+	
+	public List<MatchRoundResult> getAllRoundResults(int matchId) {
+		return matchRoundResultDAO.getTotalListOfMatchRoundResults(matchId);
 	}
 	
 }

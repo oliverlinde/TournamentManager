@@ -4,21 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import model.BracketRoundResult;
+import model.MatchRoundResult;
 import model.Team;
 
 public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 	private DbConnectionIF dbConnection;
+	private MatchRoundResultDAO matchRoundResultDAO;
 	
 	public BracketRoundResultDAO() {
 		
 	}
 	
 	public void addPointsToTeam(Team team, int points) {
-		
+	
 	}
 
 	public void setBracektRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {

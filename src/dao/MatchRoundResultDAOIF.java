@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import model.MatchRoundResult;
 import model.Team;
@@ -14,5 +15,7 @@ public interface MatchRoundResultDAOIF {
 	//void setDraw();
 	
 	MatchRoundResult getRoundResult(int matchRoundResultId);
+
+	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId);
 
 }
