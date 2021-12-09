@@ -18,5 +18,9 @@ public class BracketRoundResultController implements BracketRoundResultControlle
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void generateNextBracketRoundResult() {
+		
+	}
 
 }

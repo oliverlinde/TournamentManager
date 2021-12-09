@@ -18,6 +18,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		this.dbConnection = dbConnection;
 	}
 
+	@Override
 	public void setWinner(int matchRoundResultId, Team team) throws SQLException {
 		String sqlQuery = "UPDATE MatchRoundResult " + "SET isWinner = (?) "
 				+ "WHERE matchRoundResult = ? AND teamId = ?";
@@ -48,7 +49,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 */
 
 	@Override
-	public MatchRoundResult getRoundResult(int matchRoundResultId) {
+	public MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException {
 		teamDAO = DAOFactory.createTeamDAO(dbConnection);
 		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner " + "WHERE matchRoundResultId = ?";
 
@@ -81,7 +82,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	}
 
 	@Override
-	public List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) {
+	public List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException {
 
 		List<MatchRoundResult> listOfMatchRoundResults = new LinkedList<>();
 

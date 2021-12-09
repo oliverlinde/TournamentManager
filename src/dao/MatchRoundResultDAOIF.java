@@ -14,8 +14,8 @@ public interface MatchRoundResultDAOIF {
 	
 	//void setDraw();
 	
-	MatchRoundResult getRoundResult(int matchRoundResultId);
+	MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException;
 
-	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId);
+	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException;
 
 }
