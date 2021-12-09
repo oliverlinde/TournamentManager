@@ -1,5 +1,6 @@
 package test;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,12 @@ public class TournamentControllerStub implements TournamentControllerIF {
 
 	@Override
 	public Tournament createTournament() {
-		tournament = new Tournament();
+		try {
+			tournament = new Tournament(tournamentDAO.getNextTournamentId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setName("Test Tournament");
 		setGame("CS:GO");
 		setRegistrationDeadline(LocalDateTime.now());
@@ -173,6 +179,42 @@ public class TournamentControllerStub implements TournamentControllerIF {
 	
 	public void setBracket() {
 		bracketController.createBracket(getAllTeams());
+	}
+
+	@Override
+	public List<Tournament> getAllTournaments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TournamentRule> getAllTournamentRules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void changeFormat(Object object) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMinNoOfTeams(int minNoOfTeams) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getMinNoOfTeams() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNextTournamentId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -1,5 +1,7 @@
 package test;
 
+import java.util.List;
+
 import controller.TournamentRuleControllerIF;
 import dao.DAOFactory;
 import dao.DbConnectionIF;
@@ -78,6 +80,12 @@ public class TournamentRuleControllerStub implements TournamentRuleControllerIF 
 	
 	public TournamentRule getTournamentRule() {
 		return tournamentRule;
+	}
+
+	@Override
+	public List<TournamentRule> getAllTournamentRule() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
