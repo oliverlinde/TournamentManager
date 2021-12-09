@@ -11,11 +11,11 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 	MatchControllerIF matchController;
 	
 	@Override
-	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds) {
+	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds, int bracketRoundId) {
 		this.matchController = matchController;
 		for(int i = 1 ; i <= Math.floor((listOfTeams.size()/2)) ; i++){
 			ArrayList<Team> temp = subArray(listOfTeams, ((i*2)-2), (i*2)-1);
-			matchController.createMatch(temp, noOfRounds);
+			matchController.createMatch(temp, noOfRounds, bracketRoundId);
 		}
 	}
 
@@ -34,8 +34,8 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 	}
 
 	@Override
-	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController) {
-		bracketController.createBracket(listOfTeams);
+	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId) {
+		bracketController.createBracket(listOfTeams, tournamentId);
 	}
 
 }

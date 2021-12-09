@@ -20,7 +20,8 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 
 	@Override
 	public int createBracketRound(int bracketId, BracketRound bracketRound) throws SQLException{
-		String sqlQuery = "INSERT INTO BracketRound (bracketRoundId, bracketId) WHERE bracketId = ? VALUES ?, ? ";
+		String sqlQuery = "INSERT INTO BracketRound (bracketRoundId, bracketId)"
+				+ " VALUES (?, ?)";
 		
 		int bracketRoundCreated = 0;
 		
@@ -48,6 +49,28 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 	public BracketRound getBracketRound() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public int getNextBracketRoundId() throws SQLException {
+		String sqlQuery = "SELECT bracketRoundId FROM BracketRound "
+				+ "WHERE bracketRoundId = (SELECT MAX(bracketRoundId) FROM BracketRound)";
+		int nextBracketRoundId = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			nextBracketRoundId = rs.getInt(1);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return nextBracketRoundId + 1;
 	}
 
 	/*

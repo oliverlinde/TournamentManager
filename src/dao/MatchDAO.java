@@ -68,8 +68,10 @@ public class MatchDAO implements MatchDAOIF{
 		return foundMatch;
 	}
 	
+	@Override
 	public int createMatch(int bracketRoundId, Match match) {
-		String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) WHERE bracketRoundId = ? VALUES ?, ? ";
+		String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) "
+				+ "VALUES (?, ?)";
 		
 		int matchCreated = 0;
 		
@@ -101,6 +103,27 @@ public class MatchDAO implements MatchDAOIF{
 	public void setRoundResult(Team winningTeam) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int getNextMatchId() {
+		String sqlQuery = "SELECT matchId FROM Match "
+				+ "WHERE matchId = (SELECT MAX(matchId) FROM Match)";
+		int nextMatchId = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			nextMatchId = rs.getInt(1);
+			
+		} catch (Exception e) {
+		}
+		
+		return nextMatchId + 1;
 	}
 
 }

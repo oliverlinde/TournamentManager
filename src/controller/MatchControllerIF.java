@@ -11,7 +11,8 @@ public interface MatchControllerIF {
 	public void setDraw();
 	public Match getMatch(int matchId);
 	public void createRoundResult();
-	void createMatch(List<Team> listOfTeams, int noOfRounds);
+	void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId);
 	List<Match> getAllMatches();
+	int getMatchId();
 	
 }

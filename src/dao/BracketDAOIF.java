@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -15,6 +16,8 @@ public interface BracketDAOIF {
 	
 	List<BracketRound> getBracketRounds();
 	
-	int createBracket(int tournamentId, Bracket bracket) throws SQLServerException;
+	int createBracket(int tournamentId, Bracket bracket) throws SQLException;
+
+	int getNextBracketId() throws SQLException;
 	
 }

@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -37,8 +38,10 @@ public class BracketDAO implements BracketDAOIF {
 	// dbConnection.getConnection();
 	// }
 
-	public int createBracket(int tournamentId, Bracket bracket) {
-		String sqlQuery = "INSERT INTO Bracket (bracketId, tournamentId) WHERE tournamentId = ?  VALUES ?, ? ";
+	@Override
+	public int createBracket(int tournamentId, Bracket bracket) throws SQLException {
+		String sqlQuery = "INSERT INTO Bracket (bracketId, tournamentId) "
+				+ "VALUES (?, ?)";
 		
 		int bracketCreated = 0;
 		
@@ -52,12 +55,12 @@ public class BracketDAO implements BracketDAOIF {
 			bracketCreated = statement.executeUpdate();
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return bracketCreated;
 	}
 
-	public int getNextBracketId() {
+	@Override
+	public int getNextBracketId() throws SQLException {
 		String sqlQuery = "SELECT bracketId FROM Bracket "
 				+ "WHERE bracketId = (SELECT MAX(bracketId) FROM Bracket)";
 		int nextBracketId = 0;

@@ -29,4 +29,12 @@ public class DAOFactory {
 	public static TeamDAOIF createTeamDAO(DbConnectionIF dbConnection) {
 		return new TeamDAO(dbConnection);
 	}
+	
+	public static BracketRoundDAOIF createBracketRoundDAO(DbConnectionIF dbConnection) {
+		return new BracketRoundDAO(dbConnection);
+	}
+
+	public static MatchDAOIF createMatchDAO(DbConnectionIF dbConnection) {
+		return new MatchDAO(dbConnection);
+	}
 }

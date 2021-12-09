@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DAOFactory;
+import dao.DbConnection;
 import dao.MatchDAOIF;
 import model.Match;
 import model.Team;
@@ -22,10 +24,11 @@ public class MatchController implements MatchControllerIF {
 	public MatchController() {
 		matches = new ArrayList<Match>();
 		matchRoundResultController = new MatchRoundResultController();
+		matchDAO = DAOFactory.createMatchDAO(new DbConnection());
 	}
 
 	@Override
-	public void createMatch(List<Team> listOfTeams, int noOfRounds) {
+	public void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId) {
 		this.match = new Match(listOfTeams);
 		int i = 0;
 		while (i < noOfRounds) {
@@ -33,6 +36,7 @@ public class MatchController implements MatchControllerIF {
 			i++;
 		}
 		matches.add(match);
+		saveMatchToDatabase(getMatchId(), match);
 	}
 
 	@Override
@@ -55,10 +59,21 @@ public class MatchController implements MatchControllerIF {
 		// TODO Auto-generated method stub
 
 	}
+	
+	private void saveMatchToDatabase(int bracketRoundId, Match match) {
+		matchDAO.createMatch(bracketRoundId, match);
+	}
 
 	@Override
 	public List<Match> getAllMatches() {
 		return matches;
+	}
+	
+	@Override
+	public int getMatchId() {
+		int matchId = 0;
+		matchId = matchDAO.getNextMatchId();
+		return matchId;
 	}
 
 }

@@ -13,4 +13,5 @@ public interface BracketRoundControllerIF {
 	public BracketRoundResult getBracketRoundResult();
 	public BracketRound createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds);
 	public List<Match> getAllMatches();
+	public void createBracketRound(int bracketId, BracketRound bracketRound);
 }

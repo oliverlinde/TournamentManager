@@ -237,7 +237,7 @@ public class TournamentController implements TournamentControllerIF {
 	
 	@Override
 	public void initializeTournament() {
-		generateBracketStrategy.initializeTournament(getAllTeams(), bracketController);
+		generateBracketStrategy.initializeTournament(tournament.getAllTeams(), bracketController, tournament.getId());
 	}
 
 }

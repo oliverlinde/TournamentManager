@@ -12,4 +12,8 @@ public interface MatchDAOIF {
 	
 	void createRoundResult();
 
+	int getNextMatchId();
+
+	int createMatch(int bracketRoundId, Match match);
+
 }

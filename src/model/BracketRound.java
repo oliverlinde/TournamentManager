@@ -4,6 +4,7 @@
 
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,11 +17,9 @@ public class BracketRound {
 	private List<Team> listOfTeams;
 	private MatchRoundResultDAO matchRoundResultDAO;
 	
-	public BracketRound() {
-		listOfMatches = new LinkedList<>();
-		//bracketRoundResult = new BracketRoundResult();
-		listOfTeams = new LinkedList<>();
-		//matchRoundResultDAO = new MatchRoundResultDAO();
+	public BracketRound(ArrayList<Team> listOfTeams, int bracketRoundID) {
+		this.listOfTeams = listOfTeams;
+		this.bracketRoundID = bracketRoundID;
 	}
 	
 	public void resetBracketRound() {
@@ -56,7 +55,7 @@ public class BracketRound {
 	}
 
 	public int getBracketRoundID() {
-		return 1;
+		return bracketRoundID;
 	}
 
 	public void setBracketRoundID(int bracketRoundID) {

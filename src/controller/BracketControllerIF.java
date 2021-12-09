@@ -16,6 +16,6 @@ public interface BracketControllerIF {
 	public void createBracketRound(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds);
 	public List<Match> getAllMatches();
 	Bracket getBracket();
-	void createBracket(List<Team> listOfTeams);
+	void createBracket(List<Team> listOfTeams, int tournamentId);
 	int getNextBracketId();
 }

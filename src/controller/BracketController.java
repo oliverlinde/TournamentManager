@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -35,9 +36,15 @@ public class BracketController implements BracketControllerIF {
 	}
 	
 	@Override
-	public void createBracket(List<Team> listOfTeams) {
+	public void createBracket(List<Team> listOfTeams, int tournamentId) {
 		this.bracket = new Bracket(listOfTeams);
 		bracket.setBracketId(getNextBracketId());
+		try {
+			saveToDatabase(tournamentId);
+		} catch (SQLServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -63,15 +70,26 @@ public class BracketController implements BracketControllerIF {
 	
 	public void addBracketRound(BracketRound bracketRound) {
 		bracket.addBracketRound(bracketRound);
+		bracketRoundController.createBracketRound(bracket.getBracketId(), bracketRound);
 	}
 	
 	@Override
 	public int getNextBracketId() {
-		return bracketDAO.getNextBracketId();
+		int nextId = 0;
+		try {
+			nextId = bracketDAO.getNextBracketId();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nextId;
 	}
 		
-	public void saveToDatabase() {
-		bracketDAO.cre
+	private void saveToDatabase(int tournamentId) throws SQLServerException {
+		try {
+			bracketDAO.createBracket(tournamentId, bracket);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
