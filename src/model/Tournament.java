@@ -20,9 +20,9 @@ public class Tournament {
 	private List<Team> listOfTeams;
 	private List<Bracket> brackets;
 	
-	public Tournament() {
+	public Tournament(int tournamentId) {
 		brackets = new ArrayList<Bracket>();
-		tournamentId = 1;
+		setTournamentId(tournamentId);
 	}
 	
 	public Tournament(int tournamentId, TournamentRule tournamentRule, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
@@ -44,6 +44,14 @@ public class Tournament {
 		setRegistrationDeadline(registrationDeadline);
 		setMaxNoOfTeams(maxNoOfTeams);
 		setMinNoOfTeams(minNoOfTeams);
+	}
+	
+	public int getTournamentId() {
+		return tournamentId;
+	}
+
+	public void setTournamentId(int tournamentId) {
+		this.tournamentId = tournamentId;
 	}
 
 	public String getName() {

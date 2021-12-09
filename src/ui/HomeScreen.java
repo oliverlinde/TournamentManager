@@ -5,6 +5,7 @@ import model.Tournament;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -24,6 +25,7 @@ import javax.swing.JList;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import javax.swing.UIManager;
 
 public class HomeScreen extends JPanel {
 	private TeamControllerIF teamController;
@@ -56,12 +58,14 @@ public class HomeScreen extends JPanel {
 		for (Tournament tournament : tournamentController.getAllTournaments()) {
 			listModel.addElement(tournament);
 		}
+		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		
 		JList<Tournament> listOfTeams = new JList<>(listModel);
 		listOfTeams.setCellRenderer(new TournamentListCellRenderer());
 
 		JScrollPane scrollPane = new JScrollPane(listOfTeams);
+
 		panel_4.add(scrollPane);
 		
 		JPanel panel_5 = new JPanel();

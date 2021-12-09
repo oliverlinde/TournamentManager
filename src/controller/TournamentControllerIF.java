@@ -32,4 +32,7 @@ public interface TournamentControllerIF {
 	public List<Tournament> getAllTournaments();
 	List<TournamentRule> getAllTournamentRules();
 	void changeFormat(Object object);
+	void setMinNoOfTeams(int minNoOfTeams);
+	int getMinNoOfTeams();
+	int getNextTournamentId();
 }

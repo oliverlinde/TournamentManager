@@ -154,4 +154,26 @@ public class TournamentDAO implements TournamentDAOIF {
 		return listOfTournaments;
 	}
 
+	@Override
+	public int getNextTournamentId() throws SQLException {
+		String sqlQuery = "SELECT tournamentId FROM Tournament "
+				+ "WHERE tournamentId = (SELECT MAX(tournamentId) FROM Tournament)";
+		int nextTournamentId = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			nextTournamentId = rs.getInt(1);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return nextTournamentId + 1;
+	}
+
 }

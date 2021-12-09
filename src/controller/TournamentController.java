@@ -37,7 +37,7 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public Tournament createTournament() {
-		tournament = new Tournament();
+		tournament = new Tournament(getNextTournamentId());
 		return tournament;
 	}
 
@@ -90,11 +90,32 @@ public class TournamentController implements TournamentControllerIF {
 	public int getMaxNoOfTeams() {
 		return tournament.getMaxNoOfTeams();
 	}
+	
+	@Override
+	public void setMinNoOfTeams(int minNoOfTeams) {
+		tournament.setMinNoOfTeams(minNoOfTeams);
+	}
+
+	@Override
+	public int getMinNoOfTeams() {
+		return tournament.getMinNoOfTeams();
+	}
 
 	// Save the tournament object to database
 	@Override
 	public boolean confirmTournament() {
-		return false;
+		boolean passed = false;
+		try {
+			int rowsAffected = tournamentDAO.createTournament(tournament);
+			if (rowsAffected == 1) {
+				passed = true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return passed;
 	}
 
 	@Override
@@ -183,6 +204,18 @@ public class TournamentController implements TournamentControllerIF {
 	public List<TournamentRule> getAllTournamentRules() {
 		tournamentRuleController = new TournamentRuleController();
 		return tournamentRuleController.getAllTournamentRule();
+	}
+
+	@Override
+	public int getNextTournamentId() {
+		int nextTournamentId = 0;
+		try {
+			nextTournamentId = tournamentDAO.getNextTournamentId();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nextTournamentId;
 	}
 
 }
