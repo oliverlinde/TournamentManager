@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import model.BracketRound;
@@ -17,10 +18,24 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 		this.dbConnection = dbConnection;
 	}
 
-	public Match createMatches(List<Team> listOfTeams, BracketRound bracketRoundId) {
-		String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) VALUES ?, ? ";
+	@Override
+	public int createBracketRound(int bracketId, BracketRound bracketRound) throws SQLException{
+		String sqlQuery = "INSERT INTO BracketRound (bracketRoundId, bracketId) WHERE bracketId = ? VALUES ?, ? ";
 		
+		int bracketRoundCreated = 0;
 		
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			statement.setInt(1, bracketRound.getBracketRoundID());
+			statement.setInt(2, bracketId);
+			
+			bracketRoundCreated = statement.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return bracketRoundCreated;
 	}
 
 	@Override
