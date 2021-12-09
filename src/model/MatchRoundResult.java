@@ -12,11 +12,8 @@ public class MatchRoundResult {
 	private int matchRoundResultId;
 	private int teamId;
 	private int bracketId;
-	private static int nextId = 0;
 	
 	public MatchRoundResult() {
-		nextId++;
-		setMatchRoundResultId(nextId);
 	}
 	
 	public MatchRoundResult(int matchRoundResultId, Team winner, Team loser, boolean draw) {

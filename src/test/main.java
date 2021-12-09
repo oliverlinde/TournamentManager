@@ -1,21 +1,36 @@
 package test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.TournamentController;
 import controller.TournamentControllerIF;
+import dao.DAOFactory;
+import dao.DbConnection;
+import dao.DbConnectionIF;
+import dao.TournamentDAOIF;
 import model.Bracket;
 import model.BracketRound;
+import model.Format;
 import model.Match;
 import model.MatchRoundResult;
 import model.Team;
+import model.Tournament;
 
 public class main {
-	static TournamentControllerStub tournamentController;
+	static TournamentControllerIF tournamentController;
+	static TournamentDAOIF tournamentDAO;
+	static DbConnectionIF dbConnection;
 	
-	public static void main(String[] args) {
-		tournamentController = new TournamentControllerStub();
-		tournamentController.createTournament();
+	public static void main(String[] args) throws SQLException {
+		
+		tournamentController = new TournamentController();
+		dbConnection = new DbConnection();
+		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
+		
+		Tournament tournament = tournamentDAO.getTournament(2);
+		tournamentController.setTournament(tournament);
 		
 		Team team1 = new Team(1, "1");
 		Team team2 = new Team(2, "2");
@@ -28,10 +43,10 @@ public class main {
 		tournamentController.addTeamToTournament(team2);
 		tournamentController.addTeamToTournament(team3);
 		tournamentController.addTeamToTournament(team4);
-		tournamentController.addTeamToTournament(team6);
-		tournamentController.addTeamToTournament(team5);
+
 		
-		tournamentController.generateNextBracket(3);
+		tournamentController.initializeTournament();
+		tournamentController.generateNextBracketRound(3);
 		
 		Bracket bracket = tournamentController.getBracket();
 		

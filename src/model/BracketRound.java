@@ -21,7 +21,11 @@ public class BracketRound {
 		//bracketRoundResult = new BracketRoundResult();
 		listOfTeams = new LinkedList<>();
 		//matchRoundResultDAO = new MatchRoundResultDAO();
-		setBracketRoundID(1);
+	}
+	
+	public void resetBracketRound() {
+		this.listOfMatches = null;
+		this.listOfTeams = null;
 	}
 	
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
@@ -52,7 +56,7 @@ public class BracketRound {
 	}
 
 	public int getBracketRoundID() {
-		return bracketRoundID;
+		return 1;
 	}
 
 	public void setBracketRoundID(int bracketRoundID) {

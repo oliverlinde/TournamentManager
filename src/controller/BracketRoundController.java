@@ -14,7 +14,7 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	private BracketRoundResultControllerIF bracketRoundResultController;
 	private BracketRoundDAOIF bracketRoundDAO;
 	private BracketRound bracketRound;
-	
+
 	public BracketRoundController() {
 		this.matchController = new MatchController();
 	}
@@ -22,7 +22,7 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	@Override
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -30,14 +30,16 @@ public class BracketRoundController implements BracketRoundControllerIF {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
-	public List<Match> getAllMatches(){
+	public List<Match> getAllMatches() {
 		return matchController.getAllMatches();
 	}
 
 	@Override
-	public BracketRound createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
+	public BracketRound createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy,
+			int noOfRounds) {
+	
 		bracketRound = new BracketRound();
 		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) listOfTeams, matchController, noOfRounds);
 		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());

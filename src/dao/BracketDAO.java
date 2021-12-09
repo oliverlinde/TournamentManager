@@ -1,5 +1,8 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -32,4 +35,25 @@ public class BracketDAO implements BracketDAOIF {
 		dbConnection.getConnection();
 	}
 
+	public int getNextBracketId() {
+		String sqlQuery = "SELECT bracketId FROM Bracket "
+				+ "WHERE bracketId = (SELECT MAX(bracketId) FROM Bracket)";
+		int nextBracketId = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			nextBracketId = rs.getInt(1);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return nextBracketId + 1;
+	}
+	
 }

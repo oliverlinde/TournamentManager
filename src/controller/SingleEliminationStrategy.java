@@ -33,4 +33,9 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 		return toReturn;
 	}
 
+	@Override
+	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController) {
+		bracketController.createBracket(listOfTeams);
+	}
+
 }

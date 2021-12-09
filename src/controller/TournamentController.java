@@ -15,6 +15,7 @@ import dao.DbConnection;
 import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
 import dao.TournamentRuleDAOIF;
+import model.Bracket;
 import model.Format;
 import model.Team;
 import model.Tournament;
@@ -31,8 +32,14 @@ public class TournamentController implements TournamentControllerIF {
 
 	public TournamentController() {
 		tournamentDAO = DAOFactory.createTournamentDAO(new DbConnection());
-		// bracketController = new BracketController(dbConnection);
-		// tournamentRuleController = new TournamentRuleController(dbConnection);
+		bracketController = new BracketController(new DbConnection());
+		//tournamentRuleController = new TournamentRuleController(dbConnection);
+	}
+	
+	@Override
+	public void setTournament(Tournament tournament) {
+		this.tournament = tournament;
+		setTournamentRule(getTournamentRule());
 	}
 
 	@Override
@@ -174,13 +181,18 @@ public class TournamentController implements TournamentControllerIF {
 	}
 
 	@Override
-	public void generateNextBracket(int noOfRounds) {
+	public void generateNextBracketRound(int noOfRounds) {
 		bracketController.createBracketRound(tournament.getAllTeams(), generateBracketStrategy, noOfRounds);
 	}
 
 	@Override
 	public void addTeamToTournament(Team team) {
 		tournament.addTeam(team);
+	}
+	
+	@Override
+	public void removeTeamFromTournament(Team team) {
+		tournament.removeTeam(team);
 	}
 
 	@Override
@@ -216,6 +228,16 @@ public class TournamentController implements TournamentControllerIF {
 			e.printStackTrace();
 		}
 		return nextTournamentId;
+	}
+
+	@Override
+	public Bracket getBracket() {
+		return bracketController.getBracket();
+	}
+	
+	@Override
+	public void initializeTournament() {
+		generateBracketStrategy.initializeTournament(getAllTeams(), bracketController);
 	}
 
 }

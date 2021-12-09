@@ -3,6 +3,7 @@ package controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import model.Bracket;
 import model.Format;
 import model.Team;
 import model.Tournament;
@@ -26,7 +27,7 @@ public interface TournamentControllerIF {
 	public TournamentRule getTournamentRule();
 	public void setTournamentRule(TournamentRule tournamentRule);
 	public int calculatePoints(TournamentRule tournamentRule);
-	public void generateNextBracket(int noOfRounds);
+	public void generateNextBracketRound(int noOfRounds);
 	public void addTeamToTournament(Team team);
 	public List<Team> getAllTeams();
 	public List<Tournament> getAllTournaments();
@@ -35,4 +36,8 @@ public interface TournamentControllerIF {
 	void setMinNoOfTeams(int minNoOfTeams);
 	int getMinNoOfTeams();
 	int getNextTournamentId();
+	public Bracket getBracket();
+	void setTournament(Tournament tournament);
+	void initializeTournament();
+	void removeTeamFromTournament(Team team);
 }

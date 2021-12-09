@@ -17,4 +17,5 @@ public interface BracketControllerIF {
 	public List<Match> getAllMatches();
 	Bracket getBracket();
 	void createBracket(List<Team> listOfTeams);
+	int getNextBracketId();
 }

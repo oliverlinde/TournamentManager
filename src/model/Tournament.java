@@ -152,4 +152,8 @@ public class Tournament {
 	public List<Bracket> getBrackets(){
 		return brackets;
 	}
+
+	public void removeTeam(Team team) {
+		listOfTeams.remove(team);
+	}
 }

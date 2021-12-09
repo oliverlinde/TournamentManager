@@ -15,5 +15,7 @@ public interface BracketDAOIF {
 	List<BracketRound> getBracketRounds();
 	
 	void createBracketRound(List<Team> listOfTeams) throws SQLServerException;
+
+	int getNextBracketId();
 	
 }

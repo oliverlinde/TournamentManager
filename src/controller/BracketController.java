@@ -37,6 +37,7 @@ public class BracketController implements BracketControllerIF {
 	@Override
 	public void createBracket(List<Team> listOfTeams) {
 		this.bracket = new Bracket(listOfTeams);
+		bracket.setBracketId(getNextBracketId());
 	}
 
 	@Override
@@ -46,7 +47,8 @@ public class BracketController implements BracketControllerIF {
 
 	@Override
 	public void createBracketRound(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		bracket.addBracketRound(bracketRoundController.createMatches(listOfTeams, generateBracketStrategy, noOfRounds));
+		BracketRound bracketRound = bracketRoundController.createMatches(listOfTeams, generateBracketStrategy, noOfRounds);
+		addBracketRound(bracketRound);
 	}
 	
 	@Override
@@ -58,12 +60,18 @@ public class BracketController implements BracketControllerIF {
 	public Bracket getBracket() {
 		return this.bracket;
 	}
+	
+	public void addBracketRound(BracketRound bracketRound) {
+		bracket.addBracketRound(bracketRound);
+	}
+	
+	@Override
+	public int getNextBracketId() {
+		return bracketDAO.getNextBracketId();
+	}
 		
-//		try {
-//			bracketDAO.createBracketRound(bracket);
-//		} catch (SQLServerException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	public void saveToDatabase() {
+		bracketDAO.cre
+	}
 
 }

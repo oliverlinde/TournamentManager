@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Bracket {
 	
+	private int bracketId;
 	private List<BracketRound> listOfBracketRounds;
 	
 	public Bracket(List<Team> teams) {
@@ -40,6 +41,14 @@ public class Bracket {
 	 */
 	public void addBracketRound(BracketRound bracketRound) {
 		listOfBracketRounds.add(bracketRound);
+	}
+
+	public int getBracketId() {
+		return bracketId;
+	}
+
+	public void setBracketId(int bracketId) {
+		this.bracketId = bracketId;
 	}
 
 }
