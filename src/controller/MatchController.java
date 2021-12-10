@@ -84,10 +84,15 @@ public class MatchController implements MatchControllerIF {
 
 	@Override
 	public void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId) {
+<<<<<<< Updated upstream
 		this.match = new Match(listOfTeams, getMatchId());
 		match.setMatchRoundResults(matchRoundResultController.addRoundResult(noOfRounds));
 		matches.add(match);
 		saveMatchToDatabase(bracketRoundId, match);
+=======
+		// TODO Auto-generated method stub
+		
+>>>>>>> Stashed changes
 	}
 
 	@Override
