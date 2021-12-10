@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.w3c.dom.ls.LSInput;
-
+import dao.DbConnectionIF;
+import dao.DAOFactory;
 import dao.MatchRoundResultDAOIF;
 import model.MatchRoundResult;
 import model.Team;
@@ -119,6 +119,18 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	@Override
 	public void createMatchRoundResultList() {
 		matchRoundResults = new ArrayList<MatchRoundResult>();
+	}
+
+	@Override
+	public MatchRoundResult getRoundResult(int matchRoundResultId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MatchRoundResult getMatchRoundResult() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

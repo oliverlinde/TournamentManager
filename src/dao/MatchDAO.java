@@ -34,7 +34,6 @@ public class MatchDAO implements MatchDAOIF {
 
 	}
 
-
 	@Override
 	public List<Match> getMatchesFromBracketRound(int bracketRoundId) throws SQLException {
 		List<Match> listOfMatches = new ArrayList<>();
@@ -80,24 +79,10 @@ public class MatchDAO implements MatchDAOIF {
 
 			ResultSet rs = statement.executeQuery();
 
-			List<MatchRoundResult> matchRoundResults = new LinkedList<>();
-			List<Team> listOfTeams = new LinkedList<>();
-
-			while (rs.next()) {
-				matchRoundResults.add(matchRoundResultDAO.getRoundResult(rs.getInt(2)));
-				Team team = new Team(rs.getInt(3), rs.getString(4));
-				if (listOfTeams.isEmpty() || listOfTeams.contains(team)) {
-					listOfTeams.add(team);
-				}
-
-			}
-			foundMatch = new Match(matchRoundResults, listOfTeams);
-
 			rs.next();
 			matchRoundResults = matchRoundResultDAO.getMatchRoundResultsFromMatch(matchId);
 
 			listOfTeams = teamDAO.getTeamsFromMatch(matchId);
-			
 
 			match = new Match(matchId, matchRoundResults, listOfTeams);
 		} catch (Exception e) {
@@ -130,14 +115,14 @@ public class MatchDAO implements MatchDAOIF {
 					for (int idx = 0; idx < match.getRoundResults().size(); idx++) {
 						String insertMatchRoundResultSQL = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) "
 								+ "VALUES (?, ?, ?)";
-				
+
 						PreparedStatement insertMatchRoundResult = connection
 								.prepareStatement(insertMatchRoundResultSQL);
-						
+
 						insertMatchRoundResult.setInt(1, match.getRoundResults().get(idx).getMatchRoundResultId());
 						insertMatchRoundResult.setInt(2, match.getMatchId());
 						insertMatchRoundResult.setInt(3, t.getTeamId());
-						
+
 						insertMatchRoundResult.execute();
 					}
 				}

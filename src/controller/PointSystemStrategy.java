@@ -15,12 +15,14 @@ public class PointSystemStrategy implements GenerateBracketStrategyIF {
 
 
 	@Override
-	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds) {
-		// TODO Auto-generated method stub
-		
+	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId) {
+
 	}
 
 	@Override
-	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId) {
-
+	public void proceedToNextRound(ArrayList<Team> linkedList, MatchControllerIF matchController, int noOfRounds,
+			int bracketRoundId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

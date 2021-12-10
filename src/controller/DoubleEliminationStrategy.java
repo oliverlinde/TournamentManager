@@ -14,15 +14,18 @@ public class DoubleEliminationStrategy implements GenerateBracketStrategyIF {
 		return 0;
 	}
 
-	@Override
-	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId) {
 
 
 
+}
+
+	@Override
+	public void proceedToNextRound(ArrayList<Team> linkedList, MatchControllerIF matchController, int noOfRounds,
+			int bracketRoundId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

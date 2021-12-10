@@ -30,4 +30,6 @@ public interface MatchRoundResultDAOIF {
 
 	List<Team> getTeamsFromMatch(int matchId) throws SQLException;
 
+	//int createMatchRoundResult(Match match) throws SQLException;
+
 }

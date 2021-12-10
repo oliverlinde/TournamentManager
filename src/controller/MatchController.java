@@ -82,4 +82,24 @@ public class MatchController implements MatchControllerIF {
 		return nextMatchId;
 	}
 
+	@Override
+	public void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId) {
+		this.match = new Match(listOfTeams, getMatchId());
+		match.setMatchRoundResults(matchRoundResultController.addRoundResult(noOfRounds));
+		matches.add(match);
+		saveMatchToDatabase(bracketRoundId, match);
+	}
+
+	@Override
+	public List<Match> getAllMatches() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void createMatch(List<Team> listOfTeams, int noOfRounds) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

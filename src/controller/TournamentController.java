@@ -7,6 +7,7 @@ import java.util.List;
 
 import dao.DAOFactory;
 import dao.DbConnection;
+import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
 
 import dao.TournamentRuleDAOIF;
@@ -188,11 +189,7 @@ public class TournamentController implements TournamentControllerIF {
 	public void addTeamToTournament(Team team) {
 		tournament.addTeam(team);
 	}
-	
-	@Override
-	public void removeTeamFromTournament(Team team) {
-		tournament.removeTeam(team);
-	}
+
 
 	@Override
 	public List<Team> getAllTeams() {
@@ -249,6 +246,12 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public void initializeTournament() {
 		generateBracketStrategy.initializeTournament(tournament.getAllTeams(), bracketController, tournament.getId());
+	}
+
+	@Override
+	public void removeTeamFromTournament(Team team) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -53,25 +53,25 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 */
 	
 
-	@Override
-	public int createMatchRoundResult(Match match) throws SQLException{
-		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId) VALUES (?, ?) ";
-		
-		int matchRoundResultCreated = 0;
-		
-		try {
-			Connection connection = dbConnection.getConnection();
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-			
-			statement.setInt(1, matchRoundResult.getMatchRoundResultId());
-			statement.setInt(2, matchId);
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return matchRoundResultCreated;
-	}
+//	@Override
+//	public int createMatchRoundResult(Match match) throws SQLException{
+//		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId) VALUES (?, ?) ";
+//		
+//		int matchRoundResultCreated = 0;
+//		
+//		try {
+//			Connection connection = dbConnection.getConnection();
+//			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+//			
+//			statement.setInt(1, matchRoundResult.getMatchRoundResultId());
+//			statement.setInt(2, matchId);
+//			
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return matchRoundResultCreated;
+//	}
 
 	public Set<Integer> getMatchRoundResultIds(int matchId) throws SQLException{
 		Set<Integer> listOfMatchRoundResultIds = new HashSet<>();
@@ -231,6 +231,12 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	public List<Team> getTeamsFromMatchRoundResult(int matchRoundResultId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

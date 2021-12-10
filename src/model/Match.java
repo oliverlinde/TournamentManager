@@ -12,19 +12,18 @@ import java.util.List;
 
 public class Match {
 	private int matchId;
-	private List<MatchRoundResult> listOfMatchRoundounds;
+	private List<MatchRoundResult> listOfMatchRounds;
 	private List<Team> listOfTeams;
 	
 	public Match(List<Team> listOfTeams, int matchId) {
 		this.listOfTeams = listOfTeams;
 		setMatchId(matchId);
-		this.rounds = new ArrayList<MatchRoundResult>();
-		this.listOfMatchRoundounds = new ArrayList<MatchRoundResult>();
+		this.listOfMatchRounds = new ArrayList<MatchRoundResult>();
 	}
 
-	public Match(int matchId, List<MatchRoundResult> listOfMatchRoundounds, List<Team> listOfTeams) {
+	public Match(int matchId, List<MatchRoundResult> listOfMatchRounds, List<Team> listOfTeams) {
 		setMatchId(matchId);
-		setListOfMatchRoundounds(listOfMatchRoundounds);
+		setListOfMatchRounds(listOfMatchRounds);
 		setListOfTeams(listOfTeams);	
 	}
 	
@@ -32,12 +31,12 @@ public class Match {
 		
 	}
 	
-	public List<MatchRoundResult> getListOfMatchRoundounds() {
-		return listOfMatchRoundounds;
+	public List<MatchRoundResult> getListOfMatchRounds() {
+		return listOfMatchRounds;
 	}
 	
-	public void setListOfMatchRoundounds(List<MatchRoundResult> listOfMatchRoundounds) {
-		this.listOfMatchRoundounds = listOfMatchRoundounds;
+	public void setListOfMatchRounds(List<MatchRoundResult> listOfMatchRounds) {
+		this.listOfMatchRounds = listOfMatchRounds;
 	}
 	
 	public void setDraw() {
@@ -60,7 +59,7 @@ public class Match {
 		LinkedList<Team> listOfTeamsToSortableList = (LinkedList<Team>) listOfTeams;
 		List<Team> sortedByWinnerList = new LinkedList<>();
 
-		for (MatchRoundResult matchResult : listOfMatchRoundounds) {
+		for (MatchRoundResult matchResult : listOfMatchRounds) {
 			if (matchResult.getWinner().getTeamId() == (listOfTeamsToSortableList.get(0).getTeamId())) {
 				team1Wins++;
 			} else {
@@ -84,10 +83,11 @@ public class Match {
 	
 
 	public void addRoundResult(MatchRoundResult matchRoundResult) {
-		rounds.add(matchRoundResult);
+		listOfMatchRounds.add(matchRoundResult);
+	}
 
 	public void createRoundResult(MatchRoundResult matchRoundResult) {
-		listOfMatchRoundounds.add(matchRoundResult);
+		listOfMatchRounds.add(matchRoundResult);
 
 	}
 
@@ -100,11 +100,11 @@ public class Match {
 	}
 	
 	public void setMatchRoundResults(List<MatchRoundResult> matchRoundResults) {
-		this.rounds = matchRoundResults;
+		this.listOfMatchRounds = matchRoundResults;
 	}
 	
 	public List<MatchRoundResult> getRoundResults(){
-		return listOfMatchRoundounds;
+		return listOfMatchRounds;
 	}
 
 	public int getMatchId() {

@@ -45,7 +45,7 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 
 	@Override
 	public List<BracketRound> getBracketRoundsFromBracket(int bracketId) throws SQLException {
-		MatchDAOIF matchDAO = DAOFactory.createMatchDAO();
+		MatchDAOIF matchDAO = DAOFactory.createMatchDAO(dbConnection);
 		List<BracketRound> listOfBracketRounds = new ArrayList<>();
 		String sqlQuery = "SELECT bracketRoundId FROM BracketRound WHERE bracketId = ? ";
 		

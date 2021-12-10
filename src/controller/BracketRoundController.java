@@ -32,11 +32,6 @@ public class BracketRoundController implements BracketRoundControllerIF {
 
 	}
 	
-	@Override
-	public BracketRound createBracketRound(List<Team> listOfTeams) {
-		bracketRound = new BracketRound((List<Team>) listOfTeams, getBracketRoundId());
-		return bracketRound;
-	}
 
 	@Override
 	public BracketRoundResult getBracketRoundResult() {
@@ -74,6 +69,12 @@ public class BracketRoundController implements BracketRoundControllerIF {
 		}
 		
 
+	}
+
+	@Override
+	public BracketRound createBracketRound(List<Team> listOfTeams) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -45,14 +45,6 @@ public class Bracket {
 	public void addBracketRound(BracketRound bracketRound) {
 		listOfBracketRounds.add(bracketRound);
 	}
-	
-	public int getBracketId() {
-		return brakcetId;
-	}
-
-	public void setBracketId(int brakcetId) {
-		this.brakcetId = brakcetId;
-	}
 
 	public List<BracketRound> getListOfBracketRounds() {
 		return listOfBracketRounds;

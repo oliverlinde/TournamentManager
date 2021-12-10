@@ -1,13 +1,9 @@
 package controller;
 
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.LinkedList;
-=======
->>>>>>> origin/GUI_Latest
 import java.util.List;
-
 import dao.BracketDAOIF;
 import dao.DbConnectionIF;
 import dao.DAOFactory;
@@ -38,7 +34,6 @@ public class BracketController implements BracketControllerIF {
 	}
 	
 	@Override
-<<<<<<< HEAD
 	public void createBracket(List<Team> listOfTeams, int tournamentId) {
 		this.bracket = new Bracket(listOfTeams);
 		bracket.setBracketId(getNextBracketId());
@@ -48,10 +43,10 @@ public class BracketController implements BracketControllerIF {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-=======
+
 	public void createBracket(List<Team> listOfTeams) {
 		//this.bracket = new Bracket(listOfTeams);
->>>>>>> origin/GUI_Latest
+
 	}
 
 	@Override
