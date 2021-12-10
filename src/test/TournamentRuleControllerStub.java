@@ -3,7 +3,6 @@ package test;
 import java.util.List;
 
 import controller.TournamentRuleControllerIF;
-import dao.DAOFactory;
 import dao.DbConnectionIF;
 import dao.TournamentRuleDAOIF;
 import model.Format;

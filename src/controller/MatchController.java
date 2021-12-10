@@ -30,14 +30,6 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId) {
-		this.match = new Match(listOfTeams, getMatchId());
-		match.setMatchRoundResults(matchRoundResultController.addRoundResult(noOfRounds));
-		matches.add(match);
-		saveMatchToDatabase(bracketRoundId, match);
-	}
-
-	@Override
 	public void setRoundResult(Team winningTeam) {
 		match.setMatchRoundResult(winningTeam);
 	}
@@ -68,8 +60,15 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public List<Match> getAllMatches() {
-		return matches;
+	public List<Match> getAllMatches(int bracketRoundId) {
+		List<Match> listOfMatches = null;
+		try {
+			listOfMatches = matchDAO.getMatchesFromBracketRound(bracketRoundId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return listOfMatches;
 	}
 
 	@Override
@@ -82,4 +81,5 @@ public class MatchController implements MatchControllerIF {
 		}
 		return nextMatchId;
 	}
+
 }

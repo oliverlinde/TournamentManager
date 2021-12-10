@@ -1,21 +1,17 @@
 package controller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import dao.DAOFactory;
 import dao.DbConnection;
-import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
+
 import dao.TournamentRuleDAOIF;
 import model.Bracket;
+
 import model.Format;
 import model.Team;
 import model.Tournament;
@@ -231,6 +227,18 @@ public class TournamentController implements TournamentControllerIF {
 			e.printStackTrace();
 		}
 		return nextTournamentId;
+	}
+	
+	@Override
+	public Tournament getTournamentById(int tournamentId) {
+		Tournament tournament = null;
+		try {
+			tournament = tournamentDAO.getTournament(tournamentId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tournament;
+		
 	}
 
 	@Override

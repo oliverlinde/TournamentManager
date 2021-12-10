@@ -5,12 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import model.BracketRoundResult;
-import model.MatchRoundResult;
 import model.Team;
 
 public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
@@ -114,8 +112,8 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 		}
 		return nextBracketRoundId + 1;
 	}
+	
 
-	@Override
 	public BracketRoundResult getBracketRoundResult(int bracketRoundId) throws SQLException {
 		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
 		String sqlQuery = "SELECT teamId, points FROM TeamInBracketRound " + "WHERE bracketRoundId = ? ";

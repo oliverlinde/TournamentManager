@@ -2,7 +2,6 @@ package test;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import controller.BracketController;
@@ -15,12 +14,9 @@ import controller.PointSystemStrategy;
 import controller.SingleEliminationStrategy;
 import controller.TeamControllerIF;
 import controller.TournamentControllerIF;
-import controller.TournamentRuleController;
-import controller.TournamentRuleControllerIF;
 import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
 import model.Bracket;
-import model.Format;
 import model.Match;
 import model.Team;
 import model.Tournament;
@@ -215,6 +211,12 @@ public class TournamentControllerStub implements TournamentControllerIF {
 	public int getNextTournamentId() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Tournament getTournamentById(int tournamentId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

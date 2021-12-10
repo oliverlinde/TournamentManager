@@ -15,12 +15,19 @@ public interface MatchRoundResultDAOIF {
 	
 	//void setDraw();
 	
-	MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException;
 
 	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException;
 
 	int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException;
 
 	int getNextMatchRoundResultId() throws SQLException;
+
+	List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException;
+
+	List<Team> getTeamsFromMatchRoundResult(int matchRoundResultId) throws SQLException;
+
+	MatchRoundResult getMatchRoundResultFromMatchIdAndMatchRoundResultId(int matchId, int matchRoundResultId) throws SQLException;
+
+	List<Team> getTeamsFromMatch(int matchId) throws SQLException;
 
 }

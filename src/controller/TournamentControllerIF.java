@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Bracket;
 import model.Format;
+
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
@@ -36,8 +37,12 @@ public interface TournamentControllerIF {
 	void setMinNoOfTeams(int minNoOfTeams);
 	int getMinNoOfTeams();
 	int getNextTournamentId();
+
 	public Bracket getBracket();
 	void setTournament(Tournament tournament);
 	void initializeTournament();
 	void removeTeamFromTournament(Team team);
+
+	Tournament getTournamentById(int tournamentId);
+
 }

@@ -1,13 +1,12 @@
 package controller;
 
-import dao.DbConnectionIF;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.DAOFactory;
+import org.w3c.dom.ls.LSInput;
+
 import dao.MatchRoundResultDAOIF;
 import model.MatchRoundResult;
 import model.Team;
@@ -38,16 +37,27 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	}
 
 	@Override
-	public MatchRoundResult getRoundResult(int matchRoundResultId) {
+	public MatchRoundResult getMatchRoundResult(int matchId) {
 		MatchRoundResult matchRoundResult = null;
-		
-		try {
-			matchRoundResult = matchRoundResultDAO.getRoundResult(matchRoundResultId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		matchRoundResult = null;
+//		try {
+//			matchRoundResult = matchRoundResultDAO.get(matchId);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return matchRoundResult;
+	}
+	
+	@Override
+	public List<MatchRoundResult> getListOfMatchRoundResults(int matchId){
+		List<MatchRoundResult> listMatchRoundResults = null;
+		try {
+			listMatchRoundResults = matchRoundResultDAO.getMatchRoundResultsFromMatch(matchId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return listMatchRoundResults;
 	}
 	
 	
@@ -63,11 +73,9 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 		}
 		return allRoundResults;
 	}
-	
-	@Override
-	public MatchRoundResult getMatchRoundResult() {
-		return matchRoundResult;
-	}
+
+
+
 	
 	@Override
 	public MatchRoundResult createMatchRoundResult() {

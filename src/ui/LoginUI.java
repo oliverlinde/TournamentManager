@@ -1,14 +1,11 @@
 package ui;
 
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-
 import java.awt.Font;
 
 public class LoginUI extends JPanel {
@@ -60,32 +57,6 @@ public class LoginUI extends JPanel {
 		
 		loginBtn = new JButton("Login");
 		panel_6.add(loginBtn);
-	}
-	
-	//public boolean isLoggedIn() {
-		//boolean passed = false;
-		//if(true/*personController.getPerson(idTextField.getText());*/){
-			
-			//passed = true;
-	//	}
-		
-	//	return passed;
-	//}
-	
-//	private void createActions() {
-//		loginBtn.addActionListener(this);
-//			
-//	}
-//
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		// TODO Auto-generated method stub
-//		loginPanel.setVisible(false);
-//		
-//	}
-
-	private void createLoginPanel() {
-		
 	}
 	
 	

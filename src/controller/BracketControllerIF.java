@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.Bracket;
 import model.BracketRound;
-import model.Format;
 import model.Match;
 import model.Team;
 

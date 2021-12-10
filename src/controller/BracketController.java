@@ -1,18 +1,18 @@
 package controller;
 
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.LinkedList;
+=======
+>>>>>>> origin/GUI_Latest
 import java.util.List;
-
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import dao.BracketDAOIF;
 import dao.DbConnectionIF;
 import dao.DAOFactory;
 import model.Bracket;
 import model.BracketRound;
-import model.Format;
 import model.Match;
 import model.Team;
 
@@ -38,6 +38,7 @@ public class BracketController implements BracketControllerIF {
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public void createBracket(List<Team> listOfTeams, int tournamentId) {
 		this.bracket = new Bracket(listOfTeams);
 		bracket.setBracketId(getNextBracketId());
@@ -47,11 +48,22 @@ public class BracketController implements BracketControllerIF {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+=======
+	public void createBracket(List<Team> listOfTeams) {
+		//this.bracket = new Bracket(listOfTeams);
+>>>>>>> origin/GUI_Latest
 	}
 
 	@Override
 	public List<BracketRound> getBracketRound() {
-		return bracketDAO.getBracketRounds();
+		List<BracketRound> listOfBracketRounds = null;
+		try {
+			listOfBracketRounds = bracketDAO.getBracketRounds();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listOfBracketRounds;
 	}
 
 	@Override

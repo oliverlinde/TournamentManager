@@ -8,31 +8,22 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.MatchRoundResultDAO;
-
 public class BracketRound {
+	private int bracketRoundId;
 	private List<Match> listOfMatches;
-	private int bracketRoundID;
-	private BracketRoundResult bracketRoundResult;
-	private List<Team> listOfTeams;
-	private MatchRoundResultDAO matchRoundResultDAO;
 	
-	public BracketRound(List<Team> listOfTeams, int bracketRoundID) {
-		this.listOfTeams = listOfTeams;
-		this.bracketRoundID = bracketRoundID;
+	public BracketRound() {
+		listOfMatches = new LinkedList<>();
+
 	}
 	
-	public void resetBracketRound() {
-		this.listOfMatches = null;
-		this.listOfTeams = null;
+	public BracketRound(int bracketRoundId, List<Match> listOfMatches) {
+		setBracketRoundID(bracketRoundId);
+		setMatchesInBracketRound(listOfMatches);
 	}
 	
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
 		
-	}
-	
-	public BracketRoundResult getBracketRoundResult() {
-		return bracketRoundResult;
 	}
 	
 	/*
@@ -46,20 +37,16 @@ public class BracketRound {
 		listOfMatches = matchesInBracketRound;
 	}
 	
-	public List<Team> getListOfTeams() {
-		return listOfTeams;
-	}
-	
 	public List<Match> getMatches(){
 		return listOfMatches;
 	}
 
 	public int getBracketRoundID() {
-		return bracketRoundID;
+		return bracketRoundId;
 	}
 
 	public void setBracketRoundID(int bracketRoundID) {
-		this.bracketRoundID = bracketRoundID;
+		this.bracketRoundId = bracketRoundID;
 	}
 
 }

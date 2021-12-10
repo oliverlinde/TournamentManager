@@ -15,5 +15,7 @@ public interface MatchControllerIF {
 	List<Match> getAllMatches();
 	int getMatchId();
 	void createListOfMatches();
+	void createMatch(List<Team> listOfTeams, int noOfRounds);
+	List<Match> getAllMatches(int bracketRoundId);
 	
 }

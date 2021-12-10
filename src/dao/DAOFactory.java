@@ -37,4 +37,10 @@ public class DAOFactory {
 	public static MatchDAOIF createMatchDAO(DbConnectionIF dbConnection) {
 		return new MatchDAO(dbConnection);
 	}
+
+	
+	public static BracketRoundDAOIF createBracketRoundDAO(DbConnectionIF dbConnection) {
+		return new BracketRoundDAO(dbConnection);
+	}
+
 }

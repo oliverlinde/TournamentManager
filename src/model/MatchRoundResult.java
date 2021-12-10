@@ -6,13 +6,15 @@
 package model;
 
 public class MatchRoundResult {
+	private int matchRoundResultId;
 	private Team winner;
 	private Team loser;
 	private Boolean draw = false;
-	private int matchRoundResultId;
+	
 	
 	public MatchRoundResult(int id) {
 		setMatchRoundResultId(id);
+
 	}
 	
 	public MatchRoundResult(int matchRoundResultId, Team winner, Team loser, boolean draw) {
@@ -26,6 +28,7 @@ public class MatchRoundResult {
 		setLoser(loser);
 		setDraw(draw);
 	}
+	
 	
 	public void setWinner(Team winner) {
 		this.winner = winner;
