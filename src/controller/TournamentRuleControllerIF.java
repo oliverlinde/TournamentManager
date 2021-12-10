@@ -1,7 +1,10 @@
 package controller;
 
+import java.util.List;
+
 import model.Format;
 import model.NoOfRounds;
+import model.TournamentRule;
 
 public interface TournamentRuleControllerIF {
 
@@ -17,4 +20,5 @@ public interface TournamentRuleControllerIF {
 	public NoOfRounds getNoOfRonds();
 	public void setFormat(Format format);
 	public Format getFormat();
+	List<TournamentRule> getAllTournamentRule();
 }

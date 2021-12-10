@@ -4,19 +4,24 @@
 
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bracket {
 	
+
+	private int bracketId;
 	private List<BracketRound> listOfBracketRounds;
-	
-	public Bracket(List<Team> teams) {
-		
+
+	public Bracket() {
+		listOfBracketRounds = new ArrayList<BracketRound>();
 	}
 	
-	public List<Team> getTeams(BracketRound bracketRound) {
-		return bracketRound.getListOfTeams();
+	public Bracket(int bracketId, List<BracketRound> listOfBracketRounds) {
+		setBracketId(bracketId);
+		setListOfBracketRounds(listOfBracketRounds);
 	}
+	
 	
 	public void givePointsToTeam(Team team, int pointsToWin) {
 		
@@ -29,7 +34,7 @@ public class Bracket {
 	 * Not implemented. 
 	 */
 	public List<BracketRound> getBracketRounds() {
-		return null;
+		return listOfBracketRounds;
 	}
 	
 	/*
@@ -37,8 +42,25 @@ public class Bracket {
 	 * 
 	 * Not implemented. 
 	 */
-	public void createBracketRound(List<Team> listOfTeams) {
-		
+	public void addBracketRound(BracketRound bracketRound) {
+		listOfBracketRounds.add(bracketRound);
+	}
+
+	public List<BracketRound> getListOfBracketRounds() {
+		return listOfBracketRounds;
+	}
+
+	public void setListOfBracketRounds(List<BracketRound> listOfBracketRounds) {
+		this.listOfBracketRounds = listOfBracketRounds;
+	}
+
+
+	public void setBracketId(int bracketId) {
+		this.bracketId = bracketId;
+	}
+
+	public int getBracketId() {
+		return bracketId;
 	}
 
 }

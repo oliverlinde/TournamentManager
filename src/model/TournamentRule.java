@@ -7,6 +7,7 @@
 package model;
 
 public class TournamentRule {
+	private int tournamentRuleId;
 	private String description;
 	private int pointsPerWin;
 	private int pointsPerDraw;
@@ -15,12 +16,30 @@ public class TournamentRule {
 	private Format format;
 
 	public TournamentRule(String description, int pointsPerWin, int pointsPerLoss, int pointsPerDraw, NoOfRounds noOfRounds,Format format) {
-		this.description = description;
-		this.pointsPerWin = pointsPerWin;
-		this.pointsPerLoss = pointsPerLoss;
-		this.pointsPerDraw = pointsPerDraw;
-		this.noOfRounds = noOfRounds;
-		this.format = format;
+		setDescription(description);
+		setPointsPerWin(pointsPerWin);
+		setPointsPerLoss(pointsPerLoss);
+		setPointsPerDraw(pointsPerDraw);
+		setNoOfRounds(noOfRounds);
+		setFormat(format);
+	}
+	
+	public TournamentRule(int tournamentRuleId, String description, int pointsPerWin, int pointsPerLoss, int pointsPerDraw, NoOfRounds noOfRounds,Format format) {
+		setTournamentRuleId(tournamentRuleId);
+		setDescription(description);
+		setPointsPerWin(pointsPerWin);
+		setPointsPerLoss(pointsPerLoss);
+		setPointsPerDraw(pointsPerDraw);
+		setNoOfRounds(noOfRounds);
+		setFormat(format);
+	}
+
+	public int getTournamentRuleId() {
+		return tournamentRuleId;
+	}
+
+	public void setTournamentRuleId(int tournamentRuleId) {
+		this.tournamentRuleId = tournamentRuleId;
 	}
 
 	public String getDescription() {

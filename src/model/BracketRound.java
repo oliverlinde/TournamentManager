@@ -4,19 +4,26 @@
 
 package model;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BracketRound {
+	private int bracketRoundId;
 	private List<Match> listOfMatches;
-	private BracketRoundResult bracketRoundResult;
-	private List<Team> listOfTeams;
+	
+	public BracketRound() {
+		listOfMatches = new LinkedList<>();
+
+	}
+	
+	public BracketRound(int bracketRoundId, List<Match> listOfMatches) {
+		setBracketRoundID(bracketRoundId);
+		setMatchesInBracketRound(listOfMatches);
+	}
 	
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
 		
-	}
-	
-	public BracketRoundResult getBracketRoundResult() {
-		return bracketRoundResult;
 	}
 	
 	/*
@@ -26,12 +33,20 @@ public class BracketRound {
 	 * 
 	 * Not implemented. 
 	 */
-	public void createMatches(List<Team> listOfTeams) {
-		
+	public void setMatchesInBracketRound(List<Match> matchesInBracketRound) {
+		listOfMatches = matchesInBracketRound;
 	}
 	
-	public List<Team> getListOfTeams() {
-		return listOfTeams;
+	public List<Match> getMatches(){
+		return listOfMatches;
+	}
+
+	public int getBracketRoundID() {
+		return bracketRoundId;
+	}
+
+	public void setBracketRoundID(int bracketRoundID) {
+		this.bracketRoundId = bracketRoundID;
 	}
 
 }

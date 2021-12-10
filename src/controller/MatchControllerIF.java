@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import model.Match;
 import model.Team;
 
@@ -9,5 +11,11 @@ public interface MatchControllerIF {
 	public void setDraw();
 	public Match getMatch(int matchId);
 	public void createRoundResult();
+	void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId);
+	List<Match> getAllMatches();
+	int getMatchId();
+	void createListOfMatches();
+	void createMatch(List<Team> listOfTeams, int noOfRounds);
+	List<Match> getAllMatches(int bracketRoundId);
 	
 }

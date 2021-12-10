@@ -5,11 +5,16 @@ import java.util.List;
 
 public class Participant extends Person {
 	
-	public Participant(String name, String email, LocalDate birthdate) {
-		super(name, email, birthdate);
+	public Participant(String personName, String email, LocalDate birthdate) {
+		super(personName, email, birthdate);
 	}
 	
-	public Participant(int id, String name, String email, LocalDate birthdate, List<Team> teams) {
-		super(id, email, email, birthdate, teams);
+	public Participant(int personId, String personName, String email, LocalDate birthdate, List<Team> teams) {
+		super(personId, personName, email, birthdate, teams);
 	}
+	
+	public Participant(int personId, String personName, String email, LocalDate birthdate) {
+		super(personName, email, birthdate);
+	}
+	
 }

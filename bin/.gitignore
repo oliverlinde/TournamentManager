@@ -1,4 +1,5 @@
-/model/
-/ui/
-/controller/
 /dao/
+/model/
+/controller/
+/test/
+/ui/

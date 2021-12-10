@@ -1,9 +1,13 @@
 package controller;
 
-import model.Format;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Team;
 
 public interface GenerateBracketStrategyIF {
 
-	public void proceedToNextRound(Format format);
+	void proceedToNextRound(ArrayList<Team> linkedList, MatchControllerIF matchController, int noOfRounds, int bracketRoundId);
 	public int calculatePoints();
+	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId);
 }

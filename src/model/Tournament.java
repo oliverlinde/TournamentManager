@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tournament {
-	private int id;
-	private String name;
-	private String game;
+	private int tournamentId;
+	private String tournamentName;
+	private String gameName;
 	private LocalDateTime dateTimeOfEvent;
 	private LocalDateTime registrationDeadline;
 	private int maxNoOfTeams;
@@ -20,25 +20,56 @@ public class Tournament {
 	private List<Team> listOfTeams;
 	private List<Bracket> brackets;
 	
-	public Tournament() {
+
+
+	public Tournament(int tournamentId) {
 		brackets = new ArrayList<Bracket>();
-		id = 1;
+		setTournamentId(tournamentId);
+	}
+	
+	public Tournament(int tournamentId, TournamentRule tournamentRule, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
+		this.tournamentId = tournamentId;
+		setTournamentRule(tournamentRule);
+		setName(tournamentName);
+		setGame(gameName);
+		setDateTimeOfEvent(dateTimeOfEvent);
+		setRegistrationDeadline(registrationDeadline);
+		setMaxNoOfTeams(maxNoOfTeams);
+		setMinNoOfTeams(minNoOfTeams);
+	}
+	
+	public Tournament(int tournamentId, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
+		this.tournamentId = tournamentId;
+		setName(tournamentName);
+		setGame(gameName);
+		setDateTimeOfEvent(dateTimeOfEvent);
+		setRegistrationDeadline(registrationDeadline);
+		setMaxNoOfTeams(maxNoOfTeams);
+		setMinNoOfTeams(minNoOfTeams);
+	}
+	
+	public int getTournamentId() {
+		return tournamentId;
+	}
+
+	public void setTournamentId(int tournamentId) {
+		this.tournamentId = tournamentId;
 	}
 
 	public String getName() {
-		return name;
+		return tournamentName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String tournamentName) {
+		this.tournamentName = tournamentName;
 	}
 
 	public String getGame() {
-		return game;
+		return gameName;
 	}
 
-	public void setGame(String game) {
-		this.game = game;
+	public void setGame(String gameName) {
+		this.gameName = gameName;
 	}
 
 	public LocalDateTime getDateTimeOfEvent() {
@@ -62,7 +93,7 @@ public class Tournament {
 	}
 	
 	public int getId() {
-		return id;
+		return tournamentId;
 	}
 	
 	public int getMinNoOfTeams() {
@@ -76,11 +107,11 @@ public class Tournament {
 
 	/*
 	 * Adding a list of teams with a overhead through the @param maxNoOfTeams
-	 * which will make sure that the index numbers in listOfTeams will only be as¨
+	 * which will make sure that the index numbers in listOfTeams will only be asï¿½
 	 * long as required.
 	 */
 	public void setMaxNoOfTeams(int maxNoOfTeams) {
-		listOfTeams = new ArrayList<Team>(maxNoOfTeams);
+		listOfTeams = new ArrayList<>(maxNoOfTeams);
 		this.maxNoOfTeams = maxNoOfTeams;
 	}
 
@@ -112,7 +143,21 @@ public class Tournament {
 		listOfTeams.add(team);
 	}
 	
+	public void setAllTeams(List<Team> teams) {
+		listOfTeams = teams;
+	}
+	
 	public List<Team> getAllTeams() {
 		return listOfTeams;
 	}
+	
+	public List<Bracket> getBrackets(){
+		return brackets;
+	}
+
+	
+	public void setBrackets(List<Bracket> brackets) {
+		this.brackets = brackets;
+	}
+
 }
