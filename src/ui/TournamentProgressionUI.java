@@ -45,7 +45,7 @@ public class TournamentProgressionUI extends JPanel {
 		JPanel panel_6 = new JPanel();
 		panel.add(panel_6);
 		panel_6.setLayout(new BorderLayout(0, 0));
-		panel_6.setMinimumSize(new Dimension(400, 400));
+		panel_6.setMinimumSize(new Dimension(600, 200));
 		
 		round1Pnl = new JPanel();
 		panel_6.add(round1Pnl);

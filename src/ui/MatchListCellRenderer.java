@@ -27,7 +27,7 @@ public class MatchListCellRenderer extends JLabel implements ListCellRenderer<Ma
 		row.setFont(new Font("Dialog", Font.PLAIN, 11));
 		row.setLineWrap(true);
 		row.setWrapStyleWord(true);
-		row.setPreferredSize(new Dimension(300, 200));
+		row.setPreferredSize(new Dimension(300, 120));
 		
 		String matchId = String.valueOf(match.getMatchId());
 		String team1Id = String.valueOf(match.getListOfTeams().get(0).getTeamId());
@@ -37,14 +37,12 @@ public class MatchListCellRenderer extends JLabel implements ListCellRenderer<Ma
 		String round1Winner = match.getListOfMatchRoundounds().get(0).getWinner().getTeamName();
 		String round2Winner = match.getListOfMatchRoundounds().get(1).getWinner().getTeamName();
 		String round3Winner = match.getListOfMatchRoundounds().get(2).getWinner().getTeamName();
-		String winner = match.getWinner().getTeamName();
 		
 		String rerturnString = "Match id: " + matchId + " | Hold id: " + team1Id +  " | Holdnavn: " + team1Name + "\n" +
 				"Match id: " + matchId + " | Hold id: " + team2Id + " | Holdnavn: " + team2Name + "\n" +
 				"Runde 1 vinder: " + round1Winner + "\n" +
 				"Runde 2 vinder: " + round2Winner + "\n" +
-				"Runde 3 vinder: " + round3Winner + "\n" +
-				"Vinder: " + winner;
+				"Runde 3 vinder: " + round3Winner + "\n";
 		//setText(rerturnString);
 		
 		row.setText(rerturnString);

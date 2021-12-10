@@ -18,7 +18,6 @@ public class Match {
 	public Match(List<Team> listOfTeams) {
 		this.listOfTeams = listOfTeams;
 		this.listOfMatchRoundounds = new ArrayList<MatchRoundResult>();
-		setMatchId(1);
 	}
 
 	public Match(int matchId, List<MatchRoundResult> listOfMatchRoundounds, List<Team> listOfTeams) {
