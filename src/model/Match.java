@@ -14,8 +14,9 @@ public class Match {
 	private List<MatchRoundResult> rounds;
 	private List<Team> listOfTeams;
 	
-	public Match(List<Team> listOfTeams) {
+	public Match(List<Team> listOfTeams, int matchId) {
 		this.listOfTeams = listOfTeams;
+		setMatchId(matchId);
 		this.rounds = new ArrayList<MatchRoundResult>();
 	}
 	
@@ -44,7 +45,7 @@ public class Match {
 		return matchRoundResult.getIsDraw();
 	}
 	
-	public void createRoundResult(MatchRoundResult matchRoundResult) {
+	public void addRoundResult(MatchRoundResult matchRoundResult) {
 		rounds.add(matchRoundResult);
 	}
 
@@ -54,6 +55,10 @@ public class Match {
 
 	public void setListOfTeams(List<Team> listOfTeams) {
 		this.listOfTeams = listOfTeams;
+	}
+	
+	public void setMatchRoundResults(List<MatchRoundResult> matchRoundResults) {
+		this.rounds = matchRoundResults;
 	}
 	
 	public List<MatchRoundResult> getRoundResults(){

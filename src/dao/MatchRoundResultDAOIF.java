@@ -21,4 +21,6 @@ public interface MatchRoundResultDAOIF {
 
 	int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException;
 
+	int getNextMatchRoundResultId() throws SQLException;
+
 }

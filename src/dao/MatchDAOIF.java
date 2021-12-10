@@ -1,5 +1,7 @@
 package dao;
 
+import java.sql.SQLException;
+
 import model.Match;
 import model.Team;
 
@@ -12,8 +14,8 @@ public interface MatchDAOIF {
 	
 	void createRoundResult();
 
-	int getNextMatchId();
+	int getNextMatchId() throws SQLException;
 
-	int createMatch(int bracketRoundId, Match match);
+	int createMatch(int bracketRoundId, Match match) throws SQLException;
 
 }

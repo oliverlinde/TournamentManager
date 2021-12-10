@@ -9,6 +9,7 @@ import controller.TournamentControllerIF;
 import dao.DAOFactory;
 import dao.DbConnection;
 import dao.DbConnectionIF;
+import dao.TeamDAOIF;
 import dao.TournamentDAOIF;
 import model.Bracket;
 import model.BracketRound;
@@ -21,6 +22,7 @@ import model.Tournament;
 public class main {
 	static TournamentControllerIF tournamentController;
 	static TournamentDAOIF tournamentDAO;
+	static TeamDAOIF teamDAO;
 	static DbConnectionIF dbConnection;
 
 	public static void main(String[] args) throws SQLException {
@@ -28,27 +30,22 @@ public class main {
 		tournamentController = new TournamentController();
 		dbConnection = new DbConnection();
 		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
+		teamDAO = DAOFactory.createTeamDAO(dbConnection);
 
 		Tournament tournament = tournamentDAO.getTournament(2);
 		tournamentController.setTournament(tournament);
 
-		Team team1 = new Team(1, "1");
-		Team team2 = new Team(2, "2");
-		Team team3 = new Team(3, "3");
-		Team team4 = new Team(4, "4");
-		Team team5 = new Team(5, "5");
-		Team team6 = new Team(6, "6");
-
-		tournamentController.addTeamToTournament(team1);
-		tournamentController.addTeamToTournament(team2);
-		tournamentController.addTeamToTournament(team3);
-		tournamentController.addTeamToTournament(team4);
+		tournamentController.addTeamToTournament(teamDAO.getTeam(10));
+		tournamentController.addTeamToTournament(teamDAO.getTeam(15));
+		tournamentController.addTeamToTournament(teamDAO.getTeam(22));
+		tournamentController.addTeamToTournament(teamDAO.getTeam(44));
 
 		tournamentController.initializeTournament();
+		tournamentController.generateNextBracketRound(1);
 		tournamentController.generateNextBracketRound(3);
 
 		Bracket bracket = tournamentController.getBracket();
-		System.out.println(bracket.getBracketId());
+		System.out.println("Bracket ID: " + bracket.getBracketId());
 
 		List<BracketRound> bracketRounds = bracket.getBracketRounds();
 

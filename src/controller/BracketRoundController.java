@@ -9,6 +9,7 @@ import dao.BracketDAO;
 import dao.BracketRoundDAOIF;
 import dao.DAOFactory;
 import dao.DbConnection;
+import dao.DbConnectionIF;
 import model.BracketRound;
 import model.BracketRoundResult;
 import model.Match;
@@ -20,15 +21,21 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	private BracketRoundDAOIF bracketRoundDAO;
 	private BracketRound bracketRound;
 
-	public BracketRoundController() {
-		bracketRoundDAO = DAOFactory.createBracketRoundDAO(new DbConnection());
-		this.matchController = new MatchController();
+	public BracketRoundController(DbConnectionIF dbConnection) {
+		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
+		this.matchController = new MatchController(dbConnection);
 	}
 
 	@Override
 	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public BracketRound createBracketRound(List<Team> listOfTeams) {
+		bracketRound = new BracketRound((List<Team>) listOfTeams, getBracketRoundId());
+		return bracketRound;
 	}
 
 	@Override
@@ -43,13 +50,9 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	}
 
 	@Override
-	public BracketRound createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy,
-			int noOfRounds) {
-	
-		bracketRound = new BracketRound((ArrayList<Team>) listOfTeams, getBracketRoundId());
-		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) listOfTeams, matchController, noOfRounds, getBracketRoundId());
+	public void createMatches(GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
+		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) bracketRound.getListOfTeams(), matchController, noOfRounds, bracketRound.getBracketRoundID());
 		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());
-		return bracketRound;
 	}
 	
 	private int getBracketRoundId() {
@@ -63,7 +66,7 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	}
 
 	@Override
-	public void createBracketRound(int bracketId, BracketRound bracketRound) {
+	public void saveBracketRoundToDatabase(int bracketId, BracketRound bracketRound) {
 		try {
 			bracketRoundDAO.createBracketRound(bracketId, bracketRound);
 		} catch (SQLException e) {

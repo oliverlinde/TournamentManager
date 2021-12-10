@@ -1,12 +1,15 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.DAOFactory;
 import dao.DbConnection;
+import dao.DbConnectionIF;
 import dao.MatchDAOIF;
 import model.Match;
+import model.MatchRoundResult;
 import model.Team;
 
 public class MatchController implements MatchControllerIF {
@@ -16,27 +19,22 @@ public class MatchController implements MatchControllerIF {
 	private Match match;
 	private List<Match> matches;
 
-	public MatchController(List<Team> listOfTeams) {
-		this.match = new Match(listOfTeams);
-		matchRoundResultController = new MatchRoundResultController();
+	public MatchController(DbConnectionIF dbConnection) {
+		matchRoundResultController = new MatchRoundResultController(dbConnection);
+		matchDAO = DAOFactory.createMatchDAO(dbConnection);
 	}
 
-	public MatchController() {
+	@Override
+	public void createListOfMatches() {
 		matches = new ArrayList<Match>();
-		matchRoundResultController = new MatchRoundResultController();
-		matchDAO = DAOFactory.createMatchDAO(new DbConnection());
 	}
 
 	@Override
 	public void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId) {
-		this.match = new Match(listOfTeams);
-		int i = 0;
-		while (i < noOfRounds) {
-			match.createRoundResult(matchRoundResultController.getMatchRoundResult());
-			i++;
-		}
+		this.match = new Match(listOfTeams, getMatchId());
+		match.setMatchRoundResults(matchRoundResultController.addRoundResult(noOfRounds));
 		matches.add(match);
-		saveMatchToDatabase(getMatchId(), match);
+		saveMatchToDatabase(bracketRoundId, match);
 	}
 
 	@Override
@@ -59,21 +57,29 @@ public class MatchController implements MatchControllerIF {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private void saveMatchToDatabase(int bracketRoundId, Match match) {
-		matchDAO.createMatch(bracketRoundId, match);
+		try {
+			matchDAO.createMatch(bracketRoundId, match);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public List<Match> getAllMatches() {
 		return matches;
 	}
-	
+
 	@Override
 	public int getMatchId() {
-		int matchId = 0;
-		matchId = matchDAO.getNextMatchId();
-		return matchId;
+		int nextMatchId = 0;
+		try {
+			nextMatchId = matchDAO.getNextMatchId();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nextMatchId;
 	}
-
 }

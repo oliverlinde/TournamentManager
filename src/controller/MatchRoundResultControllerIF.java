@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.MatchRoundResult;
 import model.Team;
 
@@ -9,4 +12,9 @@ public interface MatchRoundResultControllerIF {
 	public void setDraw();
 	public MatchRoundResult getRoundResult(int matchRoundResultId);
 	MatchRoundResult getMatchRoundResult();
+	int getNextMatchRoundResultId();
+	MatchRoundResult createMatchRoundResult();
+	public void createMatchRoundResultList();
+	ArrayList<MatchRoundResult> getMatchRoundResultList();
+	List<MatchRoundResult> addRoundResult(int noOfRounds);
 }

@@ -29,10 +29,12 @@ public class TournamentController implements TournamentControllerIF {
 	private MatchControllerIF matchController;
 	private TournamentRuleControllerIF tournamentRuleController;
 	private GenerateBracketStrategyIF generateBracketStrategy;
+	private DbConnectionIF dbConnection;
 
 	public TournamentController() {
-		tournamentDAO = DAOFactory.createTournamentDAO(new DbConnection());
-		bracketController = new BracketController(new DbConnection());
+		dbConnection = new DbConnection();
+		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
+		bracketController = new BracketController(dbConnection);
 		//tournamentRuleController = new TournamentRuleController(dbConnection);
 	}
 	
@@ -182,7 +184,8 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public void generateNextBracketRound(int noOfRounds) {
-		bracketController.createBracketRound(tournament.getAllTeams(), generateBracketStrategy, noOfRounds);
+		bracketController.createBracketRound(tournament.getAllTeams());
+		bracketController.generateMatchesInBracketRound(generateBracketStrategy, noOfRounds);
 	}
 
 	@Override

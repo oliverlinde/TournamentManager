@@ -18,8 +18,8 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 	private MatchRoundResultDAOIF matchRoundResultDAO;
 	private TeamDAOIF teamDAO;
 
-	public BracketRoundResultDAO() {
-
+	public BracketRoundResultDAO(DbConnectionIF dbConnection) {
+		this.dbConnection = dbConnection;
 	}
 
 	public void addPointsToTeam(Team team, int points) {

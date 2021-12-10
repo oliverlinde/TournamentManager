@@ -17,7 +17,7 @@ public class BracketRound {
 	private List<Team> listOfTeams;
 	private MatchRoundResultDAO matchRoundResultDAO;
 	
-	public BracketRound(ArrayList<Team> listOfTeams, int bracketRoundID) {
+	public BracketRound(List<Team> listOfTeams, int bracketRoundID) {
 		this.listOfTeams = listOfTeams;
 		this.bracketRoundID = bracketRoundID;
 	}

@@ -10,10 +10,9 @@ public class MatchRoundResult {
 	private Team loser;
 	private Boolean draw = false;
 	private int matchRoundResultId;
-	private int teamId;
-	private int bracketId;
 	
-	public MatchRoundResult() {
+	public MatchRoundResult(int id) {
+		setMatchRoundResultId(id);
 	}
 	
 	public MatchRoundResult(int matchRoundResultId, Team winner, Team loser, boolean draw) {

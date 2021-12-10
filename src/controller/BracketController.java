@@ -1,6 +1,8 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -21,7 +23,7 @@ public class BracketController implements BracketControllerIF {
 
 	public BracketController(DbConnectionIF dbConnection) {
 		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection);
-		bracketRoundController = new BracketRoundController();
+		bracketRoundController = new BracketRoundController(dbConnection);
 	}
 	
 	@Override
@@ -53,9 +55,14 @@ public class BracketController implements BracketControllerIF {
 	}
 
 	@Override
-	public void createBracketRound(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		BracketRound bracketRound = bracketRoundController.createMatches(listOfTeams, generateBracketStrategy, noOfRounds);
+	public void createBracketRound(List<Team> listOfTeams) {
+		BracketRound bracketRound = bracketRoundController.createBracketRound((List<Team>) listOfTeams);
 		addBracketRound(bracketRound);
+	}
+	
+	@Override
+	public void generateMatchesInBracketRound(GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
+		bracketRoundController.createMatches(generateBracketStrategy, noOfRounds);
 	}
 	
 	@Override
@@ -70,7 +77,7 @@ public class BracketController implements BracketControllerIF {
 	
 	public void addBracketRound(BracketRound bracketRound) {
 		bracket.addBracketRound(bracketRound);
-		bracketRoundController.createBracketRound(bracket.getBracketId(), bracketRound);
+		bracketRoundController.saveBracketRoundToDatabase(bracket.getBracketId(), bracketRound);
 	}
 	
 	@Override

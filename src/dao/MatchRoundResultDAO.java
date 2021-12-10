@@ -50,8 +50,8 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 */
 	
 	@Override
-	public int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException{
-		String sqlQuery = "INSERT INTO Match (matchRoundResultId, matchId, teamId, isWinner) WHERE matchId = ? VALUES ?, ?, ?, ? ";
+	public int createMatchRoundResult(Match match) throws SQLException{
+		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId) VALUES (?, ?) ";
 		
 		int matchRoundResultCreated = 0;
 		
@@ -59,13 +59,8 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			Connection connection = dbConnection.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 			
-			for (Team teams : match.getListOfTeams()) {
-				statement.setInt(1, matchRoundResult.getMatchRoundResultId());
-				statement.setInt(2, match.getMatchId());
-				statement.setInt(3, teams.getTeamId());
-				
-				matchRoundResultCreated += statement.executeUpdate();
-			}
+			statement.setInt(1, matchRoundResult.getMatchRoundResultId());
+			statement.setInt(2, matchId);
 			
 			
 		} catch (Exception e) {
@@ -129,6 +124,27 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			// TODO: handle exception
 		}
 		return listOfMatchRoundResults;
+	}
+	
+	@Override
+	public int getNextMatchRoundResultId() throws SQLException {
+		String sqlQuery = "SELECT matchRoundResultId FROM MatchRoundResult "
+				+ "WHERE matchRoundResultId = (SELECT MAX(matchRoundResultId) FROM MatchRoundResult)";
+		int nextMatchRoundResultId = 0;
+		
+		try {
+			Connection connection = dbConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			nextMatchRoundResultId = rs.getInt(1);
+			
+		} catch (Exception e) {
+		}
+		
+		return nextMatchRoundResultId + 1;
 	}
 
 }
