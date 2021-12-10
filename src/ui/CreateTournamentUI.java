@@ -21,7 +21,6 @@ import javax.swing.SpinnerModel;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Calendar;
 import model.TournamentRule;
 
 import java.awt.event.FocusAdapter;
@@ -177,7 +176,7 @@ public class CreateTournamentUI extends JPanel {
 		panel_16.add(panel_20);
 
 		maxTeamsSpinner = new JSpinner();
-		maxTeamsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(4)));
+		maxTeamsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 4));
 		panel_20.add(maxTeamsSpinner);
 
 		JPanel panel_21 = new JPanel();
@@ -193,7 +192,7 @@ public class CreateTournamentUI extends JPanel {
 		panel_21.add(panel_23);
 
 		minTeamsSpinner = new JSpinner();
-		minTeamsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(4)));
+		minTeamsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 4));
 		panel_23.add(minTeamsSpinner);
 
 		JPanel panel_1 = new JPanel();

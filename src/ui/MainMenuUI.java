@@ -10,7 +10,6 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
 
 public class MainMenuUI extends JPanel {
 	

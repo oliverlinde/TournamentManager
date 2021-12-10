@@ -1,9 +1,7 @@
 package test;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import controller.TournamentControllerIF;
 import model.Bracket;
 import model.BracketRound;
 import model.Match;

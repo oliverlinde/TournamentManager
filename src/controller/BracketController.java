@@ -3,14 +3,11 @@ package controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import dao.BracketDAOIF;
 import dao.DbConnectionIF;
 import dao.DAOFactory;
 import model.Bracket;
 import model.BracketRound;
-import model.Format;
 import model.Match;
 import model.Team;
 

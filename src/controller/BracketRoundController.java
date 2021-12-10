@@ -31,16 +31,17 @@ public class BracketRoundController implements BracketRoundControllerIF {
 		return null;
 	}
 	
+	
 	@Override
 	public List<Match> getAllMatches(){
-		return matchController.getAllMatches();
+		return matchController.getAllMatches(0);
 	}
 
 	@Override
 	public BracketRound createMatches(List<Team> listOfTeams, GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
 		bracketRound = new BracketRound();
 		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) listOfTeams, matchController, noOfRounds);
-		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());
+		bracketRound.setMatchesInBracketRound(matchController.getAllMatches(0));
 		return bracketRound;
 	}
 

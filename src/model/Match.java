@@ -7,38 +7,74 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Match {
 	private int matchId;
-	private List<MatchRoundResult> rounds;
+	private List<MatchRoundResult> listOfMatchRoundounds;
 	private List<Team> listOfTeams;
 	
 	public Match(List<Team> listOfTeams) {
 		this.listOfTeams = listOfTeams;
-		this.rounds = new ArrayList<MatchRoundResult>();
+		this.listOfMatchRoundounds = new ArrayList<MatchRoundResult>();
 		setMatchId(1);
 	}
-	
-	public Match(int matchId, List<MatchRoundResult> rounds, List<Team> listOfTeams) {
-		
+
+	public Match(int matchId, List<MatchRoundResult> listOfMatchRoundounds, List<Team> listOfTeams) {
+		setMatchId(matchId);
+		setListOfMatchRoundounds(listOfMatchRoundounds);
+		setListOfTeams(listOfTeams);	
 	}
 	
 	public void setMatchRoundResult(Team winningTeam) {
 		
 	}
 	
+	public List<MatchRoundResult> getListOfMatchRoundounds() {
+		return listOfMatchRoundounds;
+	}
+	
+	public void setListOfMatchRoundounds(List<MatchRoundResult> listOfMatchRoundounds) {
+		this.listOfMatchRoundounds = listOfMatchRoundounds;
+	}
 	
 	public void setDraw() {
 		
 	}
 	
-	public Team getWinner(MatchRoundResult matchRoundResult) {
-		return matchRoundResult.getWinner();
+	public Team getWinner() {
+		return sortByWinner().get(0);
+	}
+
+	public Team getLoser() {
+		return sortByWinner().get(1);
 	}
 	
-	public Team getLoser(MatchRoundResult matchRoundResult) {
-		return matchRoundResult.getLoser();
+	
+	private List<Team> sortByWinner() {
+		int team1Wins = 0;
+		int team2Wins = 0;
+
+		LinkedList<Team> listOfTeamsToSortableList = (LinkedList<Team>) listOfTeams;
+		List<Team> sortedByWinnerList = new LinkedList<>();
+
+		for (MatchRoundResult matchResult : listOfMatchRoundounds) {
+			if (matchResult.getWinner().getTeamId() == (listOfTeamsToSortableList.get(0).getTeamId())) {
+				team1Wins++;
+			} else {
+				team2Wins++;
+			}
+		}
+
+		if (team1Wins > team2Wins) {
+			sortedByWinnerList.add(listOfTeamsToSortableList.pollFirst());
+		} else if (team2Wins > team1Wins){
+			sortedByWinnerList.add(listOfTeamsToSortableList.pollLast());
+		}
+		sortedByWinnerList.add(listOfTeamsToSortableList.poll());
+
+		return sortedByWinnerList;
 	}
 	
 	public Boolean getIsDraw(MatchRoundResult matchRoundResult) {
@@ -46,7 +82,7 @@ public class Match {
 	}
 	
 	public void createRoundResult(MatchRoundResult matchRoundResult) {
-		rounds.add(matchRoundResult);
+		listOfMatchRoundounds.add(matchRoundResult);
 	}
 
 	public List<Team> getListOfTeams() {
@@ -58,7 +94,7 @@ public class Match {
 	}
 	
 	public List<MatchRoundResult> getRoundResults(){
-		return rounds;
+		return listOfMatchRoundounds;
 	}
 
 	public int getMatchId() {
@@ -68,7 +104,4 @@ public class Match {
 	public void setMatchId(int matchId) {
 		this.matchId = matchId;
 	}
-	
-	
-
 }

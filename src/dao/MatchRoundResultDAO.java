@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import model.MatchRoundResult;
 import model.Team;
@@ -48,47 +50,11 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 * 
 	 * }
 	 */
-
-	@Override
-	public MatchRoundResult getRoundResult(int matchRoundResultId) throws SQLException {
-		teamDAO = DAOFactory.createTeamDAO(dbConnection);
-		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner FROM MatchRoundResult "
-				+ "WHERE matchRoundResultId = ?";
-
-		MatchRoundResult foundMatchRoundResult = null;
-		Team winner = null;
-		Team loser = null;
-
-		try {
-			Connection connection = dbConnection.getConnection();
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-			statement.setInt(1, matchRoundResultId);
-
-			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
-				if (rs.getBoolean(3)) {
-					winner = teamDAO.getTeam(rs.getInt(2));
-				} else {
-					loser = teamDAO.getTeam(rs.getInt(2));
-				}
-
-			}
-			foundMatchRoundResult = new MatchRoundResult(matchRoundResultId, winner, loser, false);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return foundMatchRoundResult;
-
-	}
-
-	@Override
-	public List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException {
-		List<MatchRoundResult> listOfMatchRoundResults = new ArrayList<>();
-
-		String sqlQuery = "SELECT matchRoundResultId FROM MatchRoundResult WHERE matchId = ? ";
-
+	
+	public Set<Integer> getMatchRoundResultIds(int matchId) throws SQLException{
+		Set<Integer> listOfMatchRoundResultIds = new HashSet<>();
+		String sqlQuery ="SELECT matchRoundResultId FROM MatchRoundResult "
+				+ "WHERE matchId = ?";
 		try {
 			Connection connection = dbConnection.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
@@ -96,28 +62,109 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			statement.setInt(1, matchId);
 
 			ResultSet rs = statement.executeQuery();
-
-			while (rs.next()) {
-				listOfMatchRoundResults.add(getRoundResult(rs.getInt(1)));
+			
+			while (rs.next()){
+				listOfMatchRoundResultIds.add(rs.getInt(1));
 			}
+	
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return listOfMatchRoundResults;
+		return listOfMatchRoundResultIds;
 	}
 	
 	@Override
-	public List<Team> getTeamsFromMatchRoundResult(int matchRoundResultId) throws SQLException{
+	public MatchRoundResult getMatchRoundResultFromMatchIdAndMatchRoundResultId(int matchId, int matchRoundResultId) throws SQLException {
+		teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner, matchId FROM MatchRoundResult "
+				+ "WHERE matchId = ? AND matchRoundResultId = ?";
+
+		MatchRoundResult matchRoundResult = null;
+
+
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+
+			statement.setInt(1, matchId);
+			statement.setInt(2, matchRoundResultId);
+
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				if (rs.getBoolean(3) == true && matchRoundResult == null) {
+					matchRoundResult = new MatchRoundResult(rs.getInt(1), teamDAO.getTeam(rs.getInt(2)), null, false);
+				}
+				else if (rs.getBoolean(3) == false && matchRoundResult == null) {
+					matchRoundResult = new MatchRoundResult(rs.getInt(1), null, teamDAO.getTeam(rs.getInt(2)), false);
+				}
+				
+				if (matchRoundResult.getWinner() == null && matchRoundResult.getLoser().getTeamId() != rs.getInt(2)) {
+					matchRoundResult.setWinner(teamDAO.getTeam(rs.getInt(2)));
+				}
+				else if (matchRoundResult.getLoser() == null && matchRoundResult.getWinner().getTeamId() != rs.getInt(2)) {
+					matchRoundResult.setLoser(teamDAO.getTeam(rs.getInt(2)));
+				}	
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return matchRoundResult;
+	}
+
+	@Override
+	public List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException {
+		List<MatchRoundResult> listOfMatchRoundResults = new ArrayList<>();
+		
+		Set<Integer> listOfMatchRoundResultIds = getMatchRoundResultIds(matchId);
+		for (Integer integer : listOfMatchRoundResultIds) {
+				listOfMatchRoundResults.add(getMatchRoundResultFromMatchIdAndMatchRoundResultId(matchId, integer));		
+		}
+
+		return listOfMatchRoundResults;
+
+	}
+
+//	@Override
+//	public List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException {
+//		List<MatchRoundResult> listOfMatchRoundResults = new ArrayList<>();
+//
+//		String sqlQuery = "SELECT matchRoundResultId FROM MatchRoundResult WHERE matchId = ? ";
+//
+//		try {
+//			Connection connection = dbConnection.getConnection();
+//			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+//
+//			statement.setInt(1, matchId);
+//
+//			ResultSet rs = statement.executeQuery();
+//
+//			while (rs.next()) {
+//				listOfMatchRoundResults.add(getMatchRoundResult(rs.getInt(1)));
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return listOfMatchRoundResults;
+//	}
+	
+	@Override
+	public List<Team> getTeamsFromMatch(int matchId) throws SQLException{
 		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
 		List<Team> listOfTeams = new LinkedList<>();
-		String sqlQuery = "SELECT teamId FROM MatchRoundResult WHERE matchRoundResultId = ?";
+		
+		
+		String sqlQuery = "SELECT teamId FROM MatchRoundResult WHERE matchId = ? AND matchRoundResultId = ?";
 		
 		try {
 			Connection connection = dbConnection.getConnection();
 			
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			int matchRoundResultId = getMatchRoundResultIds(matchId).iterator().next();
 			
-			statement.setInt(1, matchRoundResultId);
+			statement.setInt(1, matchId);
+			statement.setInt(2, matchRoundResultId);
 			
 			ResultSet rs = statement.executeQuery();
 			
@@ -136,5 +183,13 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Team> getTeamsFromMatchRoundResult(int matchRoundResultId) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

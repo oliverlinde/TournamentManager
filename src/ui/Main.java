@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.event.AncestorEvent;
-
 import controller.PersonController;
 import controller.PersonControllerIF;
 
@@ -84,7 +82,7 @@ public class Main {
 
 		loginUI = new JFrame();
 		loginUI.setTitle("Turneringsmanager");
-		loginUI.setBounds(100, 100, 800, 500);
+		loginUI.setBounds(300, 200, 800, 500);
 		loginUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createLoginUIFrame();
 
@@ -264,7 +262,7 @@ public class Main {
 		if (frame.equals(Frame.mainFrame)) {
 			frmTurneringsmanager = new JFrame();
 			frmTurneringsmanager.setTitle("Turneringsmanager");
-			frmTurneringsmanager.setBounds(100, 100, 800, 500);
+			frmTurneringsmanager.setBounds(300, 200, 900, 700);
 			frmTurneringsmanager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.frmTurneringsmanager.setVisible(true);
 			createMainMenuUIFrame();

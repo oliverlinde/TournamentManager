@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.Team;
 
@@ -56,6 +57,14 @@ public class TeamDAO implements TeamDAOIF {
 			// TODO: handle exception
 		}
 		return foundTeam;
+	}
+	
+	@Override
+	public List<Team> getTeamsFromMatch(int matchId) throws SQLException {
+
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		
+		return matchRoundResultDAO.getTeamsFromMatch(matchId);
 	}
 	
 }

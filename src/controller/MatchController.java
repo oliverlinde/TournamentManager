@@ -14,10 +14,6 @@ public class MatchController implements MatchControllerIF {
 	private Match match;
 	private List<Match> matches;
 
-	public MatchController(List<Team> listOfTeams) {
-		this.match = new Match(listOfTeams);
-		matchRoundResultController = new MatchRoundResultController();
-	}
 
 	public MatchController() {
 		matches = new ArrayList<Match>();
@@ -29,7 +25,7 @@ public class MatchController implements MatchControllerIF {
 		this.match = new Match(listOfTeams);
 		int i = 0;
 		while (i < noOfRounds) {
-			match.createRoundResult(matchRoundResultController.getMatchRoundResult());
+			match.createRoundResult(matchRoundResultController.getMatchRoundResult(match.getMatchId()));
 			i++;
 		}
 		matches.add(match);
@@ -57,8 +53,16 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public List<Match> getAllMatches() {
-		return matches;
+	public List<Match> getAllMatches(int bracketRoundId) {
+		List<Match> listOfMatches = null;
+		try {
+			listOfMatches = matchDAO.getMatchesFromBracketRound(bracketRoundId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return listOfMatches;
 	}
+
 
 }

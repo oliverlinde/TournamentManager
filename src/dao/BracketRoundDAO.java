@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.BracketRound;
-import model.BracketRoundResult;
-import model.Match;
 import model.Team;
-import model.MatchRoundResult;
 
 public class BracketRoundDAO implements BracketRoundDAOIF {
 	private DbConnectionIF dbConnection;

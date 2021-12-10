@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
 import controller.TeamController;
@@ -102,6 +101,10 @@ public class HomeScreen extends JPanel {
 				parentPanel.updateUI();
 			}
 		});
+	}
+	
+	public JButton getShowTournamentBtn() {
+		return showTournamentBtn;
 	}
 
 }

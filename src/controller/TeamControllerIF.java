@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.Person;
 import model.Team;
-import model.Tournament;
 
 public interface TeamControllerIF {
 	public void addPersonToTeam(Person person);

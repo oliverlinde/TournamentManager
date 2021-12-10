@@ -7,8 +7,6 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.MatchRoundResultDAO;
-
 public class BracketRound {
 	private int bracketRoundId;
 	private List<Match> listOfMatches;

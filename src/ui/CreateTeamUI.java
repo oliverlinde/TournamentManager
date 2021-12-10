@@ -16,6 +16,10 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 public class CreateTeamUI extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField searchPersonTextField;
 	private JTextField textField;
 	private TeamControllerIF teamController;

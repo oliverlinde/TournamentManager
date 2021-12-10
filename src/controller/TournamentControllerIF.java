@@ -3,7 +3,6 @@ package controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import model.Format;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;

@@ -2,10 +2,9 @@ package ui;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
+import java.awt.Dimension;
 
-import controller.BracketRoundControllerIF;
+import javax.swing.JButton;
 import controller.TournamentController;
 import controller.TournamentControllerIF;
 import model.Bracket;
@@ -14,9 +13,6 @@ import model.Match;
 import model.Tournament;
 
 import java.awt.FlowLayout;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
@@ -32,6 +28,7 @@ public class TournamentProgressionUI extends JPanel {
 	private JScrollPane round2ScrollPane;
 	private Tournament tournament;
 	private JList<Match> matches;
+	private JPanel round1Pnl;
 
 	/**
 	 * Create the panel.
@@ -48,14 +45,12 @@ public class TournamentProgressionUI extends JPanel {
 		JPanel panel_6 = new JPanel();
 		panel.add(panel_6);
 		panel_6.setLayout(new BorderLayout(0, 0));
+		panel_6.setMinimumSize(new Dimension(400, 400));
 		
-		JPanel panel_2 = new JPanel();
-		panel_6.add(panel_2);
-		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
-		
-		round1ScrollPane = new JScrollPane();
-		panel_2.add(round1ScrollPane);
-		
+		round1Pnl = new JPanel();
+		panel_6.add(round1Pnl);
+		round1Pnl.setLayout(new BoxLayout(round1Pnl, BoxLayout.X_AXIS));
+				
 		JPanel panel_7 = new JPanel();
 		panel_6.add(panel_7, BorderLayout.NORTH);
 		
@@ -141,7 +136,8 @@ public class TournamentProgressionUI extends JPanel {
 		
 		matches = new JList<>(listModel);
 		matches.setCellRenderer(new MatchListCellRenderer());
-		round1ScrollPane.add(matches);
+		round1ScrollPane = new JScrollPane(matches);
+		round1Pnl.add(round1ScrollPane);
 
 	}
 	

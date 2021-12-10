@@ -27,6 +27,7 @@ public class MatchRoundResult {
 		setDraw(draw);
 	}
 	
+	
 	public void setWinner(Team winner) {
 		this.winner = winner;
 	}

@@ -2,7 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 
-import model.Format;
 import model.Team;
 
 public class DoubleEliminationStrategy implements GenerateBracketStrategyIF {
