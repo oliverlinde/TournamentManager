@@ -35,14 +35,15 @@ public class BracketController implements BracketControllerIF {
 	
 	@Override
 	public void createBracket(List<Team> listOfTeams, int tournamentId) {
-		this.bracket = new Bracket(listOfTeams);
+		this.bracket = new Bracket();
 		bracket.setBracketId(getNextBracketId());
 		try {
 			saveToDatabase(tournamentId);
-		} catch (SQLServerException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 
 	public void createBracket(List<Team> listOfTeams) {
 		//this.bracket = new Bracket(listOfTeams);
@@ -98,7 +99,7 @@ public class BracketController implements BracketControllerIF {
 		return nextId;
 	}
 		
-	private void saveToDatabase(int tournamentId) throws SQLServerException {
+	private void saveToDatabase(int tournamentId) throws SQLException {
 		try {
 			bracketDAO.createBracket(tournamentId, bracket);
 		} catch (SQLException e) {

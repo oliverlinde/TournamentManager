@@ -46,8 +46,8 @@ public class BracketRoundController implements BracketRoundControllerIF {
 
 	@Override
 	public void createMatches(GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) bracketRound.getListOfTeams(), matchController, noOfRounds, bracketRound.getBracketRoundID());
-		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());
+//		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) bracketRound.getListOfTeams(), matchController, noOfRounds, bracketRound.getBracketRoundID());
+//		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());
 	}
 	
 	private int getBracketRoundId() {
