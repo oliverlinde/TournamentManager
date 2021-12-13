@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+
+import model.Bracket;
 import model.Team;
 import model.Tournament;
 
@@ -22,7 +24,8 @@ public class DoubleEliminationStrategy implements GenerateBracketStrategyIF {
 
 
 	@Override
-	public void initializeTournament(Tournament tournament) {
+	public Bracket initializeTournament(Tournament tournament) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

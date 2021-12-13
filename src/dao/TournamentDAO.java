@@ -95,14 +95,10 @@ public class TournamentDAO implements TournamentDAOIF {
 			statement.setInt(7, tournament.getMinNoOfTeams());
 			statement.setInt(8, tournament.getId());
 
-			tournamentCreated = statement.executeUpdate();
+			statement.execute();
 
 			connection.commit();
-			
-			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
-			for (Bracket b : tournament.getBrackets()) {
-				bracketDAO.createBracket(tournament.getId(), b);
-			}
+			System.out.println("Tournament created");
 
 
 		} catch (SQLException e) {
@@ -112,7 +108,6 @@ public class TournamentDAO implements TournamentDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		System.out.println("Tournament created");
 		return tournamentCreated;
 	}
 

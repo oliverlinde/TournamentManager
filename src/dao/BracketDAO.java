@@ -106,14 +106,11 @@ public class BracketDAO implements BracketDAOIF {
 			statement.setInt(1, bracket.getBracketId());
 			statement.setInt(2, tournamentId);
 			
-			bracketCreated = statement.executeUpdate();
-			
-			BracketRoundDAOIF bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
-			for(BracketRound b : bracket.getBracketRounds()) {
-				bracketRoundDAO.createBracketRound(bracket.getBracketId(), b);
-			}
+			statement.execute();
 			
 			connection.commit();
+			System.out.println("Bracket created");
+
 			
 		} catch (SQLException e) {
 			connection.rollback();
@@ -122,7 +119,6 @@ public class BracketDAO implements BracketDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		System.out.println("Bracket created");
 		return bracketCreated;
 	}
 

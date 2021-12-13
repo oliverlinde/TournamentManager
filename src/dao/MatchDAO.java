@@ -102,12 +102,7 @@ public class MatchDAO implements MatchDAOIF {
 			statement.setInt(1, match.getMatchId());
 			statement.setInt(2, bracketRoundId);
 
-			matchCreated = statement.executeUpdate();
-			
-			MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
-			for(MatchRoundResult m : match.getListOfMatchRounds()) {
-				matchRoundResultDAO.createMatchRoundResult(match.getMatchId(), m);
-			}
+			statement.execute();
 
 //			if (match.getMatchId() != 0) {
 //				for (Team t : match.getListOfTeams()) {
@@ -130,7 +125,8 @@ public class MatchDAO implements MatchDAOIF {
 //			}
 
 			connection.commit();
-
+			System.out.println("Match created");
+			
 		} catch (SQLException e) {
 			connection.rollback();
 			e.printStackTrace();
@@ -138,7 +134,6 @@ public class MatchDAO implements MatchDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		System.out.println("Match created");
 		return matchCreated;
 	}
 

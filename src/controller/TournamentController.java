@@ -1,16 +1,28 @@
 package controller;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
+import dao.BracketDAOIF;
+import dao.BracketRoundDAOIF;
+import dao.BracketRoundResultDAO;
 import dao.DAOFactory;
 import dao.DbConnection;
 import dao.DbConnectionIF;
+import dao.MatchDAOIF;
+import dao.MatchRoundResultDAOIF;
 import dao.TournamentDAOIF;
-
+import model.Bracket;
+import model.BracketRound;
+import model.BracketRoundResult;
 import model.Format;
+import model.Match;
+import model.MatchRoundResult;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
@@ -18,6 +30,10 @@ import model.TournamentRule;
 public class TournamentController implements TournamentControllerIF {
 	private Tournament tournament;
 	private TournamentDAOIF tournamentDAO;
+	private BracketDAOIF bracketDAO;
+	private BracketRoundDAOIF bracketRoundDAO;
+	private MatchDAOIF matchDAO;
+	private MatchRoundResultDAOIF matchRoundResultDAO;
 	private TournamentRuleControllerIF tournamentRuleController;
 	private GenerateBracketStrategyIF generateBracketStrategy;
 	private DbConnectionIF dbConnection;
@@ -25,9 +41,13 @@ public class TournamentController implements TournamentControllerIF {
 	public TournamentController() {
 		dbConnection = new DbConnection();
 		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
+		bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
+		matchDAO = DAOFactory.createMatchDAO(dbConnection);
+		matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
 		new BracketController();
 	}
-	
+
 	@Override
 	public void setTournament(Tournament tournament) {
 		this.tournament = tournament;
@@ -89,7 +109,7 @@ public class TournamentController implements TournamentControllerIF {
 	public int getMaxNoOfTeams() {
 		return tournament.getMaxNoOfTeams();
 	}
-	
+
 	@Override
 	public void setMinNoOfTeams(int minNoOfTeams) {
 		tournament.setMinNoOfTeams(minNoOfTeams);
@@ -102,16 +122,31 @@ public class TournamentController implements TournamentControllerIF {
 
 	// Save the tournament object to database
 	@Override
-	public boolean confirmTournament() {
+	public boolean confirmTournament() throws SQLException {
 		boolean passed = false;
+		Connection connection = dbConnection.getConnection();
+		connection.setAutoCommit(false);
 		try {
-			int rowsAffected = tournamentDAO.updateTournament(tournament);
-			if (rowsAffected == 1) {
-				passed = true;
+			for (Bracket bracket : tournament.getBrackets()) {
+				bracketDAO.createBracket(tournament.getId(), bracket);
+				for(BracketRound bracketRound : bracket.getBracketRounds()) {
+					bracketRoundDAO.createBracketRound(bracket.getBracketId(), bracketRound);
+					for(Match match : bracketRound.getMatches()) {
+						matchDAO.createMatch(bracketRound.getBracketRoundID(), match);
+						for(Team team : match.getListOfTeams()) {
+							for(MatchRoundResult matchRoundResult : match.getListOfMatchRounds()) {
+								matchRoundResultDAO.createMatchRoundResult(match.getMatchId(), team.getTeamId(), matchRoundResult);
+							}
+						}
+					}
+				}
 			}
-			
+			connection.commit();
 		} catch (SQLException e) {
+			connection.rollback();
 			e.printStackTrace();
+		} finally {
+			connection.setAutoCommit(true);
 		}
 		return passed;
 	}
@@ -129,8 +164,6 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public void setTournamentRule(TournamentRule tournamentRule) {
-		
-		
 
 		switch (tournamentRule.getFormat().toString()) {
 		case "SingleElimination":
@@ -173,14 +206,13 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public void generateNextBracketRound(int noOfRounds) {
-		
+
 	}
 
 	@Override
 	public void addTeamToTournament(Team team) {
 		tournament.addTeam(team);
 	}
-
 
 	@Override
 	public List<Team> getAllTeams() {
@@ -216,7 +248,7 @@ public class TournamentController implements TournamentControllerIF {
 		}
 		return nextTournamentId;
 	}
-	
+
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
 		try {
@@ -226,9 +258,9 @@ public class TournamentController implements TournamentControllerIF {
 			e.printStackTrace();
 		}
 		return tournament;
-		
+
 	}
-	
+
 	@Override
 	public void initializeTournament() {
 		tournament.addBracket(generateBracketStrategy.initializeTournament(tournament));
@@ -237,9 +269,9 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public void removeTeamFromTournament(Team team) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public Tournament getTournament() {
 		return tournament;

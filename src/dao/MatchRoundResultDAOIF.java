@@ -28,7 +28,7 @@ public interface MatchRoundResultDAOIF {
 
 	List<Team> getTeamsFromMatch(int matchId) throws SQLException;
 
-	int createMatchRoundResult(int matchId, MatchRoundResult matchRoundResult) throws SQLException;
+	int createMatchRoundResult(int matchId, int teamId, MatchRoundResult matchRoundResult) throws SQLException;
 
 	Set<Integer> getMatchRoundResultIds(int matchId) throws SQLException;
 

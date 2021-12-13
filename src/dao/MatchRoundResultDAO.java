@@ -53,8 +53,8 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	
 
 	@Override
-	public int createMatchRoundResult(int matchId, MatchRoundResult matchRoundResult) throws SQLException{
-		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId) VALUES (?, ?) ";
+	public int createMatchRoundResult(int matchId, int teamId, MatchRoundResult matchRoundResult) throws SQLException{
+		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?) ";
 		
 		int matchRoundResultCreated = 0;
 		Connection connection = dbConnection.getConnection();
@@ -66,8 +66,11 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			
 			statement.setInt(1, matchRoundResult.getMatchRoundResultId());
 			statement.setInt(2, matchId);
+			statement.setInt(3, teamId);
 			
+			statement.execute();
 			connection.commit();
+			System.out.println("MatchRoundResult created");
 			
 		} catch (SQLException e) {
 			connection.rollback();
@@ -76,7 +79,6 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		System.out.println("MatchRoundResult created");
 		return matchRoundResultCreated;
 	}
 

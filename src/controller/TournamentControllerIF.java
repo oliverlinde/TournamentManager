@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface TournamentControllerIF {
 	public LocalDateTime getDateTimeOfEvent();
 	public void setMaxNoOfTeams(int maxNoOfTeams);
 	public int getMaxNoOfTeams();
-	public boolean confirmTournament();
+	public boolean confirmTournament() throws SQLException;
 	public boolean cancelTournament();
 	public TournamentRule getTournamentRule();
 	public void setTournamentRule(TournamentRule tournamentRule);

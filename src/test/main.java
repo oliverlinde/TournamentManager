@@ -1,6 +1,8 @@
 package test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import controller.TournamentController;
 import controller.TournamentControllerIF;
 import dao.BracketDAOIF;
@@ -82,6 +84,7 @@ public class main {
 			}
 		}
 		
+		tournamentController.confirmTournament();
 
 //		Bracket bracket = tournamentController.get;
 //		System.out.println("Bracket ID: " + bracket.getBracketId());
