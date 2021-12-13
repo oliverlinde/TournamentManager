@@ -8,17 +8,27 @@ public class GGWUser extends Person {
 	private boolean isAdmin;
 	private String role;
 	
+	/*
+	 * Constructor creating a new GGWUser in application
+	 */
 	public GGWUser(boolean isAdmin, String personName, String email, LocalDate birthdate, String role) {
 		super(personName, email, birthdate);
 		setAdmin(isAdmin);
 		setRole(role);
 	}
 	
-	public GGWUser(int personId, String personName, String email, LocalDate birthdate, List<Team> teams) {
+	/*
+	 * Constructor getting a GGWUser with teams from database
+	 */
+	public GGWUser(int personId, boolean isAdmin, String personName, String email, LocalDate birthdate, List<Team> teams, String role) {
 		super(personId, personName, email, birthdate, teams);
-		// TODO Auto-generated constructor stub
+		setAdmin(isAdmin);
+		setRole(role);
 	}
 	
+	/*
+	 * Constructor getting a GGWUser from database
+	 */
 	public GGWUser(int personId, boolean isAdmin, String personName, String email, LocalDate birthdate, String role) {
 		super(personId, personName, email, birthdate);
 		setAdmin(isAdmin);
@@ -29,7 +39,7 @@ public class GGWUser extends Person {
 		return role;
 	}
 
-	public void setRole(String role) {
+	private void setRole(String role) {
 		this.role = role;
 	}
 
@@ -37,7 +47,7 @@ public class GGWUser extends Person {
 		return isAdmin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
+	private void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 

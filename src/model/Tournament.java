@@ -27,8 +27,11 @@ public class Tournament {
 		setTournamentId(tournamentId);
 	}
 	
+	/*
+	 * Constructor of Tournament, used for getting a tournament from database with all information
+	 */
 	public Tournament(int tournamentId, TournamentRule tournamentRule, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
-		this.tournamentId = tournamentId;
+		setTournamentId(tournamentId);
 		setTournamentRule(tournamentRule);
 		setName(tournamentName);
 		setGame(gameName);
@@ -36,10 +39,14 @@ public class Tournament {
 		setRegistrationDeadline(registrationDeadline);
 		setMaxNoOfTeams(maxNoOfTeams);
 		setMinNoOfTeams(minNoOfTeams);
+		brackets = new ArrayList<>();
 	}
 	
+	/*
+	 * Constructor for Tournament, used for displaying a tournament with simple data
+	 */
 	public Tournament(int tournamentId, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
-		this.tournamentId = tournamentId;
+		setTournamentId(tournamentId);
 		setName(tournamentName);
 		setGame(gameName);
 		setDateTimeOfEvent(dateTimeOfEvent);
@@ -122,22 +129,6 @@ public class Tournament {
 	public void setTournamentRule(TournamentRule tournamentRule) {
 		this.tournamentRule = tournamentRule;
 	}
-
-	/*
-	 * Search for a specific team through an  @param teamId, which returns
-	 * the team with an equal teamId. 
-	 */
-	public Team findTeam(int teamId) {
-		Team foundTeam = null;
-		
-		for (Team team : listOfTeams) {
-			if(teamId == team.getTeamId()) {
-				foundTeam = team;
-			}
-			
-		}
-		return foundTeam;
-	}
 	
 	public void addTeam(Team team) {
 		listOfTeams.add(team);
@@ -158,6 +149,10 @@ public class Tournament {
 	
 	public void setBrackets(List<Bracket> brackets) {
 		this.brackets = brackets;
+	}
+	
+	public void addBracket(Bracket bracket) {
+		brackets.add(bracket);
 	}
 
 }

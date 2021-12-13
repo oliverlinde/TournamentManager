@@ -1,9 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import model.Team;
+import model.Tournament;
 
 public class DoubleEliminationStrategy implements GenerateBracketStrategyIF {
 
@@ -14,17 +13,16 @@ public class DoubleEliminationStrategy implements GenerateBracketStrategyIF {
 		return 0;
 	}
 
-
-	@Override
-	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId) {
-
-
-
-}
-
 	@Override
 	public void proceedToNextRound(ArrayList<Team> linkedList, MatchControllerIF matchController, int noOfRounds,
 			int bracketRoundId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void initializeTournament(Tournament tournament) {
 		// TODO Auto-generated method stub
 		
 	}

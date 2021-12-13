@@ -10,9 +10,6 @@ import dao.DbConnection;
 import dao.DbConnectionIF;
 import dao.TournamentDAOIF;
 
-import dao.TournamentRuleDAOIF;
-import model.Bracket;
-
 import model.Format;
 import model.Team;
 import model.Tournament;
@@ -21,9 +18,6 @@ import model.TournamentRule;
 public class TournamentController implements TournamentControllerIF {
 	private Tournament tournament;
 	private TournamentDAOIF tournamentDAO;
-	private TeamControllerIF teamController;
-	private BracketControllerIF bracketController;
-	private MatchControllerIF matchController;
 	private TournamentRuleControllerIF tournamentRuleController;
 	private GenerateBracketStrategyIF generateBracketStrategy;
 	private DbConnectionIF dbConnection;
@@ -31,8 +25,7 @@ public class TournamentController implements TournamentControllerIF {
 	public TournamentController() {
 		dbConnection = new DbConnection();
 		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
-		bracketController = new BracketController(dbConnection);
-		//tournamentRuleController = new TournamentRuleController(dbConnection);
+		new BracketController();
 	}
 	
 	@Override
@@ -112,13 +105,12 @@ public class TournamentController implements TournamentControllerIF {
 	public boolean confirmTournament() {
 		boolean passed = false;
 		try {
-			int rowsAffected = tournamentDAO.createTournament(tournament);
+			int rowsAffected = tournamentDAO.updateTournament(tournament);
 			if (rowsAffected == 1) {
 				passed = true;
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return passed;
@@ -137,10 +129,10 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public void setTournamentRule(TournamentRule tournamentRule) {
-		tournament.setTournamentRule(tournamentRule);
-		String format = tournament.getTournamentRule().getFormat().toString();
+		
+		
 
-		switch (format) {
+		switch (tournamentRule.getFormat().toString()) {
 		case "SingleElimination":
 			generateBracketStrategy = new SingleEliminationStrategy();
 			break;
@@ -181,8 +173,7 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public void generateNextBracketRound(int noOfRounds) {
-		bracketController.createBracketRound(tournament.getAllTeams());
-		bracketController.generateMatchesInBracketRound(generateBracketStrategy, noOfRounds);
+		
 	}
 
 	@Override
@@ -228,30 +219,30 @@ public class TournamentController implements TournamentControllerIF {
 	
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
-		Tournament tournament = null;
 		try {
 			tournament = tournamentDAO.getTournament(tournamentId);
+			setTournamentRule(tournament.getTournamentRule());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return tournament;
 		
 	}
-
-	@Override
-	public Bracket getBracket() {
-		return bracketController.getBracket();
-	}
 	
 	@Override
 	public void initializeTournament() {
-		generateBracketStrategy.initializeTournament(tournament.getAllTeams(), bracketController, tournament.getId());
+		tournament.addBracket(generateBracketStrategy.initializeTournament(tournament));
 	}
 
 	@Override
 	public void removeTeamFromTournament(Team team) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public Tournament getTournament() {
+		return tournament;
 	}
 
 }

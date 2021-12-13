@@ -2,11 +2,12 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import dao.DAOFactory;
 import dao.DbConnection;
-import dao.DbConnectionIF;
 import dao.MatchDAOIF;
 import model.Match;
 import model.MatchRoundResult;
@@ -19,9 +20,8 @@ public class MatchController implements MatchControllerIF {
 	private Match match;
 	private List<Match> matches;
 
-	public MatchController(DbConnectionIF dbConnection) {
-		matchRoundResultController = new MatchRoundResultController(dbConnection);
-		matchDAO = DAOFactory.createMatchDAO(dbConnection);
+	public MatchController() {
+		matchDAO = DAOFactory.createMatchDAO(new DbConnection());
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public int getMatchId() {
+	public int getNextMatchId() {
 		int nextMatchId = 0;
 		try {
 			nextMatchId = matchDAO.getNextMatchId();
@@ -83,12 +83,38 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId) {
-		this.match = new Match(listOfTeams, getMatchId());
-		match.setMatchRoundResults(matchRoundResultController.addRoundResult(noOfRounds));
-		matches.add(match);
-		saveMatchToDatabase(bracketRoundId, match);
+	public List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams) {
+		List<Match> listOfMatches = new ArrayList<>();
+		MatchRoundResultControllerIF matchRoundResultController = new MatchRoundResultController();
+		LinkedList<Team> listOfRandomTeams = (LinkedList<Team>) generateRandomListOfTeams(listOfTeams);
+		
+		for(int i = 0 ; i <= listOfRandomTeams.size() ; i++){
+			List<MatchRoundResult> listOfMatchRoundResults = matchRoundResultController.generateMatchRoundResults(noOfRounds);
+			List<Team> listOfTeamsInMatch = new ArrayList<>();
+			listOfTeamsInMatch.add(listOfRandomTeams.poll());
+			listOfTeamsInMatch.add(listOfRandomTeams.poll());
+			listOfMatches.add(new Match(getNextMatchId()+i, listOfMatchRoundResults, listOfTeamsInMatch));
 
+		}
+		
+		return listOfMatches;
+		
+//		match.setMatchRoundResults(matchRoundResultController.addRoundResult(noOfRounds));
+//		matches.add(match);
+//		saveMatchToDatabase(bracketRoundId, match);
+
+	}
+	
+	private List<Team> generateRandomListOfTeams(List<Team> listOfTeams){
+		List<Team> randomList = new LinkedList<>();
+		Random ran = new Random();
+		
+		while(!listOfTeams.isEmpty()) {
+			int randomIndex = ran.nextInt(listOfTeams.size());
+			randomList.add(listOfTeams.get(randomIndex));
+			listOfTeams.remove(randomIndex);
+		}
+		return randomList;
 	}
 
 	@Override
@@ -97,10 +123,6 @@ public class MatchController implements MatchControllerIF {
 		return null;
 	}
 
-	@Override
-	public void createMatch(List<Team> listOfTeams, int noOfRounds) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

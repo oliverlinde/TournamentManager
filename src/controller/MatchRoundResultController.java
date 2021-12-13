@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.DbConnectionIF;
 import dao.DAOFactory;
+import dao.DbConnection;
 import dao.MatchRoundResultDAOIF;
 import model.MatchRoundResult;
 import model.Team;
@@ -16,9 +16,10 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	private MatchRoundResult matchRoundResult;
 	private MatchRoundResultDAOIF matchRoundResultDAO;
 	private List<MatchRoundResult> matchRoundResults;
+	private static int count = -1;
 	
-	public MatchRoundResultController(DbConnectionIF dbConnection) {
-		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+	public MatchRoundResultController() {
+		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(new DbConnection());
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 		}
 		return listMatchRoundResults;
 	}
-	
+
 	
 	public List<MatchRoundResult> getAllRoundResults(int matchId) {
 		
@@ -73,26 +74,22 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 		}
 		return allRoundResults;
 	}
-
-
-
 	
 	@Override
-	public MatchRoundResult createMatchRoundResult() {
-		return this.matchRoundResult = new MatchRoundResult(getNextMatchRoundResultId());
-		//matchRoundResults.add(matchRoundResult);
-	}
-	
-	@Override
-	public List<MatchRoundResult> addRoundResult(int noOfRounds){
+	public List<MatchRoundResult> generateMatchRoundResults(int noOfRounds){
 		List<MatchRoundResult> matchRoundResults = new LinkedList<MatchRoundResult>();
-		int i = 0;
 		int nextMatchRoundResultId = getNextMatchRoundResultId();
+		int i = 0;
 		while(i<noOfRounds){
-			matchRoundResults.add(new MatchRoundResult(nextMatchRoundResultId+i));
+			matchRoundResults.add(new MatchRoundResult(nextMatchRoundResultId+countMatchRoundId()));
 			i++;
 		}
 		return matchRoundResults;
+	}
+	
+	private int countMatchRoundId() {
+		count++;
+		return count;
 	}
 	
 	@Override
@@ -106,7 +103,6 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 		return nextId;
 	}
 	
-	
 	public void saveMatchRoundResultToDatabase(int matchId, MatchRoundResult matchRoundResult) {
 		
 	}
@@ -119,18 +115,6 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	@Override
 	public void createMatchRoundResultList() {
 		matchRoundResults = new ArrayList<MatchRoundResult>();
-	}
-
-	@Override
-	public MatchRoundResult getRoundResult(int matchRoundResultId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MatchRoundResult getMatchRoundResult() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

@@ -2,12 +2,13 @@ package controller;
 
 import java.util.ArrayList;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import model.Format;
-
+import model.Bracket;
+import model.BracketRound;
+import model.Match;
 import model.Team;
+import model.Tournament;
 
 public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 
@@ -15,12 +16,12 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 	
 	@Override
 	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds, int bracketRoundId) {
-		this.matchController = matchController;
-		matchController.createListOfMatches();
-		for(int i = 1 ; i <= Math.floor((listOfTeams.size()/2)) ; i++){
-			ArrayList<Team> temp = subArray(listOfTeams, ((i*2)-2), (i*2)-1);
-			matchController.createMatch(temp, noOfRounds, bracketRoundId);
-		}
+//		this.matchController = matchController;
+//		matchController.createListOfMatches();
+//		for(int i = 1 ; i <= Math.floor((listOfTeams.size()/2)) ; i++){
+//			ArrayList<Team> temp = subArray(listOfTeams, ((i*2)-2), (i*2)-1);
+//			matchController.createMatch(temp, noOfRounds, bracketRoundId);
+//		}
 	}
 
 	@Override
@@ -28,18 +29,18 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	private ArrayList<Team> subArray(ArrayList<Team> teams, int start, int end){
-		ArrayList<Team> toReturn = new ArrayList<>();
-		for(int i = start ; i <= end ; i++) {
-			toReturn.add(teams.get(i));
-		}
-		return toReturn;
-	}
 
 	@Override
-	public void initializeTournament(List<Team> listOfTeams, BracketControllerIF bracketController, int tournamentId) {
-		bracketController.createBracket(listOfTeams, tournamentId);
+	public Bracket initializeTournament(Tournament tournament) {
+		MatchControllerIF matchController = new MatchController();
+		List<Match> listOfMatches = matchController.generateMatches(tournament.getTournamentRule().getNoOfRounds().getValue(), tournament.getAllTeams());
+		
+		BracketRoundControllerIF bracketRoundController = new BracketRoundController();
+		BracketRound bracketRound = bracketRoundController.generateBracketRound(listOfMatches);
+		
+		BracketControllerIF bracketController = new BracketController();
+		Bracket bracket = bracketController.generateBracket(bracketRound);
+		return bracket;
 	}
 
 }

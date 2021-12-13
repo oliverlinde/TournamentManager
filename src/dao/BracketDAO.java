@@ -11,7 +11,6 @@ import java.util.List;
 import model.Bracket;
 import model.BracketRound;
 import model.Team;
-import model.Bracket;
 
 public class BracketDAO implements BracketDAOIF {
 	private List<BracketRound> listOfBracketRounds;
@@ -98,9 +97,10 @@ public class BracketDAO implements BracketDAOIF {
 				+ "VALUES (?, ?)";
 		
 		int bracketCreated = 0;
+		Connection connection = dbConnection.getConnection();
+		connection.setAutoCommit(false);
 		
 		try {
-			Connection connection = dbConnection.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 			
 			statement.setInt(1, bracket.getBracketId());
@@ -108,8 +108,21 @@ public class BracketDAO implements BracketDAOIF {
 			
 			bracketCreated = statement.executeUpdate();
 			
-		} catch (Exception e) {
+			BracketRoundDAOIF bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
+			for(BracketRound b : bracket.getBracketRounds()) {
+				bracketRoundDAO.createBracketRound(bracket.getBracketId(), b);
+			}
+			
+			connection.commit();
+			
+		} catch (SQLException e) {
+			connection.rollback();
+			e.printStackTrace();
+			throw new SQLException("Bracket not created " + bracket.getBracketId());
+		} finally {
+			connection.setAutoCommit(true);
 		}
+		System.out.println("Bracket created");
 		return bracketCreated;
 	}
 

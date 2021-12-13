@@ -45,7 +45,7 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 				statement.setInt(3, 0);
 			}
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 

@@ -4,7 +4,6 @@
 
 package model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,9 +11,11 @@ public class BracketRound {
 	private int bracketRoundId;
 	private List<Match> listOfMatches;
 	
+	/*
+	 * Creating an empty BracketRound
+	 */
 	public BracketRound() {
-		listOfMatches = new LinkedList<>();
-
+		listOfMatches = new LinkedList<Match>();
 	}
 	
 	public BracketRound(int bracketRoundId, List<Match> listOfMatches) {

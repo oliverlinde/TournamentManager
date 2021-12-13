@@ -1,12 +1,10 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import dao.BracketDAOIF;
-import dao.DbConnectionIF;
 import dao.DAOFactory;
+import dao.DbConnection;
 import model.Bracket;
 import model.BracketRound;
 import model.Match;
@@ -17,9 +15,8 @@ public class BracketController implements BracketControllerIF {
 	private BracketDAOIF bracketDAO;
 	private Bracket bracket;
 
-	public BracketController(DbConnectionIF dbConnection) {
-		this.bracketDAO = DAOFactory.createBracketDAO(dbConnection);
-		bracketRoundController = new BracketRoundController(dbConnection);
+	public BracketController() {
+		this.bracketDAO = DAOFactory.createBracketDAO(new DbConnection());
 	}
 	
 	@Override
@@ -34,16 +31,10 @@ public class BracketController implements BracketControllerIF {
 	}
 	
 	@Override
-	public void createBracket(List<Team> listOfTeams, int tournamentId) {
-		this.bracket = new Bracket();
-		bracket.setBracketId(getNextBracketId());
-		try {
-			saveToDatabase(tournamentId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Bracket generateBracket(BracketRound bracketRound) {
+		return new Bracket(getNextBracketId(), bracketRound);
 	}
+	
 
 	public void createBracket(List<Team> listOfTeams) {
 		//this.bracket = new Bracket(listOfTeams);
@@ -62,26 +53,12 @@ public class BracketController implements BracketControllerIF {
 		return listOfBracketRounds;
 	}
 
-	@Override
-	public void createBracketRound(List<Team> listOfTeams) {
-		BracketRound bracketRound = bracketRoundController.createBracketRound((List<Team>) listOfTeams);
-		addBracketRound(bracketRound);
-	}
-	
-	@Override
-	public void generateMatchesInBracketRound(GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-		bracketRoundController.createMatches(generateBracketStrategy, noOfRounds);
-	}
 	
 	@Override
 	public List<Match> getAllMatches(){
 		return bracketRoundController.getAllMatches();
 	}
 	
-	@Override
-	public Bracket getBracket() {
-		return this.bracket;
-	}
 	
 	public void addBracketRound(BracketRound bracketRound) {
 		bracket.addBracketRound(bracketRound);
@@ -98,13 +75,15 @@ public class BracketController implements BracketControllerIF {
 		}
 		return nextId;
 	}
+
+
 		
-	private void saveToDatabase(int tournamentId) throws SQLException {
-		try {
-			bracketDAO.createBracket(tournamentId, bracket);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+//	private void saveToDatabase(int tournamentId) throws SQLException {
+//		try {
+//			bracketDAO.createBracket(tournamentId, bracket);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }

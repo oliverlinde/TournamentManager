@@ -2,8 +2,8 @@ package dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
-import model.Match;
 import model.MatchRoundResult;
 import model.Team;
 
@@ -18,8 +18,6 @@ public interface MatchRoundResultDAOIF {
 
 	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException;
 
-	int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException;
-
 	int getNextMatchRoundResultId() throws SQLException;
 
 	List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException;
@@ -30,6 +28,8 @@ public interface MatchRoundResultDAOIF {
 
 	List<Team> getTeamsFromMatch(int matchId) throws SQLException;
 
-	//int createMatchRoundResult(Match match) throws SQLException;
+	int createMatchRoundResult(int matchId, MatchRoundResult matchRoundResult) throws SQLException;
+
+	Set<Integer> getMatchRoundResultIds(int matchId) throws SQLException;
 
 }

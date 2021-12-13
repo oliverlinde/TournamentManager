@@ -15,8 +15,9 @@ public class Match {
 	private List<MatchRoundResult> listOfMatchRounds;
 	private List<Team> listOfTeams;
 	
+	
 	public Match(List<Team> listOfTeams, int matchId) {
-		this.listOfTeams = listOfTeams;
+		setListOfTeams(listOfTeams);
 		setMatchId(matchId);
 		this.listOfMatchRounds = new ArrayList<MatchRoundResult>();
 	}
@@ -51,7 +52,9 @@ public class Match {
 		return sortByWinner().get(1);
 	}
 	
-	
+	/*
+	 * Finding the winner and loser from the list of teams in Match
+	 */
 	private List<Team> sortByWinner() {
 		int team1Wins = 0;
 		int team2Wins = 0;

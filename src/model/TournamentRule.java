@@ -15,6 +15,9 @@ public class TournamentRule {
 	private NoOfRounds noOfRounds;
 	private Format format;
 
+	/*
+	 * Constructor used for creating a new TournamentRule from application
+	 */
 	public TournamentRule(String description, int pointsPerWin, int pointsPerLoss, int pointsPerDraw, NoOfRounds noOfRounds,Format format) {
 		setDescription(description);
 		setPointsPerWin(pointsPerWin);
@@ -24,6 +27,9 @@ public class TournamentRule {
 		setFormat(format);
 	}
 	
+	/*
+	 * Constructor used for getting a TournamentRule from database
+	 */
 	public TournamentRule(int tournamentRuleId, String description, int pointsPerWin, int pointsPerLoss, int pointsPerDraw, NoOfRounds noOfRounds,Format format) {
 		setTournamentRuleId(tournamentRuleId);
 		setDescription(description);

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.Bracket;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
@@ -23,12 +24,14 @@ public class TournamentDAO implements TournamentDAOIF {
 
 	@Override
 	public int createTournament(Tournament tournament) throws SQLException {
-		String sqlQuery = "INSERT INTO Tournament " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sqlQuery = "INSERT INTO Tournament VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
 
-		int value = 0;
+		int tournamentCreated = 0;
+		Connection connection = dbConnection.getConnection();
+		connection.setAutoCommit(false);
 
 		try {
-			Connection connection = dbConnection.getConnection();
+
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
 			statement.setInt(1, tournament.getId());
@@ -40,15 +43,77 @@ public class TournamentDAO implements TournamentDAOIF {
 			statement.setInt(7, tournament.getMaxNoOfTeams());
 			statement.setInt(8, tournament.getMinNoOfTeams());
 
-			value = statement.executeUpdate();
+			tournamentCreated = statement.executeUpdate();
 
-		} catch (Exception e) {
+			connection.commit();
+			
+			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+			for (Bracket b : tournament.getBrackets()) {
+				bracketDAO.createBracket(tournament.getId(), b);
+			}
 
+			
+
+		} catch (SQLException e) {
+			connection.rollback();
 			e.printStackTrace();
+			throw new SQLException("Tournament not created " + tournament.getId());
+		} finally {
+			connection.setAutoCommit(true);
 		}
 
-		return value;
+		return tournamentCreated;
 
+	}
+	
+	@Override
+	public int updateTournament(Tournament tournament) throws SQLException {
+		String sqlQuery = "UPDATE Tournament "
+				+ "SET tournamentRuleId= ?, "
+				+ "tournamentName = ?, "
+				+ "gameName = ?, "
+				+ "dateTimeOfEvent = ?, "
+				+ "registrationDeadline = ?, "
+				+ "maxNoOfTeams = ?, "
+				+ "minNoOfTeams = ? "
+				+ "WHERE tournamentId = ? ";
+
+		int tournamentCreated = 0;
+		Connection connection = dbConnection.getConnection();
+		connection.setAutoCommit(false);
+
+		try {
+
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+
+			statement.setInt(1, tournament.getTournamentRule().getTournamentRuleId());
+			statement.setString(2, tournament.getName());
+			statement.setString(3, tournament.getGame());
+			statement.setObject(4, tournament.getDateTimeOfEvent());
+			statement.setObject(5, tournament.getRegistrationDeadline());
+			statement.setInt(6, tournament.getMaxNoOfTeams());
+			statement.setInt(7, tournament.getMinNoOfTeams());
+			statement.setInt(8, tournament.getId());
+
+			tournamentCreated = statement.executeUpdate();
+
+			connection.commit();
+			
+			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+			for (Bracket b : tournament.getBrackets()) {
+				bracketDAO.createBracket(tournament.getId(), b);
+			}
+
+
+		} catch (SQLException e) {
+			connection.rollback();
+			e.printStackTrace();
+			throw new SQLException("Tournament not created " + tournament.getId());
+		} finally {
+			connection.setAutoCommit(true);
+		}
+		System.out.println("Tournament created");
+		return tournamentCreated;
 	}
 
 	public Tournament getTournament(int tournamentId) throws SQLException {
@@ -69,7 +134,7 @@ public class TournamentDAO implements TournamentDAOIF {
 			ResultSet rs = statement.executeQuery();
 
 			rs.next();
-			
+
 			int tournamentRuleId = rs.getInt(2);
 			String tournamentName = rs.getString(3);
 			String tournamentGame = rs.getString(4);
@@ -80,7 +145,8 @@ public class TournamentDAO implements TournamentDAOIF {
 
 			tournamentRule = tournamentRuleDAO.getTournamentRule(tournamentRuleId);
 
-			tournament = new Tournament(tournamentId, tournamentRule, tournamentName, tournamentGame, timeOfEvent, registrationDeadline, maxTeams, minTeams);
+			tournament = new Tournament(tournamentId, tournamentRule, tournamentName, tournamentGame, timeOfEvent,
+					registrationDeadline, maxTeams, minTeams);
 			tournament.setBrackets(bracketDAO.getBracketsFromTournament(tournamentId));
 			tournament.setAllTeams(getTeamsInTournament(tournamentId));
 

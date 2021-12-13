@@ -1,7 +1,4 @@
-/*
- * Returns the result of a match/round to the specific team,
- * which will add the points won to the specific team. 
- */
+
 
 package model;
 
@@ -11,24 +8,22 @@ public class MatchRoundResult {
 	private Team loser;
 	private Boolean draw = false;
 	
-	
+	/*
+	 * Creating an empty MatchRoundResult object for use in controller
+	 */
 	public MatchRoundResult(int id) {
 		setMatchRoundResultId(id);
-
 	}
 	
+	/*
+	 * Getting a MatchRoundResult from the database
+	 */
 	public MatchRoundResult(int matchRoundResultId, Team winner, Team loser, boolean draw) {
-		/*
-		 * Earlier implementation - not currently used nor implemented in DAO layer. 
-		 */
-		//this.winner = winner;
-		//this.loser = loser;
 		setMatchRoundResultId(matchRoundResultId);
 		setWinner(winner);
 		setLoser(loser);
 		setDraw(draw);
 	}
-	
 	
 	public void setWinner(Team winner) {
 		this.winner = winner;

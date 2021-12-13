@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import model.Match;
 import model.MatchRoundResult;
 import model.Team;
 
@@ -53,26 +52,35 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	 */
 	
 
-//	@Override
-//	public int createMatchRoundResult(Match match) throws SQLException{
-//		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId) VALUES (?, ?) ";
-//		
-//		int matchRoundResultCreated = 0;
-//		
-//		try {
-//			Connection connection = dbConnection.getConnection();
-//			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-//			
-//			statement.setInt(1, matchRoundResult.getMatchRoundResultId());
-//			statement.setInt(2, matchId);
-//			
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return matchRoundResultCreated;
-//	}
+	@Override
+	public int createMatchRoundResult(int matchId, MatchRoundResult matchRoundResult) throws SQLException{
+		String sqlQuery = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId) VALUES (?, ?) ";
+		
+		int matchRoundResultCreated = 0;
+		Connection connection = dbConnection.getConnection();
+		connection.setAutoCommit(false);
+		
+		try {
+			
+			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			
+			statement.setInt(1, matchRoundResult.getMatchRoundResultId());
+			statement.setInt(2, matchId);
+			
+			connection.commit();
+			
+		} catch (SQLException e) {
+			connection.rollback();
+			e.printStackTrace();
+			throw new SQLException("MatchRoundResult not created " + matchRoundResult.getMatchRoundResultId());
+		} finally {
+			connection.setAutoCommit(true);
+		}
+		System.out.println("MatchRoundResult created");
+		return matchRoundResultCreated;
+	}
 
+	@Override
 	public Set<Integer> getMatchRoundResultIds(int matchId) throws SQLException{
 		Set<Integer> listOfMatchRoundResultIds = new HashSet<>();
 		String sqlQuery ="SELECT matchRoundResultId FROM MatchRoundResult "
@@ -232,13 +240,6 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public int createMatchRoundResult(Match match, MatchRoundResult matchRoundResult) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 
 }

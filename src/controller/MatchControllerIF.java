@@ -11,11 +11,10 @@ public interface MatchControllerIF {
 	public void setDraw();
 	public Match getMatch(int matchId);
 	public void createRoundResult();
-	void createMatch(List<Team> listOfTeams, int noOfRounds, int bracketRoundId);
 	List<Match> getAllMatches();
-	int getMatchId();
 	void createListOfMatches();
-	void createMatch(List<Team> listOfTeams, int noOfRounds);
 	List<Match> getAllMatches(int bracketRoundId);
+	List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams);
+	int getNextMatchId();
 	
 }

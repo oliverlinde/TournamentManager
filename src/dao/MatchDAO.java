@@ -1,6 +1,5 @@
 package dao;
 
-import java.beans.Statement;
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
@@ -9,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import model.Match;
 import model.MatchRoundResult;
@@ -96,6 +93,7 @@ public class MatchDAO implements MatchDAOIF {
 
 		Connection connection = dbConnection.getConnection();
 		connection.setAutoCommit(false);
+		int matchCreated = 0;
 
 		try {
 			String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) " + "VALUES (?, ?)";
@@ -104,42 +102,44 @@ public class MatchDAO implements MatchDAOIF {
 			statement.setInt(1, match.getMatchId());
 			statement.setInt(2, bracketRoundId);
 
-			int matchCreated = statement.executeUpdate();
-
-			if (matchCreated == 0) {
-				throw new SQLException("Creating match failed.");
+			matchCreated = statement.executeUpdate();
+			
+			MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+			for(MatchRoundResult m : match.getListOfMatchRounds()) {
+				matchRoundResultDAO.createMatchRoundResult(match.getMatchId(), m);
 			}
 
-			if (match.getMatchId() != 0) {
-				for (Team t : match.getListOfTeams()) {
-					for (int idx = 0; idx < match.getRoundResults().size(); idx++) {
-						String insertMatchRoundResultSQL = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) "
-								+ "VALUES (?, ?, ?)";
-
-						PreparedStatement insertMatchRoundResult = connection
-								.prepareStatement(insertMatchRoundResultSQL);
-
-						insertMatchRoundResult.setInt(1, match.getRoundResults().get(idx).getMatchRoundResultId());
-						insertMatchRoundResult.setInt(2, match.getMatchId());
-						insertMatchRoundResult.setInt(3, t.getTeamId());
-
-						insertMatchRoundResult.execute();
-					}
-				}
-			} else {
-				throw new SQLException("Creating match failed, no ID obtained");
-			}
+//			if (match.getMatchId() != 0) {
+//				for (Team t : match.getListOfTeams()) {
+//					for (int idx = 0; idx < match.getRoundResults().size(); idx++) {
+//						String insertMatchRoundResultSQL = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) "
+//								+ "VALUES (?, ?, ?)";
+//
+//						PreparedStatement insertMatchRoundResult = connection
+//								.prepareStatement(insertMatchRoundResultSQL);
+//
+//						insertMatchRoundResult.setInt(1, match.getRoundResults().get(idx).getMatchRoundResultId());
+//						insertMatchRoundResult.setInt(2, match.getMatchId());
+//						insertMatchRoundResult.setInt(3, t.getTeamId());
+//
+//						insertMatchRoundResult.execute();
+//					}
+//				}
+//			} else {
+//				throw new SQLException("Creating match failed, no ID obtained");
+//			}
 
 			connection.commit();
-			return matchCreated;
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			connection.rollback();
 			e.printStackTrace();
+			throw new SQLException("Match not created " + match.getMatchId());
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		return 0;
+		System.out.println("Match created");
+		return matchCreated;
 	}
 
 	public void createRoundResult() {

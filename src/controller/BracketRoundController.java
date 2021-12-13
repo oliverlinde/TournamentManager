@@ -1,15 +1,11 @@
 package controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import dao.BracketDAO;
 import dao.BracketRoundDAOIF;
 import dao.DAOFactory;
 import dao.DbConnection;
-import dao.DbConnectionIF;
 import model.BracketRound;
 import model.BracketRoundResult;
 import model.Match;
@@ -21,9 +17,8 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	private BracketRoundDAOIF bracketRoundDAO;
 	private BracketRound bracketRound;
 
-	public BracketRoundController(DbConnectionIF dbConnection) {
-		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
-		this.matchController = new MatchController(dbConnection);
+	public BracketRoundController() {
+		bracketRoundDAO = DAOFactory.createBracketRoundDAO(new DbConnection());
 	}
 
 	@Override
@@ -31,7 +26,6 @@ public class BracketRoundController implements BracketRoundControllerIF {
 		// TODO Auto-generated method stub
 
 	}
-	
 
 	@Override
 	public BracketRoundResult getBracketRoundResult() {
@@ -45,11 +39,10 @@ public class BracketRoundController implements BracketRoundControllerIF {
 	}
 
 	@Override
-	public void createMatches(GenerateBracketStrategyIF generateBracketStrategy, int noOfRounds) {
-//		generateBracketStrategy.proceedToNextRound((ArrayList<Team>) bracketRound.getListOfTeams(), matchController, noOfRounds, bracketRound.getBracketRoundID());
-//		bracketRound.setMatchesInBracketRound(matchController.getAllMatches());
+	public BracketRound generateBracketRound(List<Match> listOfMatches) {
+		return new BracketRound(getBracketRoundId(), listOfMatches);
 	}
-	
+
 	private int getBracketRoundId() {
 		int id = 0;
 		try {
@@ -67,14 +60,6 @@ public class BracketRoundController implements BracketRoundControllerIF {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
-
-	@Override
-	public BracketRound createBracketRound(List<Team> listOfTeams) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

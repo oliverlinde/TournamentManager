@@ -13,15 +13,16 @@ public class Bracket {
 	private int bracketId;
 	private List<BracketRound> listOfBracketRounds;
 
-	public Bracket() {
+	public Bracket(int bracketId, BracketRound bracketRound) {
+		setBracketId(bracketId);
 		listOfBracketRounds = new ArrayList<BracketRound>();
+		listOfBracketRounds.add(bracketRound);
 	}
 	
 	public Bracket(int bracketId, List<BracketRound> listOfBracketRounds) {
 		setBracketId(bracketId);
 		setListOfBracketRounds(listOfBracketRounds);
 	}
-	
 	
 	public void givePointsToTeam(Team team, int pointsToWin) {
 		
