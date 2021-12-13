@@ -227,24 +227,6 @@ public class CreateTournamentUI extends JPanel {
 			}
 		});
 
-		tournamentRuleComboBox.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				tournamentRule = null;
-				int i = 0;
-				while (tournamentRule == null) {
-					if (listOfTournamentRules.get(i).getDescription()
-							.equals(tournamentRuleComboBox.getSelectedItem())) {
-						tournamentRule = listOfTournamentRules.get(i);
-					}
-					i++;
-				}
-
-				tournamentController.setTournamentRule(tournamentRule);
-				;
-			}
-		});
-
 		tournamentNameField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -254,6 +236,15 @@ public class CreateTournamentUI extends JPanel {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tournamentRule = null;
+				int i = 0;
+				while (tournamentRule == null) {
+					if (listOfTournamentRules.get(i).getDescription()
+							.equals(tournamentRuleComboBox.getSelectedItem())) {
+						tournamentRule = listOfTournamentRules.get(i);
+					}
+					i++;
+				}
 				tournamentController.setTournamentRule(tournamentRule);
 				LocalDateTime registrationDeadline = Instant.ofEpochMilli(registrationDate.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
 				LocalDateTime dateTimeOfEvent = Instant.ofEpochMilli(dateOfEvent.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
