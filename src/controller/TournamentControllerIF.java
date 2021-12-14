@@ -62,7 +62,7 @@ public interface TournamentControllerIF {
 
 	int getNextTournamentId();
 
-	boolean saveToDatabase() throws SQLException;
+	boolean saveToDatabase();
 
 	void setGenerateBracketStrategy();
 

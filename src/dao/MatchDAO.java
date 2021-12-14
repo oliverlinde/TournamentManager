@@ -86,19 +86,43 @@ public class MatchDAO implements MatchDAOIF {
 
 	@Override
 	public int createMatch(int bracketRoundId, Match match) throws SQLException {
-
+		
 		Connection connection = dbConnection.getConnection();
 		connection.setAutoCommit(false);
 		int matchCreated = 0;
 
 		try {
-			String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) " + "VALUES (?, ?)";
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			String sqlQuery = "INSERT INTO Match (bracketRoundId) " + "VALUES (?)";
+			PreparedStatement statement = connection.prepareStatement(sqlQuery, 
+					PreparedStatement.RETURN_GENERATED_KEYS);
 
-			statement.setInt(1, match.getMatchId());
-			statement.setInt(2, bracketRoundId);
+			statement.setInt(1, bracketRoundId);
 
-			statement.execute();
+			matchCreated = statement.executeUpdate();
+			
+			if(matchCreated == 0) {
+				throw new SQLException("Match not created; id not obtained");
+			}
+			ResultSet matchIds = statement.getGeneratedKeys();
+			
+			if(matchIds.next()) {
+				int matchId = matchIds.getInt(1);
+				
+				for(int idx = 0; idx < match.getListOfMatchRounds().size(); idx++) {
+					MatchRoundResult matchRoundResult = match.getListOfMatchRounds().get(idx);
+					for(Team team : match.getListOfTeams()) {
+					String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?)";
+					PreparedStatement insertMatchRoundResult = connection.prepareStatement(insertToMatchRoundResult);
+					insertMatchRoundResult.setInt(1, matchRoundResult.getMatchRoundResultId());
+					insertMatchRoundResult.setInt(2, matchId);
+					insertMatchRoundResult.setInt(3, team.getTeamId());
+					
+					int orderLinesCreated = insertMatchRoundResult.executeUpdate();
+					
+					System.out.println("MatchRoundResult created");
+					}
+				}
+			}
 			connection.commit();
 			System.out.println("Match created");
 			

@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.TeamDAOIF;
@@ -30,7 +31,14 @@ public class TeamController implements TeamControllerIF {
 
 	@Override
 	public Team getTeam(int teamId) {
-		return null;
+		Team team = null;
+		try {
+			return teamDAO.getTeam(teamId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return team;
 	}
 
 	@Override

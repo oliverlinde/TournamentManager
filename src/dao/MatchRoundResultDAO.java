@@ -180,11 +180,15 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		try {
 			Connection connection = dbConnection.getConnection();
 
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			PreparedStatement statement = connection.prepareStatement(sqlQuery,
+					PreparedStatement.RETURN_GENERATED_KEYS);
 
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			nextMatchRoundResultId = rs.getInt(1);
+			statement.executeQuery();
+
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				nextMatchRoundResultId = rs.getInt(1);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

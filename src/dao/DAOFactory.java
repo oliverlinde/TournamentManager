@@ -41,8 +41,8 @@ public class DAOFactory {
 		return new MatchDAO(getConnection());
 	}
 	
-	private static DbConnection getConnection() {
-		return new DbConnection();
+	private static DbConnectionTest getConnection() {
+		return new DbConnectionTest();
 	}
 
 

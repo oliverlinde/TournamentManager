@@ -44,7 +44,7 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public Tournament createTournament() {
-		tournament = new Tournament(getNextTournamentId());
+		tournament = new Tournament(3);
 		return tournament;
 	}
 
@@ -125,33 +125,12 @@ public class TournamentController implements TournamentControllerIF {
 
 	// Save the generated Tournament to the database with all information
 	@Override
-	public boolean saveToDatabase() throws SQLException {
+	public boolean saveToDatabase() {
 		boolean passed = false;
-		Connection connection = dbConnection.getConnection();
-		connection.setAutoCommit(false);
-		
 		try {
-			for (Bracket bracket : tournament.getBrackets()) {
-				bracketDAO.createBracket(tournament.getTournamentId(), bracket);
-				for (BracketRound bracketRound : bracket.getBracketRounds()) {
-					bracketRoundDAO.createBracketRound(bracket.getBracketId(), bracketRound);
-					for (Match match : bracketRound.getMatches()) {
-						matchDAO.createMatch(bracketRound.getBracketRoundID(), match);
-						for (Team team : match.getListOfTeams()) {
-							for (MatchRoundResult matchRoundResult : match.getListOfMatchRounds()) {
-								matchRoundResultDAO.createMatchRoundResult(match.getMatchId(), team.getTeamId(),
-										matchRoundResult);
-							}
-						}
-					}
-				}
-			}
-			connection.commit();
+			tournamentDAO.updateTournament(tournament);
 		} catch (SQLException e) {
-			connection.rollback();
 			e.printStackTrace();
-		} finally {
-			connection.setAutoCommit(true);
 		}
 		return passed;
 	}
@@ -261,7 +240,7 @@ public class TournamentController implements TournamentControllerIF {
 	public Tournament getTournament() {
 		return tournament;
 	}
-	
+
 	@Override
 	public GenerateBracketStrategyIF getStrategy() {
 		return generateBracketStrategy;
