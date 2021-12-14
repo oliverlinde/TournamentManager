@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
-
 import dao.BracketDAOIF;
 import dao.BracketRoundDAOIF;
 import dao.DAOFactory;
@@ -36,12 +34,22 @@ public class TournamentController implements TournamentControllerIF {
 	private DbConnectionIF dbConnection;
 
 	public TournamentController(TournamentDAOIF tournamentDAO) {
+<<<<<<< Updated upstream
 //		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
 //		bracketDAO = DAOFactory.createBracketDAO(dbConnection);
 //		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
 //		matchDAO = DAOFactory.createMatchDAO(dbConnection);
 //		matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
 		this.tournamentDAO = tournamentDAO;
+=======
+		dbConnection = new DbConnection();
+		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
+		bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
+		matchDAO = DAOFactory.createMatchDAO(dbConnection);
+		matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		new BracketController();
+>>>>>>> Stashed changes
 	}
 
 	@Override

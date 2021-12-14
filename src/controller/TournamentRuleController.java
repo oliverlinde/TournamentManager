@@ -76,7 +76,7 @@ public class TournamentRuleController implements TournamentRuleControllerIF {
 	}
 
 	@Override
-	public NoOfRounds getNoOfRonds() {
+	public NoOfRounds getNoOfRounds() {
 		return tournamentRule.getNoOfRounds();
 	}
 

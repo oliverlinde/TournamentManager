@@ -26,7 +26,7 @@ public interface TournamentRuleControllerIF {
 
 	void setNoOfRounds(NoOfRounds noOfRounds);
 
-	NoOfRounds getNoOfRonds();
+	NoOfRounds getNoOfRounds();
 
 	void setFormat(Format format);
 
