@@ -39,7 +39,7 @@ public class TournamentRuleDAO implements TournamentRuleDAOIF {
 			tournamentRule = new TournamentRule(tournamentRuleId, rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), getNoOfRounds(rs), getFormat(rs));
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return tournamentRule;

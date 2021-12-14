@@ -22,12 +22,8 @@ public class MatchDAO implements MatchDAOIF {
 
 	@Override
 	public void setMatchRoundResult(int matchRoundResultId, Team winningTeam) throws SQLException {
-		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
 		matchRoundResultDAO.setWinner(matchRoundResultId, winningTeam);
-
-	}
-
-	public void setIsDraw() {
 
 	}
 
@@ -49,7 +45,7 @@ public class MatchDAO implements MatchDAOIF {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 		return listOfMatches;
@@ -58,8 +54,8 @@ public class MatchDAO implements MatchDAOIF {
 
 	@Override
 	public Match getMatch(int matchId) throws SQLException {
-		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 		String sqlQuery = "SELECT Match.matchId, matchRoundResultId, Team.teamId, teamName FROM Match "
 				+ "JOIN MatchRoundResult on Match.matchId = MatchRoundResult.matchId "
 				+ "JOIN Team ON MatchRoundResult.teamId = Team.teamId " + "WHERE Match.matchId = ?";
@@ -83,7 +79,7 @@ public class MatchDAO implements MatchDAOIF {
 
 			match = new Match(matchId, matchRoundResults, listOfTeams);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return match;
 	}
@@ -102,35 +98,10 @@ public class MatchDAO implements MatchDAOIF {
 			statement.setInt(1, match.getMatchId());
 			statement.setInt(2, bracketRoundId);
 
-			matchCreated = statement.executeUpdate();
-			
-			MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
-			for(MatchRoundResult m : match.getListOfMatchRounds()) {
-				matchRoundResultDAO.createMatchRoundResult(match.getMatchId(), m);
-			}
-
-//			if (match.getMatchId() != 0) {
-//				for (Team t : match.getListOfTeams()) {
-//					for (int idx = 0; idx < match.getRoundResults().size(); idx++) {
-//						String insertMatchRoundResultSQL = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) "
-//								+ "VALUES (?, ?, ?)";
-//
-//						PreparedStatement insertMatchRoundResult = connection
-//								.prepareStatement(insertMatchRoundResultSQL);
-//
-//						insertMatchRoundResult.setInt(1, match.getRoundResults().get(idx).getMatchRoundResultId());
-//						insertMatchRoundResult.setInt(2, match.getMatchId());
-//						insertMatchRoundResult.setInt(3, t.getTeamId());
-//
-//						insertMatchRoundResult.execute();
-//					}
-//				}
-//			} else {
-//				throw new SQLException("Creating match failed, no ID obtained");
-//			}
-
+			statement.execute();
 			connection.commit();
-
+			System.out.println("Match created");
+			
 		} catch (SQLException e) {
 			connection.rollback();
 			e.printStackTrace();
@@ -138,23 +109,10 @@ public class MatchDAO implements MatchDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		System.out.println("Match created");
 		return matchCreated;
 	}
 
 	public void createRoundResult() {
-
-	}
-
-	@Override
-	public void setDraw() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setRoundResult(Team winningTeam) {
-		// TODO Auto-generated method stub
 
 	}
 

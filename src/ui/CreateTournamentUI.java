@@ -4,13 +4,16 @@ import javax.swing.JPanel;
 
 import controller.TournamentController;
 import controller.TournamentControllerIF;
+import controller.TournamentRuleController;
+import controller.TournamentRuleControllerIF;
+import dao.DAOFactory;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -56,7 +59,7 @@ public class CreateTournamentUI extends JPanel {
 	 * Create the panel.
 	 */
 	public CreateTournamentUI() {
-		tournamentController = new TournamentController();
+		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 
 		setLayout(new BorderLayout(0, 0));
 
@@ -65,7 +68,6 @@ public class CreateTournamentUI extends JPanel {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		JPanel panel_2 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
 		panel.add(panel_2);
 
 		JPanel panel_7 = new JPanel();
@@ -213,7 +215,8 @@ public class CreateTournamentUI extends JPanel {
 	}
 
 	private void createTournamentRuleList() {
-		listOfTournamentRules = tournamentController.getAllTournamentRules();
+		TournamentRuleControllerIF tournamentRuleController = new TournamentRuleController(DAOFactory.createTournamentRuleDAO());
+		listOfTournamentRules = tournamentRuleController.getAllTournamentRule();
 		for (TournamentRule tournamentRule : listOfTournamentRules) {
 			tournamentRuleComboBox.addItem(tournamentRule.getDescription());
 		}

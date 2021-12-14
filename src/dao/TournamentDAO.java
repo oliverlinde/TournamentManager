@@ -47,7 +47,7 @@ public class TournamentDAO implements TournamentDAOIF {
 
 			connection.commit();
 			
-			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO();
 			for (Bracket b : tournament.getBrackets()) {
 				bracketDAO.createBracket(tournament.getId(), b);
 			}
@@ -95,14 +95,10 @@ public class TournamentDAO implements TournamentDAOIF {
 			statement.setInt(7, tournament.getMinNoOfTeams());
 			statement.setInt(8, tournament.getId());
 
-			tournamentCreated = statement.executeUpdate();
+			statement.execute();
 
 			connection.commit();
-			
-			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
-			for (Bracket b : tournament.getBrackets()) {
-				bracketDAO.createBracket(tournament.getId(), b);
-			}
+			System.out.println("Tournament created");
 
 
 		} catch (SQLException e) {
@@ -112,13 +108,13 @@ public class TournamentDAO implements TournamentDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-		System.out.println("Tournament created");
 		return tournamentCreated;
 	}
 
+	@Override
 	public Tournament getTournament(int tournamentId) throws SQLException {
-		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(dbConnection);
-		BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO();
+		BracketDAOIF bracketDAO = DAOFactory.createBracketDAO();
 		TournamentRule tournamentRule;
 
 		String sqlQuery = "SELECT * FROM Tournament " + " WHERE tournamentId = ?";
@@ -160,7 +156,7 @@ public class TournamentDAO implements TournamentDAOIF {
 
 	@Override
 	public List<Team> getTeamsInTournament(int tournamentId) throws SQLException {
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 
 		List<Team> teamsInTournament = new ArrayList<>();
 		String sqlQuery = "SELECT teamId FROM TeamInTournament " + "WHERE tournamentId = ?";

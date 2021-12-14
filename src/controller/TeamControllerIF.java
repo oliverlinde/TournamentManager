@@ -6,11 +6,16 @@ import model.Person;
 import model.Team;
 
 public interface TeamControllerIF {
-	public void addPersonToTeam(Person person);
-	public void removePersonFromTeam(Person person);
-	public Team getTeam(int teamId);
-	public List<Team> getAllTeams();
-	public void createTeam(String teamName, Person person);
-	public void removeTeam(int teamId);
-	
+	void addPersonToTeam(Person person);
+
+	void removePersonFromTeam(Person person);
+
+	Team getTeam(int teamId);
+
+	List<Team> getAllTeams();
+
+	void createTeam(String teamName, Person person);
+
+	void removeTeam(int teamId);
+
 }

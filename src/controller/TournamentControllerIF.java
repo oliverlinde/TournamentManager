@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,37 +10,62 @@ import model.TournamentRule;
 
 public interface TournamentControllerIF {
 
-	public Tournament createTournament();
-	public void setName(String name);
-	public String getName();
-	public void setGame(String game);
-	public String getGame();
-	public void setRegistrationDeadline(LocalDateTime registrationDeadline);
-	public LocalDateTime getRegistrationDeadline();
-	public void setDateTimeOfEvent(LocalDateTime dateTimeOfEvent);
-	public LocalDateTime getDateTimeOfEvent();
-	public void setMaxNoOfTeams(int maxNoOfTeams);
-	public int getMaxNoOfTeams();
-	public boolean confirmTournament();
-	public boolean cancelTournament();
-	public TournamentRule getTournamentRule();
-	public void setTournamentRule(TournamentRule tournamentRule);
-	public int calculatePoints(TournamentRule tournamentRule);
-	public void generateNextBracketRound(int noOfRounds);
-	public void addTeamToTournament(Team team);
-	public List<Team> getAllTeams();
-	public List<Tournament> getAllTournaments();
+	void setTournament(Tournament tournament);
+
+	void initializeTournament();
+	
+	Tournament getTournamentById(int tournamentId);
+
+	Tournament getTournament();
+
+	Tournament createTournament();
+
+	void setName(String name);
+
+	String getName();
+
+	void setGame(String game);
+
+	String getGame();
+
+	void setRegistrationDeadline(LocalDateTime registrationDeadline);
+
+	LocalDateTime getRegistrationDeadline();
+
+	void setDateTimeOfEvent(LocalDateTime dateTimeOfEvent);
+
+	LocalDateTime getDateTimeOfEvent();
+
+	void setMaxNoOfTeams(int maxNoOfTeams);
+
+	int getMaxNoOfTeams();
+
+	boolean confirmTournament();
+
+	TournamentRule getTournamentRule();
+
+	void setTournamentRule(TournamentRule tournamentRule);
+
+	void addTeamToTournament(Team team);
+
+	List<Team> getAllTeams();
+
+	List<Tournament> getAllTournaments();
+
 	List<TournamentRule> getAllTournamentRules();
+
 	void changeFormat(Object object);
+
 	void setMinNoOfTeams(int minNoOfTeams);
+
 	int getMinNoOfTeams();
+
 	int getNextTournamentId();
 
-	void setTournament(Tournament tournament);
-	void initializeTournament();
-	void removeTeamFromTournament(Team team);
+	boolean saveToDatabase() throws SQLException;
 
-	Tournament getTournamentById(int tournamentId);
-	Tournament getTournament();
+	void setGenerateBracketStrategy();
+
+	GenerateBracketStrategyIF getStrategy();
 
 }

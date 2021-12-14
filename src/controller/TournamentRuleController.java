@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.DAOFactory;
-import dao.DbConnection;
 import dao.TournamentRuleDAOIF;
 import model.Format;
 import model.NoOfRounds;
@@ -14,18 +12,17 @@ import model.TournamentRule;
 public class TournamentRuleController implements TournamentRuleControllerIF {
 	private TournamentRule tournamentRule;
 	private TournamentRuleDAOIF tournamentRuleDAO;
-	
-	public TournamentRuleController() {
-		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(new DbConnection());
+
+	public TournamentRuleController(TournamentRuleDAOIF tournamentRuleDAO) {
+		this.tournamentRuleDAO = tournamentRuleDAO;
 	}
-	
+
 	@Override
 	public List<TournamentRule> getAllTournamentRule() {
 		List<TournamentRule> tournamentRuleList = new LinkedList<>();
 		try {
 			tournamentRuleList = tournamentRuleDAO.getAllTournamentRules();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return tournamentRuleList;
@@ -77,7 +74,7 @@ public class TournamentRuleController implements TournamentRuleControllerIF {
 	}
 
 	@Override
-	public NoOfRounds getNoOfRonds() {
+	public NoOfRounds getNoOfRounds() {
 		return tournamentRule.getNoOfRounds();
 	}
 

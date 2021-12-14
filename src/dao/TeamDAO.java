@@ -31,11 +31,12 @@ public class TeamDAO implements TeamDAOIF {
 			
 			newTeamId = statement.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return newTeamId;
 	}
 	
+	@Override
 	public Team getTeam(int teamId) throws SQLException {
 		String sqlQuery = "SELECT teamId, teamName FROM Team "
 				+ "WHERE teamId = ?";
@@ -54,7 +55,7 @@ public class TeamDAO implements TeamDAOIF {
 				foundTeam = new Team(rs.getInt(1), rs.getString(2));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return foundTeam;
 	}
@@ -62,7 +63,7 @@ public class TeamDAO implements TeamDAOIF {
 	@Override
 	public List<Team> getTeamsFromMatch(int matchId) throws SQLException {
 
-		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
 		
 		return matchRoundResultDAO.getTeamsFromMatch(matchId);
 	}

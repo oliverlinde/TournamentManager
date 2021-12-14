@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import dao.DAOFactory;
 import model.Bracket;
 import model.BracketRound;
 import model.Match;
@@ -14,31 +15,30 @@ public class SingleEliminationStrategy implements GenerateBracketStrategyIF {
 
 	MatchControllerIF matchController;
 	
+
+	//Not yet implemented, intended use is to take the winning teams and create a new BracketRound in the tournament
 	@Override
 	public void proceedToNextRound(ArrayList<Team> listOfTeams, MatchControllerIF matchController, int noOfRounds, int bracketRoundId) {
-//		this.matchController = matchController;
-//		matchController.createListOfMatches();
-//		for(int i = 1 ; i <= Math.floor((listOfTeams.size()/2)) ; i++){
-//			ArrayList<Team> temp = subArray(listOfTeams, ((i*2)-2), (i*2)-1);
-//			matchController.createMatch(temp, noOfRounds, bracketRoundId);
-//		}
+
 	}
 
+	
+	//Not yet implemented, intended use is to calculate the points of the team in the BracketRound
 	@Override
 	public int calculatePoints() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	//Used for initalizing a tournament, this method is single use only for the Tournament object, as this generates the initial Tournament structure
 	@Override
 	public Bracket initializeTournament(Tournament tournament) {
-		MatchControllerIF matchController = new MatchController();
+		MatchControllerIF matchController = new MatchController(DAOFactory.createMatchDAO());
 		List<Match> listOfMatches = matchController.generateMatches(tournament.getTournamentRule().getNoOfRounds().getValue(), tournament.getAllTeams());
 		
-		BracketRoundControllerIF bracketRoundController = new BracketRoundController();
+		BracketRoundControllerIF bracketRoundController = new BracketRoundController(DAOFactory.createBracketRoundDAO());
 		BracketRound bracketRound = bracketRoundController.generateBracketRound(listOfMatches);
 		
-		BracketControllerIF bracketController = new BracketController();
+		BracketControllerIF bracketController = new BracketController(DAOFactory.createBracketDAO());
 		Bracket bracket = bracketController.generateBracket(bracketRound);
 		return bracket;
 	}

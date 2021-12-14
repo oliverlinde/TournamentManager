@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import model.BracketRoundResult;
@@ -13,47 +12,16 @@ import model.Team;
 
 public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 	private DbConnectionIF dbConnection;
-	private MatchRoundResultDAOIF matchRoundResultDAO;
 	private TeamDAOIF teamDAO;
 
 	public BracketRoundResultDAO(DbConnectionIF dbConnection) {
 		this.dbConnection = dbConnection;
 	}
 
-	public void addPointsToTeam(Team team, int points) {
-
-	}
-
-	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers, int point) {
-		String sqlQuery = "INSERT INTO TeamInBracketRound (teamId, bracketRoundId, points) " + "VALUES (?, ?, ?) ";
-
-		int nextBracketRoundId = getNextBracketRoundId();
-
-		try {
-			Connection connection = dbConnection.getConnection();
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-			for (Team winner : listOfWinners) {
-				statement.setInt(1, winner.getTeamId());
-				statement.setInt(2, nextBracketRoundId);
-				statement.setInt(3, point);
-			}
-
-			for (Team loser : listOfLosers) {
-				statement.setInt(1, loser.getTeamId());
-				statement.setInt(2, nextBracketRoundId);
-				statement.setInt(3, 0);
-			}
-
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-
-	}
-
+	@Override
 	public Team getWinnerOfBracketRound(int matchRoundResultId) {
 
-		Team winnerTeam = null; // matchRoundResultDAO.getTotalListOfMatchRoundResults(matchId);
+		Team winnerTeam = null;
 
 		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner FROM MatchRoundResult WHERE matchRoundResultId = ? ";
 
@@ -72,12 +40,13 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return winnerTeam;
 
 	}
 
+	@Override
 	public void setBracketRoundResult(int bracketRoundId, Team team) throws SQLException {
 		String sqlQuery = "UPDATE BracketRoundResult " + "SET isWinner = (?) "
 				+ "WHERE matchRoundResult = ? AND teamId = ? ";
@@ -90,10 +59,11 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 			statement.setInt(3, team.getTeamId());
 			statement.setBoolean(4, true);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
+	@Override
 	public int getNextBracketRoundId() {
 		String sqlQuery = "SELECT bracketRoundId FROM BracketRound WHERE bracketRoundId = (SELECT MAX (bracketRoundId) FROM BracketRound) ";
 
@@ -108,14 +78,14 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 			rs.next();
 			nextBracketRoundId = rs.getInt(1);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return nextBracketRoundId + 1;
 	}
 	
-
+	@Override
 	public BracketRoundResult getBracketRoundResult(int bracketRoundId) throws SQLException {
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 		String sqlQuery = "SELECT teamId, points FROM TeamInBracketRound " + "WHERE bracketRoundId = ? ";
 
 		BracketRoundResult foundBracketRoundResult = null;
@@ -133,7 +103,7 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 
 			foundBracketRoundResult = new BracketRoundResult(pointsToTeam);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return foundBracketRoundResult;
 	}

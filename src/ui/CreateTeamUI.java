@@ -4,16 +4,12 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 
 import controller.PersonController;
-import controller.PersonControllerIF;
 import controller.TeamController;
-import controller.TeamControllerIF;
+import dao.DAOFactory;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -25,15 +21,12 @@ public class CreateTeamUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField searchPersonTextField;
 	private JTextField textField;
-	private TeamControllerIF teamController;
-	private PersonControllerIF personController;
-
 	/**
 	 * Create the panel.
 	 */
 	public CreateTeamUI() {
-		teamController = new TeamController();
-		personController = new PersonController();
+		new TeamController(DAOFactory.createTeamDAO());
+		new PersonController(DAOFactory.createPersonDAO());
 		
 		setLayout(new BorderLayout(0, 0));
 		
@@ -122,21 +115,5 @@ public class CreateTeamUI extends JPanel {
 		add(panel_2, BorderLayout.SOUTH);
 
 	}
-
-	private void createActions() {
-		isAdminRdoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-			}
-		});
-		
-		isNowAdminRdoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (rolePnl.isEnabled()) {
-					
-				}
-			}
-		});
-	}
-
 
 }
