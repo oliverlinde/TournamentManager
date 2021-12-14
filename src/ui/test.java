@@ -22,8 +22,8 @@ public class test {
 		TournamentDAOIF tournamentDAO = new TournamentDAO(new DbConnection());
 		Tournament tournament = tournamentDAO.getTournament(1);
 		System.out.println(tournament.getDateTimeOfEvent().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
-		System.out.println(tournament.getName());
-		System.out.println(tournament.getGame());
+		System.out.println(tournament.getTournamentName());
+		System.out.println(tournament.getGameName());
 		for(Team t : tournament.getAllTeams()) {
 			System.out.println(t.getTeamName());
 		}

@@ -14,10 +14,6 @@ public class UIFactory {
 		return new HomeScreen();
 	}
 	
-	public static JPanel createMainMenuUI() {
-		return new MainMenuUI();
-	}
-	
 	public static JPanel createTeamMenuUI() {
 		return new TeamsMenuUI();
 	}

@@ -11,8 +11,8 @@ public class MatchRoundResult {
 	/*
 	 * Creating an empty MatchRoundResult object for use in controller
 	 */
-	public MatchRoundResult(int id) {
-		setMatchRoundResultId(id);
+	public MatchRoundResult(int matchRoundResultId) {
+		setMatchRoundResultId(matchRoundResultId);
 	}
 	
 	/*

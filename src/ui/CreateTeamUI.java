@@ -13,6 +13,7 @@ import dao.DAOFactory;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class CreateTeamUI extends JPanel {
 	/**
@@ -44,6 +45,9 @@ public class CreateTeamUI extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel_5.add(scrollPane);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
 		
 		JPanel panel_12 = new JPanel();
 		panel_5.add(panel_12, BorderLayout.SOUTH);
@@ -97,6 +101,9 @@ public class CreateTeamUI extends JPanel {
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_10.add(scrollPane_1);
+		
+		JList list_1 = new JList();
+		scrollPane_1.setViewportView(list_1);
 		
 		JPanel panel_11 = new JPanel();
 		panel_8.add(panel_11, BorderLayout.SOUTH);

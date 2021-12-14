@@ -49,23 +49,23 @@ public class TournamentController implements TournamentControllerIF {
 	}
 
 	@Override
-	public void setName(String name) {
-		tournament.setName(name);
+	public void setTournamentName(String tournamentName) {
+		tournament.setTournamentName(tournamentName);
 	}
 
 	@Override
-	public String getName() {
-		return tournament.getName();
+	public String getTournamentName() {
+		return tournament.getTournamentName();
 	}
 
 	@Override
-	public void setGame(String game) {
-		tournament.setGame(game);
+	public void setGameName(String gameName) {
+		tournament.setGameName(gameName);
 	}
 
 	@Override
-	public String getGame() {
-		return tournament.getGame();
+	public String getGameName() {
+		return tournament.getGameName();
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class TournamentController implements TournamentControllerIF {
 		
 		try {
 			for (Bracket bracket : tournament.getBrackets()) {
-				bracketDAO.createBracket(tournament.getId(), bracket);
+				bracketDAO.createBracket(tournament.getTournamentId(), bracket);
 				for (BracketRound bracketRound : bracket.getBracketRounds()) {
 					bracketRoundDAO.createBracketRound(bracket.getBracketId(), bracketRound);
 					for (Match match : bracketRound.getMatches()) {

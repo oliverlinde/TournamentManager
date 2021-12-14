@@ -24,9 +24,9 @@ public class TournamentListCellRenderer extends JLabel implements ListCellRender
 			boolean isSelected, boolean cellHasFocus) {
 
 
-		String tournamentId = String.valueOf(tournament.getId());
-		String tournamentName = tournament.getName();
-		String gameName = tournament.getGame();
+		String tournamentId = String.valueOf(tournament.getTournamentId());
+		String tournamentName = tournament.getTournamentName();
+		String gameName = tournament.getGameName();
 		String registrationDeadline = tournament.getRegistrationDeadline().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
 		String timeOfEvent = tournament.getDateTimeOfEvent().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
 		String maxNoOfTeams = String.valueOf(tournament.getMaxNoOfTeams());

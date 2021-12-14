@@ -19,8 +19,8 @@ class TournamentTest {
 		tournament = new Tournament(1);
 		
 		//Act
-		tournament.setName("Test tournament");
-		tournament.setGame("League of legends");
+		tournament.setTournamentName("Test tournament");
+		tournament.setGameName("League of legends");
 		LocalDate localDate = LocalDate.of(2022, 02, 12);
 		LocalTime localTime = LocalTime.of(12, 00);
 		tournament.setRegistrationDeadline(LocalDateTime.of(localDate, localTime));
@@ -49,7 +49,7 @@ class TournamentTest {
 	@Test
 	void gameNameTest() {
 		//Assert
-		assertEquals("League of legends", tournament.getGame());
+		assertEquals("League of legends", tournament.getGameName());
 	}
 	
 	@Test

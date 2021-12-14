@@ -263,7 +263,7 @@ public class Main {
 		if (frame.equals(Frame.mainFrame)) {
 			frmTurneringsmanager = new JFrame();
 			frmTurneringsmanager.setTitle("Turneringsmanager");
-			frmTurneringsmanager.setBounds(300, 200, 900, 700);
+			frmTurneringsmanager.setBounds(300, 200, 800, 500);
 			frmTurneringsmanager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.frmTurneringsmanager.setVisible(true);
 			createMainMenuUIFrame();

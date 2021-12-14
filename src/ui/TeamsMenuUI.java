@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
+import javax.swing.JList;
 
 public class TeamsMenuUI extends JPanel {
 
@@ -48,6 +49,9 @@ public class TeamsMenuUI extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_13.add(scrollPane);
 		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		
 		JPanel panel_8 = new JPanel();
 		panel_7.add(panel_8);
 		panel_8.setLayout(new BorderLayout(0, 0));
@@ -63,6 +67,9 @@ public class TeamsMenuUI extends JPanel {
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		panel_17.add(scrollPane_2);
+		
+		JList list_2 = new JList();
+		scrollPane_2.setViewportView(list_2);
 		
 		JPanel panel_1 = new JPanel();
 		panel_8.add(panel_1, BorderLayout.SOUTH);
@@ -90,6 +97,9 @@ public class TeamsMenuUI extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_15.add(scrollPane_1);
 		
+		JList list_1 = new JList();
+		scrollPane_1.setViewportView(list_1);
+		
 		JPanel panel_10 = new JPanel();
 		panel_6.add(panel_10);
 		panel_10.setLayout(new BorderLayout(0, 0));
@@ -105,6 +115,9 @@ public class TeamsMenuUI extends JPanel {
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		panel_19.add(scrollPane_3);
+		
+		JList list_3 = new JList();
+		scrollPane_3.setViewportView(list_3);
 		
 		JPanel panel_2 = new JPanel();
 		panel_10.add(panel_2, BorderLayout.SOUTH);

@@ -124,7 +124,7 @@ public class TournamentProgressionUI extends JPanel {
 	private void generateTournamentVisuals() {
 		DefaultListModel<Match> listModel = new DefaultListModel<>();
 		TournamentControllerIF tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
-		Tournament fullTournament = tournamentController.getTournamentById(tournament.getId());
+		Tournament fullTournament = tournamentController.getTournamentById(tournament.getTournamentId());
 		
 		for (Bracket bracket : fullTournament.getBrackets()) {
 			for (BracketRound bracketRound : bracket.getBracketRounds()) {

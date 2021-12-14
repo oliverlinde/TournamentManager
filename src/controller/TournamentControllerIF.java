@@ -20,13 +20,13 @@ public interface TournamentControllerIF {
 
 	Tournament createTournament();
 
-	void setName(String name);
+	void setTournamentName(String name);
 
-	String getName();
+	String getTournamentName();
 
-	void setGame(String game);
+	void setGameName(String game);
 
-	String getGame();
+	String getGameName();
 
 	void setRegistrationDeadline(LocalDateTime registrationDeadline);
 

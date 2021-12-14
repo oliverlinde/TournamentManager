@@ -19,8 +19,6 @@ public class Tournament {
 	private TournamentRule tournamentRule;
 	private List<Team> listOfTeams;
 	private List<Bracket> brackets;
-	
-
 
 	public Tournament(int tournamentId) {
 		brackets = new ArrayList<Bracket>();
@@ -33,8 +31,8 @@ public class Tournament {
 	public Tournament(int tournamentId, TournamentRule tournamentRule, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
 		setTournamentId(tournamentId);
 		setTournamentRule(tournamentRule);
-		setName(tournamentName);
-		setGame(gameName);
+		setTournamentName(tournamentName);
+		setGameName(gameName);
 		setDateTimeOfEvent(dateTimeOfEvent);
 		setRegistrationDeadline(registrationDeadline);
 		setMaxNoOfTeams(maxNoOfTeams);
@@ -47,35 +45,31 @@ public class Tournament {
 	 */
 	public Tournament(int tournamentId, String tournamentName, String gameName, LocalDateTime dateTimeOfEvent, LocalDateTime registrationDeadline, int maxNoOfTeams, int minNoOfTeams) {
 		setTournamentId(tournamentId);
-		setName(tournamentName);
-		setGame(gameName);
+		setTournamentName(tournamentName);
+		setGameName(gameName);
 		setDateTimeOfEvent(dateTimeOfEvent);
 		setRegistrationDeadline(registrationDeadline);
 		setMaxNoOfTeams(maxNoOfTeams);
 		setMinNoOfTeams(minNoOfTeams);
-	}
-	
-	public int getTournamentId() {
-		return tournamentId;
 	}
 
 	public void setTournamentId(int tournamentId) {
 		this.tournamentId = tournamentId;
 	}
 
-	public String getName() {
+	public String getTournamentName() {
 		return tournamentName;
 	}
 
-	public void setName(String tournamentName) {
+	public void setTournamentName(String tournamentName) {
 		this.tournamentName = tournamentName;
 	}
 
-	public String getGame() {
+	public String getGameName() {
 		return gameName;
 	}
 
-	public void setGame(String gameName) {
+	public void setGameName(String gameName) {
 		this.gameName = gameName;
 	}
 
@@ -99,7 +93,7 @@ public class Tournament {
 		return maxNoOfTeams;
 	}
 	
-	public int getId() {
+	public int getTournamentId() {
 		return tournamentId;
 	}
 	

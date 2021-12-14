@@ -34,10 +34,10 @@ public class TournamentDAO implements TournamentDAOIF {
 
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
-			statement.setInt(1, tournament.getId());
+			statement.setInt(1, tournament.getTournamentId());
 			statement.setInt(2, tournament.getTournamentRule().getTournamentRuleId());
-			statement.setString(3, tournament.getName());
-			statement.setString(4, tournament.getGame());
+			statement.setString(3, tournament.getTournamentName());
+			statement.setString(4, tournament.getGameName());
 			statement.setObject(5, tournament.getDateTimeOfEvent());
 			statement.setObject(6, tournament.getRegistrationDeadline());
 			statement.setInt(7, tournament.getMaxNoOfTeams());
@@ -49,7 +49,7 @@ public class TournamentDAO implements TournamentDAOIF {
 			
 			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO();
 			for (Bracket b : tournament.getBrackets()) {
-				bracketDAO.createBracket(tournament.getId(), b);
+				bracketDAO.createBracket(tournament.getTournamentId(), b);
 			}
 
 			
@@ -57,7 +57,7 @@ public class TournamentDAO implements TournamentDAOIF {
 		} catch (SQLException e) {
 			connection.rollback();
 			e.printStackTrace();
-			throw new SQLException("Tournament not created " + tournament.getId());
+			throw new SQLException("Tournament not created " + tournament.getTournamentId());
 		} finally {
 			connection.setAutoCommit(true);
 		}
@@ -87,13 +87,13 @@ public class TournamentDAO implements TournamentDAOIF {
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
 			statement.setInt(1, tournament.getTournamentRule().getTournamentRuleId());
-			statement.setString(2, tournament.getName());
-			statement.setString(3, tournament.getGame());
+			statement.setString(2, tournament.getTournamentName());
+			statement.setString(3, tournament.getGameName());
 			statement.setObject(4, tournament.getDateTimeOfEvent());
 			statement.setObject(5, tournament.getRegistrationDeadline());
 			statement.setInt(6, tournament.getMaxNoOfTeams());
 			statement.setInt(7, tournament.getMinNoOfTeams());
-			statement.setInt(8, tournament.getId());
+			statement.setInt(8, tournament.getTournamentId());
 
 			statement.execute();
 
@@ -104,7 +104,7 @@ public class TournamentDAO implements TournamentDAOIF {
 		} catch (SQLException e) {
 			connection.rollback();
 			e.printStackTrace();
-			throw new SQLException("Tournament not created " + tournament.getId());
+			throw new SQLException("Tournament not created " + tournament.getTournamentId());
 		} finally {
 			connection.setAutoCommit(true);
 		}
