@@ -8,7 +8,10 @@ import model.Tournament;
 
 public interface GenerateBracketStrategyIF {
 
-	void proceedToNextRound(ArrayList<Team> linkedList, MatchControllerIF matchController, int noOfRounds, int bracketRoundId);
-	public int calculatePoints();
+	void proceedToNextRound(ArrayList<Team> linkedList, MatchControllerIF matchController, int noOfRounds,
+			int bracketRoundId);
+
+	int calculatePoints();
+
 	Bracket initializeTournament(Tournament tournament);
 }

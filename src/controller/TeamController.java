@@ -4,33 +4,30 @@ import java.util.List;
 
 import dao.DAOFactory;
 import dao.DbConnection;
-import dao.TeamDAOIF;
 import model.Person;
 import model.Team;
 
+/*
+ * TeamController is not used yet, hence the methods are not yet implemented.
+ * Intended use is to create a Team and administrate this object
+ */
 public class TeamController implements TeamControllerIF {
-	private TeamDAOIF teamDAO;
-	private Team team;
-	
 	public TeamController() {
-		teamDAO = DAOFactory.createTeamDAO(new DbConnection());
+		DAOFactory.createTeamDAO(new DbConnection());
 	}
 	
 	@Override
 	public void addPersonToTeam(Person person) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removePersonFromTeam(Person person) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
 	public Team getTeam(int teamId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -41,14 +38,12 @@ public class TeamController implements TeamControllerIF {
 
 	@Override
 	public void createTeam(String teamName, Person person) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removeTeam(int teamId) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 

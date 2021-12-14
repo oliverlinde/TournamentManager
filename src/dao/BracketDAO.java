@@ -76,15 +76,12 @@ public class BracketDAO implements BracketDAOIF {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
-		
-
 		return listOfBracketRounds;
-
+		
 	}
-
 
 	// public void createBracketRound(List<Team> listOfTeams) throws
 	// SQLServerException {

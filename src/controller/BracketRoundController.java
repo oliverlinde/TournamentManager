@@ -10,15 +10,9 @@ import model.BracketRound;
 import model.Match;
 
 public class BracketRoundController implements BracketRoundControllerIF {
-	private MatchControllerIF matchController;
 	private BracketRoundDAOIF bracketRoundDAO;
 	public BracketRoundController() {
 		bracketRoundDAO = DAOFactory.createBracketRoundDAO(new DbConnection());
-	}
-
-	@Override
-	public List<Match> getAllMatches() {
-		return matchController.getAllMatches();
 	}
 
 	@Override

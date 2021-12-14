@@ -6,11 +6,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import dao.BracketDAOIF;
 import dao.BracketRoundDAOIF;
-import dao.BracketRoundResultDAO;
 import dao.DAOFactory;
 import dao.DbConnection;
 import dao.DbConnectionIF;
@@ -19,7 +16,6 @@ import dao.MatchRoundResultDAOIF;
 import dao.TournamentDAOIF;
 import model.Bracket;
 import model.BracketRound;
-import model.BracketRoundResult;
 import model.Format;
 import model.Match;
 import model.MatchRoundResult;
@@ -120,7 +116,7 @@ public class TournamentController implements TournamentControllerIF {
 		return tournament.getMinNoOfTeams();
 	}
 
-	// Save the tournament object to database
+	// Save the Tournament object to database with the primitive data
 	@Override
 	public boolean confirmTournament() {
 		boolean passed = false;
@@ -135,6 +131,7 @@ public class TournamentController implements TournamentControllerIF {
 		return passed;
 	}
 
+	// Save the generated Tournament to the database with all information
 	@Override
 	public boolean saveToDatabase() throws SQLException {
 		boolean passed = false;

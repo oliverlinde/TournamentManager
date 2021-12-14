@@ -36,19 +36,6 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	public void setDraw() {
 		matchRoundResult.setDraw(true);
 	}
-
-	@Override
-	public MatchRoundResult getMatchRoundResult(int matchId) {
-		MatchRoundResult matchRoundResult = null;
-		matchRoundResult = null;
-//		try {
-//			matchRoundResult = matchRoundResultDAO.get(matchId);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return matchRoundResult;
-	}
 	
 	@Override
 	public List<MatchRoundResult> getListOfMatchRoundResults(int matchId){
@@ -56,23 +43,9 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 		try {
 			listMatchRoundResults = matchRoundResultDAO.getMatchRoundResultsFromMatch(matchId);
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return listMatchRoundResults;
-	}
-
-	
-	public List<MatchRoundResult> getAllRoundResults(int matchId) {
-		
-		List<MatchRoundResult> allRoundResults = null;
-		
-		try {
-			allRoundResults = matchRoundResultDAO.getTotalListOfMatchRoundResults(matchId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return allRoundResults;
+		return listMatchRoundResults;
 	}
 	
 	@Override
@@ -101,10 +74,6 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 			e.printStackTrace();
 		}
 		return nextId;
-	}
-	
-	public void saveMatchRoundResultToDatabase(int matchId, MatchRoundResult matchRoundResult) {
-		
 	}
 	
 	@Override

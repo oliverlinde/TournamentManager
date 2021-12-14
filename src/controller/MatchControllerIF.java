@@ -7,14 +7,18 @@ import model.Team;
 
 public interface MatchControllerIF {
 
-	public void setRoundResult(Team winningTeam);
-	public void setDraw();
-	public Match getMatch(int matchId);
-	public void createRoundResult();
-	List<Match> getAllMatches();
-	void createListOfMatches();
+	void setRoundResult(Team winningTeam);
+
+	void setDraw();
+
+	Match getMatch(int matchId);
+
 	List<Match> getAllMatches(int bracketRoundId);
+
+	void createListOfMatches();
+
 	List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams);
+
 	int getNextMatchId();
-	
+
 }

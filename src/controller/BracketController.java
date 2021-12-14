@@ -1,5 +1,4 @@
 package controller;
-
 import java.sql.SQLException;
 import java.util.List;
 import dao.BracketDAOIF;
@@ -7,8 +6,8 @@ import dao.DAOFactory;
 import dao.DbConnection;
 import model.Bracket;
 import model.BracketRound;
-import model.Match;
 import model.Team;
+
 
 public class BracketController implements BracketControllerIF {
 	private BracketRoundControllerIF bracketRoundController;
@@ -39,13 +38,6 @@ public class BracketController implements BracketControllerIF {
 		}
 		return listOfBracketRounds;
 	}
-
-	
-	@Override
-	public List<Match> getAllMatches(){
-		return bracketRoundController.getAllMatches();
-	}
-	
 	
 	public void addBracketRound(BracketRound bracketRound) {
 		bracket.addBracketRound(bracketRound);

@@ -8,7 +8,6 @@ import dao.PersonDAOIF;
 import model.Person;
 
 public class PersonController implements PersonControllerIF {
-	private Person person;
 	private PersonDAOIF personDAO;
 	
 	public PersonController() {
@@ -17,13 +16,7 @@ public class PersonController implements PersonControllerIF {
 
 	@Override
 	public Person getPerson(int personId) throws SQLException {
-		return this.person = personDAO.getPerson(personId);
-	}
-
-	@Override
-	public Person createPerson() {
-		// TODO Auto-generated method stub
-		return null;
+		return personDAO.getPerson(personId);
 	}
 	
 	@Override
@@ -34,7 +27,6 @@ public class PersonController implements PersonControllerIF {
 				passed = true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return passed;

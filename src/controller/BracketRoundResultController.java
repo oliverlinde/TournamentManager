@@ -1,13 +1,13 @@
 package controller;
 
-import dao.BracketRoundResultDAOIF;
-import model.BracketRoundResult;
 import model.Team;
 
+
+/*
+ * Class not yet implemented, intended usage is to determine winners of the BracketRound 
+ * and return a list of teams moving forward to the next BracketRound
+ */
 public class BracketRoundResultController implements BracketRoundResultControllerIF {
-	
-	private BracketRoundResultDAOIF bracketRoundResultDAO;
-	private BracketRoundResult bracketRoundResult;
 	
 	public BracketRoundResultController() {
 		
@@ -15,11 +15,6 @@ public class BracketRoundResultController implements BracketRoundResultControlle
 	
 	@Override
 	public void addPointsToTeam(Team team, int points) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void generateNextBracketRoundResult() {
 		
 	}
 
