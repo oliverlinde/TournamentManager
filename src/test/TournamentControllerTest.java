@@ -6,19 +6,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import controller.TournamentController;
+import controller.TournamentControllerIF;
+import model.Format;
+import model.NoOfRounds;
 import model.Team;
 import model.Tournament;
+import model.TournamentRule;
 
-class TournamentTest {
+class TournamentControllerTest {
+
 	private Tournament tournament;
-	
-	public TournamentTest() {
-		//Arrange
+	TournamentControllerIF tournamentController;
+	TournamentRule tournamentRule;
+
+	@BeforeEach
+	public void setup() {
+		// Arrange
+		tournamentController = new TournamentController();
 		tournament = new Tournament(1);
-		
-		//Act
+		tournamentRule = new TournamentRule(1, "", 1, 2, 3, NoOfRounds.BestOfThree, Format.SingleElimination);
+		// 
 		tournament.setName("Test tournament");
 		tournament.setGame("League of legends");
 		LocalDate localDate = LocalDate.of(2022, 02, 12);
@@ -29,41 +40,49 @@ class TournamentTest {
 		tournament.setDateTimeOfEvent(LocalDateTime.of(localDate1, localTime1));
 		tournament.setMaxNoOfTeams(16);
 		tournament.setMinNoOfTeams(8);
-		
+
 		int noOfTeamsToParticipate = 17;
-		
+
 		for (int i = 0; i < noOfTeamsToParticipate; i++) {
 			Team team = new Team(i, "Test team " + i);
 			tournament.addTeam(team);
-			
 		}
-		
-		
+		tournament.setTournamentRule(tournamentRule);
+		tournamentController.setTournament(tournament);
+
+
 	}
-	
+
 	@Test
 	void dateTimeTest() {
-		//Assert
+		// Assert
 		assertEquals("2022-02-12T12:00", tournament.getRegistrationDeadline().toString());
 	}
+
 	@Test
 	void gameNameTest() {
-		//Assert
+		// Assert
 		assertEquals("League of legends", tournament.getGame());
 	}
-	
-	@Test
-	void teamsAssignedToTournamentTest() {
-		//Assert
-		assertEquals(16, tournament.getAllTeams().size());
-	}
-	
+
 	@Test
 	void teamsNotExceedingMaxTest() {
-		//Assert
+		// Assert
 		assertNotEquals(17, tournament.getAllTeams().size());
 	}
-	
-	
 
+	@Test
+	void generateTournamentTest() {
+		//Act
+		tournamentController.setGenerateBracketStrategy();
+		tournamentController.initializeTournament();
+		// Assert
+		assertEquals(2, tournament.getBrackets().get(0).getBracketRounds().get(0).getMatches().get(0).getListOfTeams().size());
+	}
+
+	@Test
+	void tournament16TeamsTest() {
+		// Assert
+		assertEquals(16, tournament.getAllTeams().size());
+	}
 }

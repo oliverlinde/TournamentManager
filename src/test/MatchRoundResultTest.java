@@ -15,8 +15,8 @@ class MatchRoundResultTest {
 	void teamSetAsWinnerTest() {
 		
 		//Arrange
-		MatchRoundResult matchRoundResult = new MatchRoundResult();
-		Team team1 = new Team(1);
+		MatchRoundResult matchRoundResult = new MatchRoundResult(1);
+		Team team1 = new Team(1, "Test team");
 
 		//Act
 		matchRoundResult.setWinner(team1);

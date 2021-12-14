@@ -51,7 +51,6 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public void setTournament(Tournament tournament) {
 		this.tournament = tournament;
-		setTournamentRule(getTournamentRule());
 	}
 
 	@Override
@@ -271,6 +270,11 @@ public class TournamentController implements TournamentControllerIF {
 	@Override
 	public Tournament getTournament() {
 		return tournament;
+	}
+	
+	@Override
+	public GenerateBracketStrategyIF getStrategy() {
+		return generateBracketStrategy;
 	}
 
 }
