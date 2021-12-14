@@ -1,12 +1,10 @@
 package controller;
 import java.sql.SQLException;
-import java.util.List;
 import dao.BracketDAOIF;
 import dao.DAOFactory;
 import dao.DbConnection;
 import model.Bracket;
 import model.BracketRound;
-import model.Team;
 
 
 public class BracketController implements BracketControllerIF {
@@ -19,24 +17,8 @@ public class BracketController implements BracketControllerIF {
 	}
 	
 	@Override
-	public List<Team> getTeams() {
-		return bracketDAO.getTeams();
-	}
-	
-	@Override
 	public Bracket generateBracket(BracketRound bracketRound) {
 		return new Bracket(getNextBracketId(), bracketRound);
-	}
-
-	@Override
-	public List<BracketRound> getBracketRound() {
-		List<BracketRound> listOfBracketRounds = null;
-		try {
-			listOfBracketRounds = bracketDAO.getBracketRounds();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listOfBracketRounds;
 	}
 	
 	public void addBracketRound(BracketRound bracketRound) {

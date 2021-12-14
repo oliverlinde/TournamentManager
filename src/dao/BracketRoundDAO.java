@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.BracketRound;
-import model.Match;
-import model.Team;
 
 public class BracketRoundDAO implements BracketRoundDAOIF {
 	private DbConnectionIF dbConnection;
@@ -49,12 +47,6 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 	}
 
 	@Override
-	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<BracketRound> getBracketRoundsFromBracket(int bracketId) throws SQLException {
 		MatchDAOIF matchDAO = DAOFactory.createMatchDAO(dbConnection);
 		List<BracketRound> listOfBracketRounds = new ArrayList<>();
@@ -74,23 +66,11 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 			
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		
 		return listOfBracketRounds;
-	}
-
-	@Override
-	public BracketRound getBracketRound(int bracketRoundId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<BracketRound> getBracketRounds(int bracketId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override
@@ -114,10 +94,5 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 		
 		return nextBracketRoundId + 1;
 	}
-
-	/*
-	 * @Override public BracketRoundResult getBracketRoundResult() { // TODO
-	 * Auto-generated method stub return null; }
-	 */
 
 }

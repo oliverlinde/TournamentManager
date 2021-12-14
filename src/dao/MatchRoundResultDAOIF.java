@@ -10,19 +10,10 @@ import model.Team;
 public interface MatchRoundResultDAOIF {
 	
 	void setWinner(int matchRoundResultId, Team team) throws SQLException;
-	
-	//void setLoser(Team team);
-	
-	//void setDraw();
-	
-
-	List<MatchRoundResult> getTotalListOfMatchRoundResults(int matchId) throws SQLException;
 
 	int getNextMatchRoundResultId() throws SQLException;
 
 	List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException;
-
-	List<Team> getTeamsFromMatchRoundResult(int matchRoundResultId) throws SQLException;
 
 	MatchRoundResult getMatchRoundResultFromMatchIdAndMatchRoundResultId(int matchId, int matchRoundResultId) throws SQLException;
 

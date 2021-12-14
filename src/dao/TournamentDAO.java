@@ -111,6 +111,7 @@ public class TournamentDAO implements TournamentDAOIF {
 		return tournamentCreated;
 	}
 
+	@Override
 	public Tournament getTournament(int tournamentId) throws SQLException {
 		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(dbConnection);
 		BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);

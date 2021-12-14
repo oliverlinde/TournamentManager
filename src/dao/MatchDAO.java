@@ -27,10 +27,6 @@ public class MatchDAO implements MatchDAOIF {
 
 	}
 
-	public void setIsDraw() {
-
-	}
-
 	@Override
 	public List<Match> getMatchesFromBracketRound(int bracketRoundId) throws SQLException {
 		List<Match> listOfMatches = new ArrayList<>();
@@ -49,7 +45,7 @@ public class MatchDAO implements MatchDAOIF {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 		return listOfMatches;
@@ -83,7 +79,7 @@ public class MatchDAO implements MatchDAOIF {
 
 			match = new Match(matchId, matchRoundResults, listOfTeams);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return match;
 	}
@@ -103,27 +99,6 @@ public class MatchDAO implements MatchDAOIF {
 			statement.setInt(2, bracketRoundId);
 
 			statement.execute();
-
-//			if (match.getMatchId() != 0) {
-//				for (Team t : match.getListOfTeams()) {
-//					for (int idx = 0; idx < match.getRoundResults().size(); idx++) {
-//						String insertMatchRoundResultSQL = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) "
-//								+ "VALUES (?, ?, ?)";
-//
-//						PreparedStatement insertMatchRoundResult = connection
-//								.prepareStatement(insertMatchRoundResultSQL);
-//
-//						insertMatchRoundResult.setInt(1, match.getRoundResults().get(idx).getMatchRoundResultId());
-//						insertMatchRoundResult.setInt(2, match.getMatchId());
-//						insertMatchRoundResult.setInt(3, t.getTeamId());
-//
-//						insertMatchRoundResult.execute();
-//					}
-//				}
-//			} else {
-//				throw new SQLException("Creating match failed, no ID obtained");
-//			}
-
 			connection.commit();
 			System.out.println("Match created");
 			
@@ -138,18 +113,6 @@ public class MatchDAO implements MatchDAOIF {
 	}
 
 	public void createRoundResult() {
-
-	}
-
-	@Override
-	public void setDraw() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setRoundResult(Team winningTeam) {
-		// TODO Auto-generated method stub
 
 	}
 

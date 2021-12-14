@@ -14,13 +14,11 @@ public class PersonDAO implements PersonDAOIF {
 	private DbConnectionIF dbConnection;
 
 	public PersonDAO(DbConnectionIF dbConnection) {
-		// TODO Auto-generated constructor stub
 		this.dbConnection = dbConnection;
 	}
 
 	@Override
-	public Person getPerson(int personId) throws SQLException{
-		// TODO Auto-generated method stub
+	public Person getPerson(int personId) throws SQLException {
 		String sqlQuery = "SELECT personId, isAdmin, personName, email, birthdate, role FROM Person "
 				+ "WHERE personId = ? ";
 
@@ -45,11 +43,12 @@ public class PersonDAO implements PersonDAOIF {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return foundPerson;
 	}
 
+	// Method for creating a new Person in the database, not yet in use
 	public int createPerson(Person person) throws SQLException {
 		String sqlQuery = "INSERT INTO Person (personId, isAdmin, personName, email, birthdate, role) "
 				+ "VALUES ?, ?, ?, ?, ?, ? ";
@@ -63,27 +62,30 @@ public class PersonDAO implements PersonDAOIF {
 			ResultSet rs = statement.executeQuery();
 
 			if (person instanceof GGWUser) {
-				statement.setInt(1, person.getPersonId());
-				statement.setBoolean(2, true);
-				statement.setString(3, person.getPersonName());
-				statement.setString(4, person.getEmail());
-				statement.setObject(5, LocalDate.class);
-				statement.setString(6, ((GGWUser) person).getRole());
+				while (rs.next()) {
+					statement.setInt(1, person.getPersonId());
+					statement.setBoolean(2, true);
+					statement.setString(3, person.getPersonName());
+					statement.setString(4, person.getEmail());
+					statement.setObject(5, LocalDate.class);
+					statement.setString(6, ((GGWUser) person).getRole());
+				}
 			} else {
-				statement.setInt(1, person.getPersonId());
-				statement.setBoolean(2, false);
-				statement.setString(3, person.getPersonName());
-				statement.setString(4, person.getEmail());
-				statement.setObject(5, LocalDate.class);
-				statement.setString(6, "");
+				while (rs.next()) {
+					statement.setInt(1, person.getPersonId());
+					statement.setBoolean(2, false);
+					statement.setString(3, person.getPersonName());
+					statement.setString(4, person.getEmail());
+					statement.setObject(5, LocalDate.class);
+					statement.setString(6, "");
+				}
 			}
 			rowsAffected = statement.executeUpdate();
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return rowsAffected;
-
 	}
 
 }

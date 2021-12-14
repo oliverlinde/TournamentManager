@@ -13,7 +13,6 @@ import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -68,7 +67,6 @@ public class CreateTournamentUI extends JPanel {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		JPanel panel_2 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
 		panel.add(panel_2);
 
 		JPanel panel_7 = new JPanel();

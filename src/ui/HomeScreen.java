@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 import controller.TeamController;
-import controller.TeamControllerIF;
 import controller.TournamentController;
 import controller.TournamentControllerIF;
 import javax.swing.JLabel;
@@ -20,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class HomeScreen extends JPanel {
-	private TeamControllerIF teamController;
 	private TournamentControllerIF tournamentController;
 	private JList<Tournament> listOfTeams;
 	private JScrollPane scrollPane;
@@ -36,7 +34,7 @@ public class HomeScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public HomeScreen() {
-		teamController = new TeamController();
+		new TeamController();
 		tournamentController = new TournamentController();
 		generateTournamentListView();
 		

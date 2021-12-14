@@ -140,9 +140,5 @@ public class TournamentProgressionUI extends JPanel {
 		round1Pnl.add(round1ScrollPane);
 
 	}
-	
-	private void createActions() {
-		
-	}
 
 }
