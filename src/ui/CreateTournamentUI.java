@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 
 import controller.TournamentController;
 import controller.TournamentControllerIF;
+import controller.TournamentRuleController;
+import controller.TournamentRuleControllerIF;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -213,7 +216,8 @@ public class CreateTournamentUI extends JPanel {
 	}
 
 	private void createTournamentRuleList() {
-		listOfTournamentRules = tournamentController.getAllTournamentRules();
+		TournamentRuleControllerIF tournamentRuleController = new TournamentRuleController();
+		listOfTournamentRules = tournamentRuleController.getAllTournamentRule();
 		for (TournamentRule tournamentRule : listOfTournamentRules) {
 			tournamentRuleComboBox.addItem(tournamentRule.getDescription());
 		}

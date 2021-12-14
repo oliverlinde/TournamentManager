@@ -7,30 +7,13 @@ import dao.BracketRoundDAOIF;
 import dao.DAOFactory;
 import dao.DbConnection;
 import model.BracketRound;
-import model.BracketRoundResult;
 import model.Match;
-import model.Team;
 
 public class BracketRoundController implements BracketRoundControllerIF {
 	private MatchControllerIF matchController;
-	private BracketRoundResultControllerIF bracketRoundResultController;
 	private BracketRoundDAOIF bracketRoundDAO;
-	private BracketRound bracketRound;
-
 	public BracketRoundController() {
 		bracketRoundDAO = DAOFactory.createBracketRoundDAO(new DbConnection());
-	}
-
-	@Override
-	public void setBracketRoundResult(List<Team> listOfWinners, List<Team> listOfLosers) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public BracketRoundResult getBracketRoundResult() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

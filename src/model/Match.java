@@ -61,7 +61,7 @@ public class Match {
 
 		LinkedList<Team> listOfTeamsToSortableList = (LinkedList<Team>) listOfTeams;
 		List<Team> sortedByWinnerList = new LinkedList<>();
-
+		
 		for (MatchRoundResult matchResult : listOfMatchRounds) {
 			if (matchResult.getWinner().getTeamId() == (listOfTeamsToSortableList.get(0).getTeamId())) {
 				team1Wins++;

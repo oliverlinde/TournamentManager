@@ -23,22 +23,10 @@ public class BracketController implements BracketControllerIF {
 	public List<Team> getTeams() {
 		return bracketDAO.getTeams();
 	}
-
-	@Override
-	public void givePointsToTeam(Team team, int pointsToWin) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public Bracket generateBracket(BracketRound bracketRound) {
 		return new Bracket(getNextBracketId(), bracketRound);
-	}
-	
-
-	public void createBracket(List<Team> listOfTeams) {
-		//this.bracket = new Bracket(listOfTeams);
-
 	}
 
 	@Override
@@ -47,7 +35,6 @@ public class BracketController implements BracketControllerIF {
 		try {
 			listOfBracketRounds = bracketDAO.getBracketRounds();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return listOfBracketRounds;
@@ -75,15 +62,5 @@ public class BracketController implements BracketControllerIF {
 		}
 		return nextId;
 	}
-
-
-		
-//	private void saveToDatabase(int tournamentId) throws SQLException {
-//		try {
-//			bracketDAO.createBracket(tournamentId, bracket);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 }

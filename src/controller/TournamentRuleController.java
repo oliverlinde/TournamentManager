@@ -14,18 +14,17 @@ import model.TournamentRule;
 public class TournamentRuleController implements TournamentRuleControllerIF {
 	private TournamentRule tournamentRule;
 	private TournamentRuleDAOIF tournamentRuleDAO;
-	
+
 	public TournamentRuleController() {
 		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(new DbConnection());
 	}
-	
+
 	@Override
 	public List<TournamentRule> getAllTournamentRule() {
 		List<TournamentRule> tournamentRuleList = new LinkedList<>();
 		try {
 			tournamentRuleList = tournamentRuleDAO.getAllTournamentRules();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return tournamentRuleList;
