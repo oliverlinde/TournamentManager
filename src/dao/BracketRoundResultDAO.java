@@ -85,7 +85,7 @@ public class BracketRoundResultDAO implements BracketRoundResultDAOIF {
 	
 	@Override
 	public BracketRoundResult getBracketRoundResult(int bracketRoundId) throws SQLException {
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 		String sqlQuery = "SELECT teamId, points FROM TeamInBracketRound " + "WHERE bracketRoundId = ? ";
 
 		BracketRoundResult foundBracketRoundResult = null;

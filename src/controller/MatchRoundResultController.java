@@ -19,7 +19,7 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	private static int count = -1;
 	
 	public MatchRoundResultController() {
-		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(new DbConnection());
+		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
 	}
 
 	@Override

@@ -43,3 +43,4 @@ bin/controller/BracketRoundControllerIF.class
 bin/controller/BracketRoundController.class
 bin/controller/BracketControllerIF.class
 bin/controller/BracketController.class
+*.class

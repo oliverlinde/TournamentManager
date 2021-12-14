@@ -13,7 +13,7 @@ public class BracketController implements BracketControllerIF {
 	private Bracket bracket;
 
 	public BracketController() {
-		this.bracketDAO = DAOFactory.createBracketDAO(new DbConnection());
+		this.bracketDAO = DAOFactory.createBracketDAO();
 	}
 	
 	@Override

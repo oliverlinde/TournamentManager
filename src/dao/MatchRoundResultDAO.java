@@ -94,7 +94,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	@Override
 	public MatchRoundResult getMatchRoundResultFromMatchIdAndMatchRoundResultId(int matchId, int matchRoundResultId)
 			throws SQLException {
-		teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		teamDAO = DAOFactory.createTeamDAO();
 		String sqlQuery = "SELECT matchRoundResultId, teamId, isWinner, matchId FROM MatchRoundResult "
 				+ "WHERE matchId = ? AND matchRoundResultId = ?";
 
@@ -168,7 +168,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 
 	@Override
 	public List<Team> getTeamsFromMatch(int matchId) throws SQLException {
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 		List<Team> listOfTeams = new LinkedList<>();
 
 		String sqlQuery = "SELECT teamId FROM MatchRoundResult WHERE matchId = ? AND matchRoundResultId = ?";

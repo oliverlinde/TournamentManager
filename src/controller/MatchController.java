@@ -19,7 +19,7 @@ public class MatchController implements MatchControllerIF {
 	private Match match;
 
 	public MatchController() {
-		matchDAO = DAOFactory.createMatchDAO(new DbConnection());
+		matchDAO = DAOFactory.createMatchDAO();
 	}
 
 	@Override

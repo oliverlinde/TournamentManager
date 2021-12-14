@@ -19,7 +19,7 @@ public class BracketDAO implements BracketDAOIF {
 	
 	@Override
 	public List<Bracket> getBracketsFromTournament(int tournamentId) throws SQLException {
-		BracketRoundDAOIF bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
+		BracketRoundDAOIF bracketRoundDAO = DAOFactory.createBracketRoundDAO();
 		List<Bracket> listOFBrackets = new ArrayList<>();
 		
 		String sqlQuery = "SELECT bracketId FROM Bracket WHERE tournamentId = ?";

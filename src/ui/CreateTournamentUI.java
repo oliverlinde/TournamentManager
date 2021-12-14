@@ -6,6 +6,7 @@ import controller.TournamentController;
 import controller.TournamentControllerIF;
 import controller.TournamentRuleController;
 import controller.TournamentRuleControllerIF;
+import dao.DAOFactory;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -58,7 +59,7 @@ public class CreateTournamentUI extends JPanel {
 	 * Create the panel.
 	 */
 	public CreateTournamentUI() {
-		tournamentController = new TournamentController();
+		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 
 		setLayout(new BorderLayout(0, 0));
 

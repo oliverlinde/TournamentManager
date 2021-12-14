@@ -16,7 +16,7 @@ public class TournamentRuleController implements TournamentRuleControllerIF {
 	private TournamentRuleDAOIF tournamentRuleDAO;
 
 	public TournamentRuleController() {
-		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(new DbConnection());
+		tournamentRuleDAO = DAOFactory.createTournamentRuleDAO();
 	}
 
 	@Override

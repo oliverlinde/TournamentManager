@@ -11,7 +11,7 @@ public class PersonController implements PersonControllerIF {
 	private PersonDAOIF personDAO;
 	
 	public PersonController() {
-		this.personDAO = DAOFactory.createPersonDAO(new DbConnection());
+		this.personDAO = DAOFactory.createPersonDAO();
 	}
 
 	@Override

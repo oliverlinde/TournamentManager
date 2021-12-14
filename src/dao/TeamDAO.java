@@ -63,7 +63,7 @@ public class TeamDAO implements TeamDAOIF {
 	@Override
 	public List<Team> getTeamsFromMatch(int matchId) throws SQLException {
 
-		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
 		
 		return matchRoundResultDAO.getTeamsFromMatch(matchId);
 	}

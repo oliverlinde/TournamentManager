@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import controller.TeamController;
 import controller.TournamentController;
 import controller.TournamentControllerIF;
+import dao.DAOFactory;
+
 import javax.swing.JLabel;
 import javax.swing.JList;
 
@@ -35,7 +37,7 @@ public class HomeScreen extends JPanel {
 	 */
 	public HomeScreen() {
 		new TeamController();
-		tournamentController = new TournamentController();
+		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 		generateTournamentListView();
 		
 		setLayout(new BorderLayout(0, 0));

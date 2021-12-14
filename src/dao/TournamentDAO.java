@@ -47,7 +47,7 @@ public class TournamentDAO implements TournamentDAOIF {
 
 			connection.commit();
 			
-			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO();
 			for (Bracket b : tournament.getBrackets()) {
 				bracketDAO.createBracket(tournament.getId(), b);
 			}
@@ -113,8 +113,8 @@ public class TournamentDAO implements TournamentDAOIF {
 
 	@Override
 	public Tournament getTournament(int tournamentId) throws SQLException {
-		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO(dbConnection);
-		BracketDAOIF bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO();
+		BracketDAOIF bracketDAO = DAOFactory.createBracketDAO();
 		TournamentRule tournamentRule;
 
 		String sqlQuery = "SELECT * FROM Tournament " + " WHERE tournamentId = ?";
@@ -156,7 +156,7 @@ public class TournamentDAO implements TournamentDAOIF {
 
 	@Override
 	public List<Team> getTeamsInTournament(int tournamentId) throws SQLException {
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 
 		List<Team> teamsInTournament = new ArrayList<>();
 		String sqlQuery = "SELECT teamId FROM TeamInTournament " + "WHERE tournamentId = ?";

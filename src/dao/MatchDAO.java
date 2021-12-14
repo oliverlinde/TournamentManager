@@ -22,7 +22,7 @@ public class MatchDAO implements MatchDAOIF {
 
 	@Override
 	public void setMatchRoundResult(int matchRoundResultId, Team winningTeam) throws SQLException {
-		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
 		matchRoundResultDAO.setWinner(matchRoundResultId, winningTeam);
 
 	}
@@ -54,8 +54,8 @@ public class MatchDAO implements MatchDAOIF {
 
 	@Override
 	public Match getMatch(int matchId) throws SQLException {
-		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO(dbConnection);
+		MatchRoundResultDAOIF matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
+		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 		String sqlQuery = "SELECT Match.matchId, matchRoundResultId, Team.teamId, teamName FROM Match "
 				+ "JOIN MatchRoundResult on Match.matchId = MatchRoundResult.matchId "
 				+ "JOIN Team ON MatchRoundResult.teamId = Team.teamId " + "WHERE Match.matchId = ?";

@@ -12,7 +12,7 @@ import model.Match;
 public class BracketRoundController implements BracketRoundControllerIF {
 	private BracketRoundDAOIF bracketRoundDAO;
 	public BracketRoundController() {
-		bracketRoundDAO = DAOFactory.createBracketRoundDAO(new DbConnection());
+		bracketRoundDAO = DAOFactory.createBracketRoundDAO();
 	}
 
 	@Override

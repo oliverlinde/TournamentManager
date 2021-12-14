@@ -13,7 +13,7 @@ import model.Team;
  */
 public class TeamController implements TeamControllerIF {
 	public TeamController() {
-		DAOFactory.createTeamDAO(new DbConnection());
+		DAOFactory.createTeamDAO();
 	}
 	
 	@Override

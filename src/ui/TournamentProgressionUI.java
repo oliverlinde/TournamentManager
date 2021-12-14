@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import controller.TournamentController;
 import controller.TournamentControllerIF;
+import dao.DAOFactory;
 import model.Bracket;
 import model.BracketRound;
 import model.Match;
@@ -122,7 +123,7 @@ public class TournamentProgressionUI extends JPanel {
 	
 	private void generateTournamentVisuals() {
 		DefaultListModel<Match> listModel = new DefaultListModel<>();
-		TournamentControllerIF tournamentController = new TournamentController();
+		TournamentControllerIF tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 		Tournament fullTournament = tournamentController.getTournamentById(tournament.getId());
 		
 		for (Bracket bracket : fullTournament.getBrackets()) {

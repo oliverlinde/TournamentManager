@@ -35,14 +35,13 @@ public class TournamentController implements TournamentControllerIF {
 	private GenerateBracketStrategyIF generateBracketStrategy;
 	private DbConnectionIF dbConnection;
 
-	public TournamentController() {
-		dbConnection = new DbConnection();
-		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
-		bracketDAO = DAOFactory.createBracketDAO(dbConnection);
-		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
-		matchDAO = DAOFactory.createMatchDAO(dbConnection);
-		matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
-		new BracketController();
+	public TournamentController(TournamentDAOIF tournamentDAO) {
+//		tournamentDAO = DAOFactory.createTournamentDAO(dbConnection);
+//		bracketDAO = DAOFactory.createBracketDAO(dbConnection);
+//		bracketRoundDAO = DAOFactory.createBracketRoundDAO(dbConnection);
+//		matchDAO = DAOFactory.createMatchDAO(dbConnection);
+//		matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO(dbConnection);
+		this.tournamentDAO = tournamentDAO;
 	}
 
 	@Override
