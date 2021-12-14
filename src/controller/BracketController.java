@@ -1,8 +1,6 @@
 package controller;
 import java.sql.SQLException;
 import dao.BracketDAOIF;
-import dao.DAOFactory;
-import dao.DbConnection;
 import model.Bracket;
 import model.BracketRound;
 
@@ -12,8 +10,8 @@ public class BracketController implements BracketControllerIF {
 	private BracketDAOIF bracketDAO;
 	private Bracket bracket;
 
-	public BracketController() {
-		this.bracketDAO = DAOFactory.createBracketDAO();
+	public BracketController(BracketDAOIF bracketDAO) {
+		this.bracketDAO = bracketDAO;
 	}
 	
 	@Override

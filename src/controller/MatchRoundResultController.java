@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.DAOFactory;
-import dao.DbConnection;
 import dao.MatchRoundResultDAOIF;
 import model.MatchRoundResult;
 import model.Team;
@@ -18,8 +16,8 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	private List<MatchRoundResult> matchRoundResults;
 	private static int count = -1;
 	
-	public MatchRoundResultController() {
-		this.matchRoundResultDAO = DAOFactory.createMatchRoundResultDAO();
+	public MatchRoundResultController(MatchRoundResultDAOIF matchRoundResultDAO) {
+		this.matchRoundResultDAO = matchRoundResultDAO;
 	}
 
 	@Override

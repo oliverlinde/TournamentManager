@@ -8,7 +8,6 @@ import java.util.List;
 import dao.BracketDAOIF;
 import dao.BracketRoundDAOIF;
 import dao.DAOFactory;
-import dao.DbConnection;
 import dao.DbConnectionIF;
 import dao.MatchDAOIF;
 import dao.MatchRoundResultDAOIF;
@@ -226,7 +225,7 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public List<TournamentRule> getAllTournamentRules() {
-		tournamentRuleController = new TournamentRuleController();
+		tournamentRuleController = new TournamentRuleController(DAOFactory.createTournamentRuleDAO());
 		return tournamentRuleController.getAllTournamentRule();
 	}
 

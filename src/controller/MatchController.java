@@ -18,8 +18,8 @@ public class MatchController implements MatchControllerIF {
 	private MatchDAOIF matchDAO;
 	private Match match;
 
-	public MatchController() {
-		matchDAO = DAOFactory.createMatchDAO();
+	public MatchController(MatchDAOIF matchDAO) {
+		this.matchDAO = matchDAO;
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class MatchController implements MatchControllerIF {
 	@Override
 	public List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams) {
 		List<Match> listOfMatches = new ArrayList<>();
-		MatchRoundResultControllerIF matchRoundResultController = new MatchRoundResultController();
+		MatchRoundResultControllerIF matchRoundResultController = new MatchRoundResultController(DAOFactory.createMatchRoundResultDAO());
 		LinkedList<Team> listOfRandomTeams = (LinkedList<Team>) generateRandomListOfTeams(listOfTeams);
 
 		for (int i = 0; i <= listOfRandomTeams.size(); i++) {

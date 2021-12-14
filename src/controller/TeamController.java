@@ -2,8 +2,7 @@ package controller;
 
 import java.util.List;
 
-import dao.DAOFactory;
-import dao.DbConnection;
+import dao.TeamDAOIF;
 import model.Person;
 import model.Team;
 
@@ -12,8 +11,11 @@ import model.Team;
  * Intended use is to create a Team and administrate this object
  */
 public class TeamController implements TeamControllerIF {
-	public TeamController() {
-		DAOFactory.createTeamDAO();
+	@SuppressWarnings("unused")
+	private TeamDAOIF teamDAO;
+	
+	public TeamController(TeamDAOIF teamDAO) {
+		this.teamDAO = teamDAO;
 	}
 	
 	@Override

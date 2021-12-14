@@ -10,8 +10,8 @@ import model.Person;
 public class PersonController implements PersonControllerIF {
 	private PersonDAOIF personDAO;
 	
-	public PersonController() {
-		this.personDAO = DAOFactory.createPersonDAO();
+	public PersonController(PersonDAOIF personDAO) {
+		this.personDAO = personDAO;
 	}
 
 	@Override

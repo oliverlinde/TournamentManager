@@ -4,15 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.BracketRoundDAOIF;
-import dao.DAOFactory;
-import dao.DbConnection;
 import model.BracketRound;
 import model.Match;
 
 public class BracketRoundController implements BracketRoundControllerIF {
 	private BracketRoundDAOIF bracketRoundDAO;
-	public BracketRoundController() {
-		bracketRoundDAO = DAOFactory.createBracketRoundDAO();
+	
+	public BracketRoundController(BracketRoundDAOIF bracketRoundDAO) {
+		this.bracketRoundDAO = bracketRoundDAO;
 	}
 
 	@Override
