@@ -2,6 +2,7 @@ package dao;
 
 public class DAOFactory {
 
+	@SuppressWarnings("unused")
 	private boolean isTest;
 
 	public static BracketDAOIF createBracketDAO() {

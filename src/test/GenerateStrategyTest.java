@@ -1,15 +1,11 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.lang.reflect.Field;
-
 import org.junit.jupiter.api.Test;
 
 import controller.SingleEliminationStrategy;
 import controller.TournamentController;
 import controller.TournamentControllerIF;
+import dao.DAOFactory;
 import model.Format;
 import model.NoOfRounds;
 import model.Tournament;
@@ -22,7 +18,7 @@ class GenerateStrategyTest {
 	@Test
 	void test() {
 		//Arrange
-		tournamentController = new TournamentController();
+		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 		TournamentRule tournamentRule = new TournamentRule(1, "", 1, 2, 3, NoOfRounds.BestOfThree, Format.SingleElimination);
 		
 		//Act

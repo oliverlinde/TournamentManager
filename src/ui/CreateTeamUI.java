@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 
 import controller.PersonController;
 import controller.TeamController;
+import dao.DAOFactory;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
@@ -23,8 +25,8 @@ public class CreateTeamUI extends JPanel {
 	 * Create the panel.
 	 */
 	public CreateTeamUI() {
-		new TeamController();
-		new PersonController();
+		new TeamController(DAOFactory.createTeamDAO());
+		new PersonController(DAOFactory.createPersonDAO());
 		
 		setLayout(new BorderLayout(0, 0));
 		

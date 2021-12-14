@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import controller.PersonController;
 import controller.PersonControllerIF;
+import dao.DAOFactory;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -144,7 +145,7 @@ public class Main {
 	}
 
 	private boolean loginVerified(JTextField loginCridentials) {
-		PersonControllerIF personController = new PersonController();
+		PersonControllerIF personController = new PersonController(DAOFactory.createPersonDAO());
 		return personController.verifyPerson(Integer.parseInt(loginCridentials.getText()));
 	}
 

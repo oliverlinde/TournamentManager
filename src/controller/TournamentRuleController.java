@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.DAOFactory;
-import dao.DbConnection;
 import dao.TournamentRuleDAOIF;
 import model.Format;
 import model.NoOfRounds;

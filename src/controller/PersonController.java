@@ -2,8 +2,6 @@ package controller;
 
 import java.sql.SQLException;
 
-import dao.DAOFactory;
-import dao.DbConnection;
 import dao.PersonDAOIF;
 import model.Person;
 

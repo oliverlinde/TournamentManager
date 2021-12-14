@@ -215,7 +215,7 @@ public class CreateTournamentUI extends JPanel {
 	}
 
 	private void createTournamentRuleList() {
-		TournamentRuleControllerIF tournamentRuleController = new TournamentRuleController();
+		TournamentRuleControllerIF tournamentRuleController = new TournamentRuleController(DAOFactory.createTournamentRuleDAO());
 		listOfTournamentRules = tournamentRuleController.getAllTournamentRule();
 		for (TournamentRule tournamentRule : listOfTournamentRules) {
 			tournamentRuleComboBox.addItem(tournamentRule.getDescription());

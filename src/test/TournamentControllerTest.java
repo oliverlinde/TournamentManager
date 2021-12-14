@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import controller.TournamentController;
 import controller.TournamentControllerIF;
+import dao.DAOFactory;
 import model.Format;
 import model.NoOfRounds;
 import model.Team;
@@ -26,7 +27,7 @@ class TournamentControllerTest {
 	@BeforeEach
 	public void setup() {
 		// Arrange
-		tournamentController = new TournamentController();
+		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 		tournament = new Tournament(1);
 		tournamentRule = new TournamentRule(1, "", 1, 2, 3, NoOfRounds.BestOfThree, Format.SingleElimination);
 		// 

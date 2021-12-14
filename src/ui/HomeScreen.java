@@ -36,7 +36,7 @@ public class HomeScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public HomeScreen() {
-		new TeamController();
+		new TeamController(DAOFactory.createTeamDAO());
 		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 		generateTournamentListView();
 		

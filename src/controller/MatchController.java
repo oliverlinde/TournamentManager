@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 import dao.DAOFactory;
-import dao.DbConnection;
 import dao.MatchDAOIF;
 import model.Match;
 import model.MatchRoundResult;
