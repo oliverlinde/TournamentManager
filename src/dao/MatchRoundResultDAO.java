@@ -86,7 +86,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return listOfMatchRoundResultIds;
 	}
@@ -125,7 +125,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return matchRoundResult;
 	}
@@ -142,29 +142,6 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 		return listOfMatchRoundResults;
 
 	}
-
-//	@Override
-//	public List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException {
-//		List<MatchRoundResult> listOfMatchRoundResults = new ArrayList<>();
-//
-//		String sqlQuery = "SELECT matchRoundResultId FROM MatchRoundResult WHERE matchId = ? ";
-//
-//		try {
-//			Connection connection = dbConnection.getConnection();
-//			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-//
-//			statement.setInt(1, matchId);
-//
-//			ResultSet rs = statement.executeQuery();
-//
-//			while (rs.next()) {
-//				listOfMatchRoundResults.add(getMatchRoundResult(rs.getInt(1)));
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return listOfMatchRoundResults;
-//	}
 
 	@Override
 	public List<Team> getTeamsFromMatch(int matchId) throws SQLException {
@@ -210,6 +187,7 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 			nextMatchRoundResultId = rs.getInt(1);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return nextMatchRoundResultId + 1;

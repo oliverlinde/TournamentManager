@@ -1,6 +1,7 @@
 package dao;
 
 public class DAOFactory {
+
 	private boolean isTest;
 
 	public static BracketDAOIF createBracketDAO() {
