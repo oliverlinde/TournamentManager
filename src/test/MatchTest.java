@@ -19,22 +19,28 @@ class MatchTest {
 		
 		//Arrange
 		List<Team> teams = new LinkedList<>();
-		teams.add(new Team(1)); //Winning team
-		teams.add(new Team(2)); //Losing team
+		teams.add(new Team(1, "Test team 1")); //Winning team
+		teams.add(new Team(2, "Test team 2")); //Losing team
 		
 		List<MatchRoundResult> matchRoundResults = new LinkedList<>();
 		
-		Match match = new Match(matchRoundResults, teams);
+		Match match = new Match(1, matchRoundResults, teams);
+
+		//Team with id = 1 wins
+		MatchRoundResult matchRoundResult1 = new MatchRoundResult(1, teams.get(0), teams.get(1), false);
+		//Team with id = 2 wins
+		MatchRoundResult matchRoundResult2 = new MatchRoundResult(2, teams.get(1), teams.get(0), false);
+		//Team with id = 1 wins
+		MatchRoundResult matchRoundResult3 = new MatchRoundResult(3, teams.get(0), teams.get(1), false);
 		
 		int expectedWinningTeamId = teams.get(0).getTeamId();
+
 		//Act
-		
-		//Team with id = 1 wins
-		matchRoundResults.add(new MatchRoundResult(teams.get(0), teams.get(1)));
-		//Team with id = 2 wins
-		matchRoundResults.add(new MatchRoundResult(teams.get(1), teams.get(0)));
-		//Team with id = 1 wins
-		matchRoundResults.add(new MatchRoundResult(teams.get(0), teams.get(1)));
+		teams.add(new Team(1, "Test team 1")); //Winning team
+		teams.add(new Team(2, "Test team 2")); //Losing team
+		matchRoundResults.add(matchRoundResult1);
+		matchRoundResults.add(matchRoundResult2);
+		matchRoundResults.add(matchRoundResult3);
 		
 		//Assert
 		assertEquals(expectedWinningTeamId, match.getWinner().getTeamId());
@@ -45,24 +51,32 @@ class MatchTest {
 		
 		//Arrange
 		List<Team> teams = new LinkedList<>();
-		teams.add(new Team(1)); //Winning team
-		teams.add(new Team(2)); //Losing team
+		teams.add(new Team(1, "Test team 1")); //Winning team
+		teams.add(new Team(2, "Test team 2")); //Losing team
+		
 		
 		List<MatchRoundResult> matchRoundResults = new LinkedList<>();
 		
-		Match match = new Match(matchRoundResults, teams);
+		Match match = new Match(1, matchRoundResults, teams);
+
+		//Team with id = 2 loses
+		MatchRoundResult matchRoundResult1 = new MatchRoundResult(1, teams.get(0), teams.get(1), false);
+		//Team with id = 1 loses
+		MatchRoundResult matchRoundResult2 = new MatchRoundResult(2, teams.get(1), teams.get(0), false);
+		//Team with id = 2 loses
+		MatchRoundResult matchRoundResult3 = new MatchRoundResult(3, teams.get(0), teams.get(1), false);	
 		
 		int expectedLosingTeamId = teams.get(1).getTeamId();
 		
 		//Act
+		teams.add(new Team(1, "Test team 1")); //Winning team
+		teams.add(new Team(2, "Test team 2")); //Losing team
+		matchRoundResults.add(matchRoundResult1);
+		matchRoundResults.add(matchRoundResult2);
+		matchRoundResults.add(matchRoundResult3);
 		
-		//Team with id = 2 loses
-		matchRoundResults.add(new MatchRoundResult(teams.get(0), teams.get(1)));
-		//Team with id = 1 loses
-		matchRoundResults.add(new MatchRoundResult(teams.get(1), teams.get(0)));
-		//Team with id = 2 loses
-		matchRoundResults.add(new MatchRoundResult(teams.get(0), teams.get(1)));
-		
+
+	
 		//Assert
 		assertEquals(expectedLosingTeamId, match.getLoser().getTeamId());
 	}

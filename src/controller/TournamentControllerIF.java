@@ -66,4 +66,6 @@ public interface TournamentControllerIF {
 
 	void setGenerateBracketStrategy();
 
+	GenerateBracketStrategyIF getStrategy();
+
 }
