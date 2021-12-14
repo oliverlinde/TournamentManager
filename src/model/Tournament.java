@@ -131,7 +131,9 @@ public class Tournament {
 	}
 	
 	public void addTeam(Team team) {
-		listOfTeams.add(team);
+		if (listOfTeams.size() < maxNoOfTeams) {
+			listOfTeams.add(team);
+		}
 	}
 	
 	public void setAllTeams(List<Team> teams) {
