@@ -14,9 +14,7 @@ public interface MatchDAOIF {
 	List<Match> getMatchesFromBracketRound(int bracketRoundId) throws SQLException;
 
 	void setMatchRoundResult(int matchRoundResultId, Team winningTeam) throws SQLException;
-
-	int getNextMatchId() throws SQLException;
-
+	
 	int createMatch(int bracketRoundId, Match match) throws SQLException;
 
 }

@@ -10,6 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.Bracket;
+import model.BracketRound;
+import model.Match;
+import model.MatchRoundResult;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
@@ -24,7 +27,6 @@ public class TournamentDAO implements TournamentDAOIF {
 
 	@Override
 	public int createTournament(Tournament tournament) throws SQLException {
-		String sqlQuery = "INSERT INTO Tournament VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
 
 		int tournamentCreated = 0;
 		Connection connection = dbConnection.getConnection();
@@ -32,82 +34,131 @@ public class TournamentDAO implements TournamentDAOIF {
 
 		try {
 
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			String insertTournamentSQL = "INSERT INTO Tournament VALUES (?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement insertTournamentStatement = connection.prepareStatement(insertTournamentSQL,
+					PreparedStatement.RETURN_GENERATED_KEYS);
 
-			statement.setInt(1, tournament.getTournamentId());
-			statement.setInt(2, tournament.getTournamentRule().getTournamentRuleId());
-			statement.setString(3, tournament.getTournamentName());
-			statement.setString(4, tournament.getGameName());
-			statement.setObject(5, tournament.getDateTimeOfEvent());
-			statement.setObject(6, tournament.getRegistrationDeadline());
-			statement.setInt(7, tournament.getMaxNoOfTeams());
-			statement.setInt(8, tournament.getMinNoOfTeams());
+			insertTournamentStatement.setInt(1, tournament.getTournamentRule().getTournamentRuleId());
+			insertTournamentStatement.setString(2, tournament.getTournamentName());
+			insertTournamentStatement.setString(3, tournament.getGameName());
+			insertTournamentStatement.setObject(4, tournament.getDateTimeOfEvent());
+			insertTournamentStatement.setObject(5, tournament.getRegistrationDeadline());
+			insertTournamentStatement.setInt(6, tournament.getMaxNoOfTeams());
+			insertTournamentStatement.setInt(7, tournament.getMinNoOfTeams());
 
-			tournamentCreated = statement.executeUpdate();
+			tournamentCreated = insertTournamentStatement.executeUpdate();
 
 			connection.commit();
-			
-			BracketDAOIF bracketDAO = DAOFactory.createBracketDAO();
-			for (Bracket b : tournament.getBrackets()) {
-				bracketDAO.createBracket(tournament.getTournamentId(), b);
+
+			if (tournamentCreated == 0) {
+				throw new SQLException("Tournament not created");
 			}
-
-			
-
 		} catch (SQLException e) {
-			connection.rollback();
-			e.printStackTrace();
-			throw new SQLException("Tournament not created " + tournament.getTournamentId());
+			throw new SQLException("Tournament not created");
 		} finally {
 			connection.setAutoCommit(true);
+
 		}
 
+		System.out.println("Tournament created");
 		return tournamentCreated;
-
 	}
-	
+
 	@Override
 	public int updateTournament(Tournament tournament) throws SQLException {
-		String sqlQuery = "UPDATE Tournament "
-				+ "SET tournamentRuleId= ?, "
-				+ "tournamentName = ?, "
-				+ "gameName = ?, "
-				+ "dateTimeOfEvent = ?, "
-				+ "registrationDeadline = ?, "
-				+ "maxNoOfTeams = ?, "
-				+ "minNoOfTeams = ? "
-				+ "WHERE tournamentId = ? ";
 
 		int tournamentCreated = 0;
 		Connection connection = dbConnection.getConnection();
 		connection.setAutoCommit(false);
 
 		try {
+			for (int id = 0; id < tournament.getBrackets().size(); id++) {
+				Bracket bracket = tournament.getBrackets().get(id);
 
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+				String insertIntoBracketSQL = "INSERT INTO Bracket " + "VALUES (?)";
+				PreparedStatement insertIntoBracket = connection.prepareStatement(insertIntoBracketSQL,
+						PreparedStatement.RETURN_GENERATED_KEYS);
 
-			statement.setInt(1, tournament.getTournamentRule().getTournamentRuleId());
-			statement.setString(2, tournament.getTournamentName());
-			statement.setString(3, tournament.getGameName());
-			statement.setObject(4, tournament.getDateTimeOfEvent());
-			statement.setObject(5, tournament.getRegistrationDeadline());
-			statement.setInt(6, tournament.getMaxNoOfTeams());
-			statement.setInt(7, tournament.getMinNoOfTeams());
-			statement.setInt(8, tournament.getTournamentId());
+				insertIntoBracket.setInt(1, tournament.getTournamentId());
+				int bracketCreated = insertIntoBracket.executeUpdate();
 
-			statement.execute();
+				if (bracketCreated == 0) {
+					throw new SQLException("Bracket not created, ID not obtained");
+				}
+				System.out.println("Bracket created");
 
-			connection.commit();
-			System.out.println("Tournament created");
+				ResultSet bracketIds = insertIntoBracket.getGeneratedKeys();
+				if (bracketIds.next()) {
+					int bracketId = bracketIds.getInt(1);
 
+					for (int idx = 0; idx < bracket.getBracketRounds().size(); idx++) {
+						BracketRound bracketRound = bracket.getBracketRounds().get(idx);
 
-		} catch (SQLException e) {
+						String insertIntoBracketRoundSQL = "INSERT INTO BracketRound " + "VALUES (?)";
+						PreparedStatement insertIntoBracketRound = connection
+								.prepareStatement(insertIntoBracketRoundSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+						insertIntoBracketRound.setInt(1, bracketId);
+
+						if(insertIntoBracketRound.executeUpdate() == 0) {
+							throw new SQLException("Bracketround not created");
+						}
+						System.out.println("BracketRound created");
+
+						ResultSet bracketRoundIds = insertIntoBracketRound.getGeneratedKeys();
+						if (bracketRoundIds.next()) {
+							int bracketRoundId = bracketRoundIds.getInt(1);
+
+							for (int idx2 = 0; idx2 < bracketRound.getMatches().size(); idx2++) {
+								Match match = bracketRound.getMatches().get(idx2);
+
+								String sqlQuery = "INSERT INTO Match " + "VALUES (?)";
+								PreparedStatement statement = connection.prepareStatement(sqlQuery,
+										PreparedStatement.RETURN_GENERATED_KEYS);
+
+								statement.setInt(1, bracketRoundId);
+
+								if (statement.executeUpdate() == 0) {
+									throw new SQLException("Match not created; id not obtained");
+								}
+								System.out.println("Match created");
+								ResultSet matchIds = statement.getGeneratedKeys();
+
+								if (matchIds.next()) {
+									int matchId = matchIds.getInt(1);
+
+									for (int idx3 = 0; idx3 < match.getListOfMatchRounds().size(); idx3++) {
+										MatchRoundResult matchRoundResult = match.getListOfMatchRounds().get(idx3);
+										for (Team team : match.getListOfTeams()) {
+											String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?)";
+											PreparedStatement insertMatchRoundResult = connection
+													.prepareStatement(insertToMatchRoundResult);
+											insertMatchRoundResult.setInt(1, matchRoundResult.getMatchRoundResultId()); 
+											insertMatchRoundResult.setInt(2, matchId);
+											insertMatchRoundResult.setInt(3, team.getTeamId());
+
+											if(insertMatchRoundResult.executeUpdate() == 0) {
+												throw new SQLException("MatchRoundResult not created");
+											}
+											System.out.println("MatchRoundResult created");
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				connection.commit();
+			}
+
+		} catch (Exception e) {
 			connection.rollback();
 			e.printStackTrace();
 			throw new SQLException("Tournament not created " + tournament.getTournamentId());
 		} finally {
 			connection.setAutoCommit(true);
 		}
+
+		System.out.println(tournamentCreated);
 		return tournamentCreated;
 	}
 
@@ -211,28 +262,6 @@ public class TournamentDAO implements TournamentDAOIF {
 		}
 
 		return listOfTournaments;
-	}
-
-	@Override
-	public int getNextTournamentId() throws SQLException {
-		String sqlQuery = "SELECT tournamentId FROM Tournament "
-				+ "WHERE tournamentId = (SELECT MAX(tournamentId) FROM Tournament)";
-		int nextTournamentId = 0;
-
-		try {
-			Connection connection = dbConnection.getConnection();
-
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			nextTournamentId = rs.getInt(1);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		return nextTournamentId + 1;
 	}
 
 }

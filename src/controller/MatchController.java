@@ -53,29 +53,19 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public int getNextMatchId() {
-		int nextMatchId = 0;
-		try {
-			nextMatchId = matchDAO.getNextMatchId();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return nextMatchId;
-	}
-
-	@Override
 	public List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams) {
+		int matchesToCreate = listOfTeams.size() / 2;
 		List<Match> listOfMatches = new ArrayList<>();
 		MatchRoundResultControllerIF matchRoundResultController = new MatchRoundResultController(DAOFactory.createMatchRoundResultDAO());
 		LinkedList<Team> listOfRandomTeams = (LinkedList<Team>) generateRandomListOfTeams(listOfTeams);
 
-		for (int i = 0; i <= listOfRandomTeams.size(); i++) {
+		for (int i = 0; i < matchesToCreate; i++) {
 			List<MatchRoundResult> listOfMatchRoundResults = matchRoundResultController
 					.generateMatchRoundResults(noOfRounds);
 			List<Team> listOfTeamsInMatch = new ArrayList<>();
 			listOfTeamsInMatch.add(listOfRandomTeams.poll());
 			listOfTeamsInMatch.add(listOfRandomTeams.poll());
-			listOfMatches.add(new Match(getNextMatchId() + i, listOfMatchRoundResults, listOfTeamsInMatch));
+			listOfMatches.add(new Match(listOfMatchRoundResults, listOfTeamsInMatch));
 
 		}
 		return listOfMatches;

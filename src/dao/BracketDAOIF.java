@@ -8,8 +8,6 @@ public interface BracketDAOIF {
 
 	int createBracket(int tournamentId, Bracket bracket) throws SQLException;
 
-	int getNextBracketId() throws SQLException;
-
 	List<Bracket> getBracketsFromTournament(int tournamentId) throws SQLException;
 	
 }

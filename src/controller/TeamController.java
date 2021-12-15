@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.TeamDAOIF;
@@ -11,7 +12,6 @@ import model.Team;
  * Intended use is to create a Team and administrate this object
  */
 public class TeamController implements TeamControllerIF {
-	@SuppressWarnings("unused")
 	private TeamDAOIF teamDAO;
 	
 	public TeamController(TeamDAOIF teamDAO) {
@@ -30,7 +30,14 @@ public class TeamController implements TeamControllerIF {
 
 	@Override
 	public Team getTeam(int teamId) {
-		return null;
+		Team team = null;
+		try {
+			return teamDAO.getTeam(teamId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return team;
 	}
 
 	@Override

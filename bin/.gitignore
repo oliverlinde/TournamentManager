@@ -1,5 +1,5 @@
-/ui/
-/controller/
 /test/
-/model/
 /dao/
+/controller/
+/ui/
+/model/

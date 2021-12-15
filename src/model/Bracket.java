@@ -12,9 +12,8 @@ public class Bracket {
 
 	private int bracketId;
 	private List<BracketRound> listOfBracketRounds;
-
-	public Bracket(int bracketId, BracketRound bracketRound) {
-		setBracketId(bracketId);
+	
+	public Bracket(BracketRound bracketRound) {
 		listOfBracketRounds = new ArrayList<BracketRound>();
 		listOfBracketRounds.add(bracketRound);
 	}

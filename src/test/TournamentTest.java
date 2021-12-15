@@ -16,7 +16,7 @@ class TournamentTest {
 	
 	public TournamentTest() {
 		//Arrange
-		tournament = new Tournament(1);
+		tournament = new Tournament();
 		
 		//Act
 		tournament.setTournamentName("Test tournament");

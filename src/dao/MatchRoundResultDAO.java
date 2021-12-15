@@ -182,6 +182,8 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 
 			PreparedStatement statement = connection.prepareStatement(sqlQuery);
 
+			statement.executeQuery();
+
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			nextMatchRoundResultId = rs.getInt(1);

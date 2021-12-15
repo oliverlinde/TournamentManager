@@ -35,14 +35,12 @@ public class MatchListCellRenderer extends JLabel implements ListCellRenderer<Ma
 		String team2Id = String.valueOf(match.getListOfTeams().get(1).getTeamId());
 		String team2Name = match.getListOfTeams().get(1).getTeamName();
 		String round1Winner = match.getListOfMatchRounds().get(0).getWinner().getTeamName();
-		String round2Winner = match.getListOfMatchRounds().get(1).getWinner().getTeamName();
-		String round3Winner = match.getListOfMatchRounds().get(2).getWinner().getTeamName();
+//		String round2Winner = match.getListOfMatchRounds().get(1).getWinner().getTeamName();
+//		String round3Winner = match.getListOfMatchRounds().get(2).getWinner().getTeamName();
 		
 		String rerturnString = "Match id: " + matchId + " | Hold id: " + team1Id +  " | Holdnavn: " + team1Name + "\n" +
 				"Match id: " + matchId + " | Hold id: " + team2Id + " | Holdnavn: " + team2Name + "\n" +
-				"Runde 1 vinder: " + round1Winner + "\n" +
-				"Runde 2 vinder: " + round2Winner + "\n" +
-				"Runde 3 vinder: " + round3Winner + "\n";
+				"Runde 1 vinder: " + round1Winner;
 		//setText(rerturnString);
 		
 		row.setText(rerturnString);

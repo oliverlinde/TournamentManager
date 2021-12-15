@@ -19,6 +19,4 @@ public interface MatchControllerIF {
 
 	List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams);
 
-	int getNextMatchId();
-
 }

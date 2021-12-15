@@ -2,8 +2,7 @@ package dao;
 
 public class DAOFactory {
 
-	@SuppressWarnings("unused")
-	private boolean isTest;
+	private static boolean isTest = true;
 
 	public static BracketDAOIF createBracketDAO() {
 		return new BracketDAO(getConnection());
@@ -41,8 +40,12 @@ public class DAOFactory {
 		return new MatchDAO(getConnection());
 	}
 	
-	private static DbConnection getConnection() {
-		return new DbConnection();
+	private static DbConnectionIF getConnection() {
+		if(isTest) {
+			return new DbConnectionTest();
+		} else {
+			return new DbConnection();
+		}
 	}
 
 

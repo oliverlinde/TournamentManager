@@ -86,19 +86,44 @@ public class MatchDAO implements MatchDAOIF {
 
 	@Override
 	public int createMatch(int bracketRoundId, Match match) throws SQLException {
-
+		
 		Connection connection = dbConnection.getConnection();
 		connection.setAutoCommit(false);
 		int matchCreated = 0;
 
 		try {
-			String sqlQuery = "INSERT INTO Match (matchId, bracketRoundId) " + "VALUES (?, ?)";
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
+			String sqlQuery = "INSERT INTO Match (bracketRoundId) " + "VALUES (?)";
+			PreparedStatement statement = connection.prepareStatement(sqlQuery, 
+					PreparedStatement.RETURN_GENERATED_KEYS);
 
-			statement.setInt(1, match.getMatchId());
-			statement.setInt(2, bracketRoundId);
+			statement.setInt(1, bracketRoundId);
 
-			statement.execute();
+			matchCreated = statement.executeUpdate();
+			
+			if(matchCreated == 0) {
+				throw new SQLException("Match not created; id not obtained");
+			}
+			ResultSet matchIds = statement.getGeneratedKeys();
+			
+			if(matchIds.next()) {
+				int matchId = matchIds.getInt(1);
+				
+				for(int idx = 0; idx < match.getListOfMatchRounds().size(); idx++) {
+					MatchRoundResult matchRoundResult = match.getListOfMatchRounds().get(idx);
+					for(Team team : match.getListOfTeams()) {
+					String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchId, teamId) VALUES (?, ?)";
+					PreparedStatement insertMatchRoundResult = connection.prepareStatement(insertToMatchRoundResult);
+					insertMatchRoundResult.setInt(1, matchId);
+					insertMatchRoundResult.setInt(2, team.getTeamId());
+					
+					if(insertMatchRoundResult.executeUpdate() == 0) {
+						throw new SQLException("MatchRoundResult not created");
+					}
+					
+					System.out.println("MatchRoundResult created");
+					}
+				}
+			}
 			connection.commit();
 			System.out.println("Match created");
 			
@@ -114,26 +139,6 @@ public class MatchDAO implements MatchDAOIF {
 
 	public void createRoundResult() {
 
-	}
-
-	@Override
-	public int getNextMatchId() throws SQLException {
-		String sqlQuery = "SELECT matchId FROM Match " + "WHERE matchId = (SELECT MAX(matchId) FROM Match)";
-		int nextMatchId = 0;
-
-		try {
-			Connection connection = dbConnection.getConnection();
-
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			nextMatchId = rs.getInt(1);
-
-		} catch (Exception e) {
-		}
-
-		return nextMatchId + 1;
 	}
 
 }

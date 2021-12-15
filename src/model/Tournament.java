@@ -20,9 +20,8 @@ public class Tournament {
 	private List<Team> listOfTeams;
 	private List<Bracket> brackets;
 
-	public Tournament(int tournamentId) {
+	public Tournament() {
 		brackets = new ArrayList<Bracket>();
-		setTournamentId(tournamentId);
 	}
 	
 	/*

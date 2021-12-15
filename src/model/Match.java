@@ -22,6 +22,11 @@ public class Match {
 		this.listOfMatchRounds = new ArrayList<MatchRoundResult>();
 	}
 
+	public Match(List<MatchRoundResult> listOfMatchRounds, List<Team> listOfTeams) {
+		setListOfMatchRounds(listOfMatchRounds);
+		setListOfTeams(listOfTeams);
+	}
+	
 	public Match(int matchId, List<MatchRoundResult> listOfMatchRounds, List<Team> listOfTeams) {
 		setMatchId(matchId);
 		setListOfMatchRounds(listOfMatchRounds);

@@ -16,17 +16,7 @@ public class BracketRoundController implements BracketRoundControllerIF {
 
 	@Override
 	public BracketRound generateBracketRound(List<Match> listOfMatches) {
-		return new BracketRound(getBracketRoundId(), listOfMatches);
-	}
-
-	private int getBracketRoundId() {
-		int id = 0;
-		try {
-			id = bracketRoundDAO.getNextBracketRoundId();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return id;
+		return new BracketRound(listOfMatches);
 	}
 
 	@Override

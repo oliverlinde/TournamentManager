@@ -16,8 +16,6 @@ public interface TournamentDAOIF {
 
 	List<Tournament> getAllTournaments() throws SQLException;
 
-	int getNextTournamentId() throws SQLException;
-
 	int updateTournament(Tournament tournament) throws SQLException;
 
 }
