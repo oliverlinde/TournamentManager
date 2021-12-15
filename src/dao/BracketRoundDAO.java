@@ -72,27 +72,5 @@ public class BracketRoundDAO implements BracketRoundDAOIF {
 		
 		return listOfBracketRounds;
 	}
-	
-	@Override
-	public int getNextBracketRoundId() throws SQLException {
-		String sqlQuery = "SELECT bracketRoundId FROM BracketRound "
-				+ "WHERE bracketRoundId = (SELECT MAX(bracketRoundId) FROM BracketRound)";
-		int nextBracketRoundId = 0;
-		
-		try {
-			Connection connection = dbConnection.getConnection();
-			
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-			
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			nextBracketRoundId = rs.getInt(1);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return nextBracketRoundId + 1;
-	}
 
 }

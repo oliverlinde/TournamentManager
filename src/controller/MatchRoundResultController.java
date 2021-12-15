@@ -14,7 +14,7 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	private MatchRoundResult matchRoundResult;
 	private MatchRoundResultDAOIF matchRoundResultDAO;
 	private List<MatchRoundResult> matchRoundResults;
-	private static int count = -1;
+	private int count = 0;
 	
 	public MatchRoundResultController(MatchRoundResultDAOIF matchRoundResultDAO) {
 		this.matchRoundResultDAO = matchRoundResultDAO;

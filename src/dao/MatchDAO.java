@@ -111,13 +111,14 @@ public class MatchDAO implements MatchDAOIF {
 				for(int idx = 0; idx < match.getListOfMatchRounds().size(); idx++) {
 					MatchRoundResult matchRoundResult = match.getListOfMatchRounds().get(idx);
 					for(Team team : match.getListOfTeams()) {
-					String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?)";
+					String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchId, teamId) VALUES (?, ?)";
 					PreparedStatement insertMatchRoundResult = connection.prepareStatement(insertToMatchRoundResult);
-					insertMatchRoundResult.setInt(1, matchRoundResult.getMatchRoundResultId());
-					insertMatchRoundResult.setInt(2, matchId);
-					insertMatchRoundResult.setInt(3, team.getTeamId());
+					insertMatchRoundResult.setInt(1, matchId);
+					insertMatchRoundResult.setInt(2, team.getTeamId());
 					
-					int orderLinesCreated = insertMatchRoundResult.executeUpdate();
+					if(insertMatchRoundResult.executeUpdate() == 0) {
+						throw new SQLException("MatchRoundResult not created");
+					}
 					
 					System.out.println("MatchRoundResult created");
 					}

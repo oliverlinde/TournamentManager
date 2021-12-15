@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -60,9 +59,7 @@ public interface TournamentControllerIF {
 
 	int getMinNoOfTeams();
 
-	int getNextTournamentId();
-
-	boolean saveToDatabase();
+	boolean saveTournamentToDatabase();
 
 	void setGenerateBracketStrategy();
 

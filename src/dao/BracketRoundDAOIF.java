@@ -11,6 +11,4 @@ public interface BracketRoundDAOIF {
 
 	int createBracketRound(int bracketId, BracketRound bracketRound) throws SQLException;
 
-	int getNextBracketRoundId() throws SQLException;
-
 }

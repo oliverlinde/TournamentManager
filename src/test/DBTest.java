@@ -1,6 +1,7 @@
 package test;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import controller.TeamController;
 import controller.TeamControllerIF;
@@ -9,9 +10,7 @@ import controller.TournamentControllerIF;
 import controller.TournamentRuleController;
 import controller.TournamentRuleControllerIF;
 import dao.DAOFactory;
-import dao.TeamDAOIF;
 import dao.TournamentRuleDAOIF;
-import model.Team;
 
 public class DBTest {
 
@@ -19,22 +18,26 @@ public class DBTest {
 		TournamentControllerIF tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
 		TournamentRuleControllerIF tournamentRuleController = new TournamentRuleController(DAOFactory.createTournamentRuleDAO());
 		TeamControllerIF teamController = new TeamController(DAOFactory.createTeamDAO());
-		TeamDAOIF teamDAO = DAOFactory.createTeamDAO();
 		TournamentRuleDAOIF tournamentRuleDAO = DAOFactory.createTournamentRuleDAO();
 		
 		tournamentController.createTournament();
 		tournamentController.setTournamentName("New Test");
 		tournamentController.setGameName("New Test");
-		tournamentController.setTournamentRule(tournamentRuleDAO.getTournamentRule(3));
+		tournamentController.setTournamentRule(tournamentRuleDAO.getTournamentRule(1));
 		tournamentController.setMaxNoOfTeams(16);
-		tournamentController.getTournament().setTournamentId(13);
+		tournamentController.setDateTimeOfEvent(LocalDateTime.now());
+		tournamentController.setRegistrationDeadline(LocalDateTime.now());
+		tournamentController.confirmTournament();
+		int index = tournamentController.getAllTournaments().size()-1;
+		
+		tournamentController.getTournamentById(tournamentController.getAllTournaments().get(index).getTournamentId());
 		
 		tournamentController.addTeamToTournament(teamController.getTeam(1));
 		tournamentController.addTeamToTournament(teamController.getTeam(2));
-		tournamentController.addTeamToTournament(teamController.getTeam(3));
-		tournamentController.addTeamToTournament(teamController.getTeam(4));
-		
+
 		tournamentController.initializeTournament();
-		tournamentController.saveToDatabase();
+		tournamentController.saveTournamentToDatabase();
+		
+		
 	}
 }

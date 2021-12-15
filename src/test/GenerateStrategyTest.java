@@ -22,7 +22,7 @@ class GenerateStrategyTest {
 		TournamentRule tournamentRule = new TournamentRule(1, "", 1, 2, 3, NoOfRounds.BestOfThree, Format.SingleElimination);
 		
 		//Act
-		Tournament tournament = new Tournament(1);
+		Tournament tournament = new Tournament();
 		tournamentController.setTournament(tournament);
 		tournamentController.setTournamentRule(tournamentRule);
 		tournamentController.setGenerateBracketStrategy();

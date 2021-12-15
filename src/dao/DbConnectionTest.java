@@ -12,7 +12,7 @@ public class DbConnectionTest implements DbConnectionIF {
 		ds.setUser("defaultuser");
 		ds.setPassword("Password1!");
 		ds.setServerName("localhost\\sqlexpress");
-		ds.setDatabaseName("Test");
+		ds.setDatabaseName("TournamentTest");
 		return ds.getConnection();
 	}
 	

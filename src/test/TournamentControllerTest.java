@@ -28,7 +28,7 @@ class TournamentControllerTest {
 	public void setup() {
 		// Arrange
 		tournamentController = new TournamentController(DAOFactory.createTournamentDAO());
-		tournament = new Tournament(1);
+		tournament = new Tournament();
 		tournamentRule = new TournamentRule(1, "", 1, 2, 3, NoOfRounds.BestOfThree, Format.SingleElimination);
 		// 
 		tournament.setTournamentName("Test tournament");

@@ -64,7 +64,6 @@ public class TournamentDAO implements TournamentDAOIF {
 		return tournamentCreated;
 	}
 
-
 	@Override
 	public int updateTournament(Tournament tournament) throws SQLException {
 
@@ -130,11 +129,12 @@ public class TournamentDAO implements TournamentDAOIF {
 									for (int idx3 = 0; idx3 < match.getListOfMatchRounds().size(); idx3++) {
 										MatchRoundResult matchRoundResult = match.getListOfMatchRounds().get(idx3);
 										for (Team team : match.getListOfTeams()) {
-											String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchId, teamId) VALUES (?, ?)";
+											String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?)";
 											PreparedStatement insertMatchRoundResult = connection
 													.prepareStatement(insertToMatchRoundResult);
-											insertMatchRoundResult.setInt(1, matchId);
-											insertMatchRoundResult.setInt(2, team.getTeamId());
+											insertMatchRoundResult.setInt(1, matchRoundResult.getMatchRoundResultId()); 
+											insertMatchRoundResult.setInt(2, matchId);
+											insertMatchRoundResult.setInt(3, team.getTeamId());
 
 											if(insertMatchRoundResult.executeUpdate() == 0) {
 												throw new SQLException("MatchRoundResult not created");
@@ -150,7 +150,7 @@ public class TournamentDAO implements TournamentDAOIF {
 				connection.commit();
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			connection.rollback();
 			e.printStackTrace();
 			throw new SQLException("Tournament not created " + tournament.getTournamentId());
@@ -262,28 +262,6 @@ public class TournamentDAO implements TournamentDAOIF {
 		}
 
 		return listOfTournaments;
-	}
-
-	@Override
-	public int getNextTournamentId() throws SQLException {
-		String sqlQuery = "SELECT tournamentId FROM Tournament "
-				+ "WHERE tournamentId = (SELECT MAX(tournamentId) FROM Tournament)";
-		int nextTournamentId = 0;
-
-		try {
-			Connection connection = dbConnection.getConnection();
-
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			nextTournamentId = rs.getInt(1);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		return nextTournamentId + 1;
 	}
 
 }

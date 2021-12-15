@@ -1,22 +1,12 @@
 package controller;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import dao.BracketDAOIF;
-import dao.BracketRoundDAOIF;
 import dao.DAOFactory;
-import dao.DbConnectionIF;
-import dao.MatchDAOIF;
-import dao.MatchRoundResultDAOIF;
 import dao.TournamentDAOIF;
-import model.Bracket;
-import model.BracketRound;
 import model.Format;
-import model.Match;
-import model.MatchRoundResult;
 import model.Team;
 import model.Tournament;
 import model.TournamentRule;
@@ -24,14 +14,8 @@ import model.TournamentRule;
 public class TournamentController implements TournamentControllerIF {
 	private Tournament tournament;
 	private TournamentDAOIF tournamentDAO;
-	private BracketDAOIF bracketDAO;
-	private BracketRoundDAOIF bracketRoundDAO;
-	private MatchDAOIF matchDAO;
-	private MatchRoundResultDAOIF matchRoundResultDAO;
 	private TournamentRuleControllerIF tournamentRuleController;
 	private GenerateBracketStrategyIF generateBracketStrategy;
-	private DbConnectionIF dbConnection;
-
 	public TournamentController(TournamentDAOIF tournamentDAO) {
 		this.tournamentDAO = tournamentDAO;
 
@@ -44,7 +28,7 @@ public class TournamentController implements TournamentControllerIF {
 
 	@Override
 	public Tournament createTournament() {
-		tournament = new Tournament(3);
+		tournament = new Tournament();
 		return tournament;
 	}
 
@@ -125,7 +109,7 @@ public class TournamentController implements TournamentControllerIF {
 
 	// Save the generated Tournament to the database with all information
 	@Override
-	public boolean saveToDatabase() {
+	public boolean saveTournamentToDatabase() {
 		boolean passed = false;
 		try {
 			tournamentDAO.updateTournament(tournament);
@@ -206,17 +190,6 @@ public class TournamentController implements TournamentControllerIF {
 	public List<TournamentRule> getAllTournamentRules() {
 		tournamentRuleController = new TournamentRuleController(DAOFactory.createTournamentRuleDAO());
 		return tournamentRuleController.getAllTournamentRule();
-	}
-
-	@Override
-	public int getNextTournamentId() {
-		int nextTournamentId = 0;
-		try {
-			nextTournamentId = tournamentDAO.getNextTournamentId();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return nextTournamentId;
 	}
 
 	@Override

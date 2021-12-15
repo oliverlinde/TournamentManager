@@ -14,25 +14,25 @@ public class BracketController implements BracketControllerIF {
 		this.bracketDAO = bracketDAO;
 	}
 	
+	public boolean saveBracketToDataBase(int tournamentId) {
+		boolean passed = false;
+		try {
+			bracketDAO.createBracket(tournamentId, bracket);
+			passed = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return passed;
+	}
+	
 	@Override
 	public Bracket generateBracket(BracketRound bracketRound) {
-		return new Bracket(getNextBracketId(), bracketRound);
+		return new Bracket(bracketRound);
 	}
 	
 	public void addBracketRound(BracketRound bracketRound) {
 		bracket.addBracketRound(bracketRound);
 		bracketRoundController.saveBracketRoundToDatabase(bracket.getBracketId(), bracketRound);
-	}
-	
-	@Override
-	public int getNextBracketId() {
-		int nextId = 0;
-		try {
-			nextId = bracketDAO.getNextBracketId();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return nextId;
 	}
 
 }
