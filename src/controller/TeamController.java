@@ -12,7 +12,6 @@ import model.Team;
  * Intended use is to create a Team and administrate this object
  */
 public class TeamController implements TeamControllerIF {
-	@SuppressWarnings("unused")
 	private TeamDAOIF teamDAO;
 	
 	public TeamController(TeamDAOIF teamDAO) {

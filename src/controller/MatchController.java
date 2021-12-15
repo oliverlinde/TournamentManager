@@ -53,17 +53,6 @@ public class MatchController implements MatchControllerIF {
 	}
 
 	@Override
-	public int getNextMatchId() {
-		int nextMatchId = 0;
-		try {
-			nextMatchId = matchDAO.getNextMatchId();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return nextMatchId;
-	}
-
-	@Override
 	public List<Match> generateMatches(int noOfRounds, List<Team> listOfTeams) {
 		int matchesToCreate = listOfTeams.size() / 2;
 		List<Match> listOfMatches = new ArrayList<>();

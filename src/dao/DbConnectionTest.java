@@ -9,10 +9,10 @@ public class DbConnectionTest implements DbConnectionIF {
 	@Override
 	public Connection getConnection() throws SQLServerException {
 		SQLServerDataSource ds = new SQLServerDataSource();
-		ds.setUser("defaultuser");
+		ds.setUser("dmaa0221_1089446");
 		ds.setPassword("Password1!");
-		ds.setServerName("localhost\\sqlexpress");
-		ds.setDatabaseName("TournamentTest");
+		ds.setServerName("hildur.ucn.dk");
+		ds.setDatabaseName("dmaa0221_1089446");
 		return ds.getConnection();
 	}
 	

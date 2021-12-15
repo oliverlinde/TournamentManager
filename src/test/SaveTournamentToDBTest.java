@@ -116,19 +116,21 @@ public class SaveTournamentToDBTest {
 
 		// Act - initialize tournament
 		tournamentController.initializeTournament();
-		List<Match> listOfMatches = tournamentController.getTournament().getBrackets().get(0).getBracketRounds().get(0).getMatches();
-		
+		List<Match> listOfMatches = tournamentController.getTournament().getBrackets().get(0).getBracketRounds().get(0)
+				.getMatches();
+
 		// Act
 		tournamentController.saveTournamentToDatabase();
-		
-		//Assert
+
+		// Assert
 		int noOfMatchRounds = 0;
-		for(Match match : listOfMatches) {
+		for (Match match : listOfMatches) {
 			noOfMatchRounds += match.getRoundResults().size();
 		}
 		assertEquals(1, tournamentController.getTournament().getBrackets().size());
 		assertEquals(1, tournamentController.getTournament().getBrackets().get(0).getBracketRounds().size());
-		assertEquals(4, tournamentController.getTournament().getBrackets().get(0).getBracketRounds().get(0).getMatches().size());
+		assertEquals(4, tournamentController.getTournament().getBrackets().get(0).getBracketRounds().get(0).getMatches()
+				.size());
 		assertEquals(12, noOfMatchRounds);
 	}
 

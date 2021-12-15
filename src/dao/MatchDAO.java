@@ -141,24 +141,4 @@ public class MatchDAO implements MatchDAOIF {
 
 	}
 
-	@Override
-	public int getNextMatchId() throws SQLException {
-		String sqlQuery = "SELECT matchId FROM Match " + "WHERE matchId = (SELECT MAX(matchId) FROM Match)";
-		int nextMatchId = 0;
-
-		try {
-			Connection connection = dbConnection.getConnection();
-
-			PreparedStatement statement = connection.prepareStatement(sqlQuery);
-
-			ResultSet rs = statement.executeQuery();
-			rs.next();
-			nextMatchId = rs.getInt(1);
-
-		} catch (Exception e) {
-		}
-
-		return nextMatchId + 1;
-	}
-
 }
