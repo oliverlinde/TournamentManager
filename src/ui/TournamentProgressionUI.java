@@ -19,6 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import java.awt.GridLayout;
 
 public class TournamentProgressionUI extends JPanel {
 	/**
@@ -46,11 +47,9 @@ public class TournamentProgressionUI extends JPanel {
 		JPanel panel_6 = new JPanel();
 		panel.add(panel_6);
 		panel_6.setLayout(new BorderLayout(0, 0));
-		panel_6.setMinimumSize(new Dimension(600, 200));
 		
 		round1Pnl = new JPanel();
 		panel_6.add(round1Pnl);
-		round1Pnl.setLayout(new BoxLayout(round1Pnl, BoxLayout.X_AXIS));
 				
 		JPanel panel_7 = new JPanel();
 		panel_6.add(panel_7, BorderLayout.NORTH);
@@ -68,6 +67,12 @@ public class TournamentProgressionUI extends JPanel {
 		
 		round2ScrollPane = new JScrollPane();
 		panel_3.add(round2ScrollPane);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		round2ScrollPane.setViewportView(scrollPane);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
 		
 		JPanel panel_9 = new JPanel();
 		panel_8.add(panel_9, BorderLayout.NORTH);
@@ -134,6 +139,7 @@ public class TournamentProgressionUI extends JPanel {
 				}
 			}	
 		}
+		round1Pnl.setLayout(new BorderLayout(0, 0));
 		
 		matches = new JList<>(listModel);
 		matches.setCellRenderer(new MatchListCellRenderer());

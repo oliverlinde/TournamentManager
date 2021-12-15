@@ -67,7 +67,7 @@ public class MatchRoundResultController implements MatchRoundResultControllerIF 
 	public int getNextMatchRoundResultId() {
 		int nextId = 0;
 		try {
-			nextId = matchRoundResultDAO.getNextMatchRoundResultId();
+			nextId = matchRoundResultDAO.getCurrentMatchRoundResultId();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

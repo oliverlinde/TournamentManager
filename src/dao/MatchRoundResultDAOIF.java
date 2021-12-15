@@ -11,7 +11,7 @@ public interface MatchRoundResultDAOIF {
 	
 	void setWinner(int matchRoundResultId, Team team) throws SQLException;
 
-	int getNextMatchRoundResultId() throws SQLException;
+	int getCurrentMatchRoundResultId() throws SQLException;
 
 	List<MatchRoundResult> getMatchRoundResultsFromMatch(int matchId) throws SQLException;
 

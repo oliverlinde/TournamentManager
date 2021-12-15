@@ -59,8 +59,6 @@ public class TournamentDAO implements TournamentDAOIF {
 			connection.setAutoCommit(true);
 
 		}
-
-		System.out.println("Tournament created");
 		return tournamentCreated;
 	}
 
@@ -85,7 +83,6 @@ public class TournamentDAO implements TournamentDAOIF {
 				if (bracketCreated == 0) {
 					throw new SQLException("Bracket not created, ID not obtained");
 				}
-				System.out.println("Bracket created");
 
 				ResultSet bracketIds = insertIntoBracket.getGeneratedKeys();
 				if (bracketIds.next()) {
@@ -102,7 +99,6 @@ public class TournamentDAO implements TournamentDAOIF {
 						if(insertIntoBracketRound.executeUpdate() == 0) {
 							throw new SQLException("Bracketround not created");
 						}
-						System.out.println("BracketRound created");
 
 						ResultSet bracketRoundIds = insertIntoBracketRound.getGeneratedKeys();
 						if (bracketRoundIds.next()) {
@@ -111,17 +107,16 @@ public class TournamentDAO implements TournamentDAOIF {
 							for (int idx2 = 0; idx2 < bracketRound.getMatches().size(); idx2++) {
 								Match match = bracketRound.getMatches().get(idx2);
 
-								String sqlQuery = "INSERT INTO Match " + "VALUES (?)";
-								PreparedStatement statement = connection.prepareStatement(sqlQuery,
+								String insertIntoMatchSQL = "INSERT INTO Match " + "VALUES (?)";
+								PreparedStatement insertIntoMatch = connection.prepareStatement(insertIntoMatchSQL,
 										PreparedStatement.RETURN_GENERATED_KEYS);
 
-								statement.setInt(1, bracketRoundId);
+								insertIntoMatch.setInt(1, bracketRoundId);
 
-								if (statement.executeUpdate() == 0) {
+								if (insertIntoMatch.executeUpdate() == 0) {
 									throw new SQLException("Match not created; id not obtained");
 								}
-								System.out.println("Match created");
-								ResultSet matchIds = statement.getGeneratedKeys();
+								ResultSet matchIds = insertIntoMatch.getGeneratedKeys();
 
 								if (matchIds.next()) {
 									int matchId = matchIds.getInt(1);
@@ -129,9 +124,9 @@ public class TournamentDAO implements TournamentDAOIF {
 									for (int idx3 = 0; idx3 < match.getListOfMatchRounds().size(); idx3++) {
 										MatchRoundResult matchRoundResult = match.getListOfMatchRounds().get(idx3);
 										for (Team team : match.getListOfTeams()) {
-											String insertToMatchRoundResult = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?)";
+											String insertToMatchRoundResultSQL = "INSERT INTO MatchRoundResult (matchRoundResultId, matchId, teamId) VALUES (?, ?, ?)";
 											PreparedStatement insertMatchRoundResult = connection
-													.prepareStatement(insertToMatchRoundResult);
+													.prepareStatement(insertToMatchRoundResultSQL);
 											insertMatchRoundResult.setInt(1, matchRoundResult.getMatchRoundResultId()); 
 											insertMatchRoundResult.setInt(2, matchId);
 											insertMatchRoundResult.setInt(3, team.getTeamId());
@@ -139,7 +134,6 @@ public class TournamentDAO implements TournamentDAOIF {
 											if(insertMatchRoundResult.executeUpdate() == 0) {
 												throw new SQLException("MatchRoundResult not created");
 											}
-											System.out.println("MatchRoundResult created");
 										}
 									}
 								}
@@ -157,8 +151,6 @@ public class TournamentDAO implements TournamentDAOIF {
 		} finally {
 			connection.setAutoCommit(true);
 		}
-
-		System.out.println(tournamentCreated);
 		return tournamentCreated;
 	}
 

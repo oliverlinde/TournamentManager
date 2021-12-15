@@ -172,10 +172,10 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 	}
 
 	@Override
-	public int getNextMatchRoundResultId() throws SQLException {
+	public int getCurrentMatchRoundResultId() throws SQLException {
 		String sqlQuery = "SELECT matchRoundResultId FROM MatchRoundResult "
 				+ "WHERE matchRoundResultId = (SELECT MAX(matchRoundResultId) FROM MatchRoundResult)";
-		int nextMatchRoundResultId = 0;
+		int currentMatchRoundResultId = 0;
 
 		try {
 			Connection connection = dbConnection.getConnection();
@@ -186,13 +186,13 @@ public class MatchRoundResultDAO implements MatchRoundResultDAOIF {
 
 			ResultSet rs = statement.executeQuery();
 			rs.next();
-			nextMatchRoundResultId = rs.getInt(1);
+			currentMatchRoundResultId = rs.getInt(1);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return nextMatchRoundResultId + 1;
+		return currentMatchRoundResultId;
 	}
 
 }
