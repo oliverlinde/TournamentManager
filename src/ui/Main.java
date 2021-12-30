@@ -83,7 +83,7 @@ public class Main {
 
 		loginUI = new JFrame();
 		loginUI.setTitle("Turneringsmanager");
-		loginUI.setBounds(300, 200, 800, 500);
+		loginUI.setBounds(200, 100, 1400, 600);
 		loginUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createLoginUIFrame();
 
@@ -263,7 +263,7 @@ public class Main {
 		if (frame.equals(Frame.mainFrame)) {
 			frmTurneringsmanager = new JFrame();
 			frmTurneringsmanager.setTitle("Turneringsmanager");
-			frmTurneringsmanager.setBounds(300, 200, 800, 500);
+			frmTurneringsmanager.setBounds(200, 100, 1400, 600);
 			frmTurneringsmanager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			window.frmTurneringsmanager.setVisible(true);
 			createMainMenuUIFrame();

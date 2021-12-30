@@ -40,7 +40,7 @@ public class TournamentListCellRenderer extends JLabel implements ListCellRender
 //		setText(maxNoOfTeams);
 //		setText(minNoOfTeams);
 		
-		String rerturnString = tournamentId + " | " + tournamentName + " " + gameName + " | " + registrationDeadline + " | " + timeOfEvent + " | " + maxNoOfTeams + " | " + minNoOfTeams;
+		String rerturnString = "Id: " + tournamentId + " | Navn: " + tournamentName + " | Spil: " + gameName + " | Tilmeldingsfrist: " + registrationDeadline + " | Afholdelsesdato: " + timeOfEvent + " | Max tilmeldte hold: " + maxNoOfTeams + " | Min tilmeldte hold: " + minNoOfTeams;
 		setText(rerturnString);
 		if (isSelected) {
 			setBackground(list.getSelectionBackground());
