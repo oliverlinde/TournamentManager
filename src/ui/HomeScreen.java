@@ -143,7 +143,7 @@ public class HomeScreen extends JPanel {
 					tournamentController.addTeamToTournament(new Team(i, "Team " + i));
 					tournamentController.initializeTournament();
 					tournamentController.saveTournamentToDatabase();
-					showTournamentBtn.doClick();
+					
 				}
 			}
 		});
